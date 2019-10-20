@@ -4,14 +4,8 @@ OnBot Java Repository
 - Download and install: https://desktop.github.com/  
   - Create GitHub account and let me know your id; I need to add your id to it as a collaborator
 - Download and install: https://code.visualstudio.com/download
-  - WINDOWS:
-    - Create a folder FTC in your Documents 
-    - Download the ftc_http_win.exe into this folder
-  - MAC:
-    - TBD
 
-- Download corresponding binaries to your computer: https://github.com/TheLostLambda/ftc_http/releases/tag/v1.3.0
--- We will use the tools to upload and download from RC : https://github.com/TheLostLambda/ftc_http
+- We will use the tools from : https://github.com/TheLostLambda/ftc_http ; These are already in the GitHub. No need to download. This for referance only. 
 
 ## Setup Instructions
 - You will all be working on a branch, not *main* 
@@ -22,7 +16,7 @@ OnBot Java Repository
   - Select Documents > FTC > SkyStoneCode as *Local Path*
   - C&P this link for cloning: https://github.com/ksamavedam/OnBotJava.git
   - ![GitHub Clone](https://github.com/ksamavedam/OnBotJava/blob/master/Misc/GitHubClone-Annotation%202019-10-20%20101012.jpg)
-- Open VSCode and  drag and drop *SkyStoneCode* folder into VS Code
+- Open VSCode and  drag and drop *OnBotJava* folder into VS Code (Documents > FTC > SkyStoneCode folder)
   - Then you will see the folder hierarchy 
   - ![Double click on any file, it will open in the editor] (https://github.com/ksamavedam/OnBotJava/blob/master/Misc/VSCode-Folder-Annotation%202019-10-20%20101012.jpg)
 - ![In VSCode -> Open Terminal (see top menu) in which you will execute ftp_http commands](https://github.com/ksamavedam/OnBotJava/blob/master/Misc/VSCode-Annotation%202019-10-20%20101012.jpg)
