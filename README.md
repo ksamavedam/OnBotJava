@@ -4,29 +4,24 @@ OnBot Java Repository
 - Download and install: https://desktop.github.com/  
   - Create GitHub account and let me know your id; I need to add your id to it as a collaborator
 - Download and install: https://code.visualstudio.com/download
-  - WINDOWS:
-    - Create a folder FTC in your Documents 
-    - Download the ftc_http_win.exe into this folder
-  - MAC:
-    - TBD
 
-- Download corresponding binaries to your computer: https://github.com/TheLostLambda/ftc_http/releases/tag/v1.3.0
--- We will use the tools to upload and download from RC : https://github.com/TheLostLambda/ftc_http
+- We will use the tools from : https://github.com/TheLostLambda/ftc_http ; These are already in the GitHub. No need to download. This for referance only. 
 
 ## Setup Instructions
-- You will all be working on a branch, not *main* 
-- You can create a branch and request for merge to *main* for team's consumption. 
 - Clone this repository using GitHub Desktop
   - Create folder Documents > FTC > SkyStoneCode 
   - File->Clone Repository
   - Select Documents > FTC > SkyStoneCode as *Local Path*
   - C&P this link for cloning: https://github.com/ksamavedam/OnBotJava.git
   - ![GitHub Clone](https://github.com/ksamavedam/OnBotJava/blob/master/Misc/GitHubClone-Annotation%202019-10-20%20101012.jpg)
-- Open VSCode and  drag and drop *SkyStoneCode* folder into VS Code
+- Open VSCode and  drag and drop *OnBotJava* folder into VS Code (Documents > FTC > SkyStoneCode folder)
   - Then you will see the folder hierarchy 
   - ![Double click on any file, it will open in the editor] (https://github.com/ksamavedam/OnBotJava/blob/master/Misc/VSCode-Folder-Annotation%202019-10-20%20101012.jpg)
 - ![In VSCode -> Open Terminal (see top menu) in which you will execute ftp_http commands](https://github.com/ksamavedam/OnBotJava/blob/master/Misc/VSCode-Annotation%202019-10-20%20101012.jpg)
 
+## GIT Working Instructions
+- In Git, you will all be working on a branch, not *main* 
+- You can create a branch and request for merge to *main* for team's consumption. 
 
 ## *When using this method to for software development, close all the browsers that are on the OnBotJava sessions*
 
@@ -37,11 +32,18 @@ OnBot Java Repository
 - Now VS Code will have your latest code from your branch.
 - Now Connect to RC Wi-Fi   
 - First cleanup phone ..\ftc_http_win.exe -e  
-- Working with ftc_http application
-  - Modify the code (that is in your VS Code)
-  - Upload your code ..\ftc_http_win.exe -u
-  - Compile your Code ..\ftc_http_win.exe -b
-  - Upload and Compile in one step: ftc_http_win.exe -ub
+- Working with ftc_http application 
+  - *Windows*
+    - Modify the code (that is in your VS Code)
+    - Upload your code  bin\ftc_http_win.exe -u
+    - Compile your Code bin\ftc_http_win.exe -b
+    - Upload and Compile in one step: bin\ftc_http_win.exe -ub
+   - *MAC*
+      - Modify the code (that is in your VS Code)
+      - Upload your code  bin/ftc_http_osx -u
+      - Compile your Code bin/ftc_http_osx -b
+      - Upload and Compile in one step: bin/ftc_http_osx -ub
+      
   - ![Here is a session of these commands in VSCode](https://github.com/ksamavedam/OnBotJava/blob/master/Misc/VSCode-Term-ftc-http-Annotation%202019-10-20%20101012.jpg)
   - ![Here is a session of ERROR Scenario VSCode](https://github.com/ksamavedam/OnBotJava/blob/master/Misc/VSCode-Term-ftc-http-error-Annotation%202019-10-20%20101012.jpg)
 
