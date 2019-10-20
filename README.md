@@ -4,6 +4,7 @@ OnBot Java Repository
 - Download and install: https://desktop.github.com/  
   - Create GitHub account and let me know your id; I need to add your id to it as a collaborator
 - Download and install: https://code.visualstudio.com/download
+  - Also install extension: https://marketplace.visualstudio.com/items?itemName=donjayamanne.githistory
 
 - We will use the tools from : https://github.com/TheLostLambda/ftc_http ; These are already in the GitHub. No need to download. This for referance only. 
 
@@ -48,6 +49,7 @@ OnBot Java Repository
   - ![Here is a session of ERROR Scenario VSCode](https://github.com/ksamavedam/OnBotJava/blob/master/Misc/VSCode-Term-ftc-http-error-Annotation%202019-10-20%20101012.jpg)
 
 - ![You can do periodic commits from the VSCode itself] (https://github.com/ksamavedam/OnBotJava/blob/master/Misc/VSCode-GIT-Annotation%202019-10-20%20101012.jpg)
+- Commits are stored locally in your computer; no need for internet connection. These help you see delta changes that may have caused issued. Periodic Commits are *strongly* recommended.
 - ![At the end of the day, you must push changes to GitHub](https://github.com/ksamavedam/OnBotJava/blob/master/Misc/VSCode-GIT-Push-Annotation%202019-10-20%20101012.jpg)
 - Make a *Pull Request* if you think your code can be merged to *main*
   
