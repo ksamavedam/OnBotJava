@@ -29,9 +29,11 @@ OnBot Java Repository
 - If needed, merge *main* to your branch (GitHub Desktop: Branch->Merge into Current Branch, Click on *master* and merge)
 - Now VS Code will have your latest code from your branch. 
 - Working with ftc_http application
-  - First cleanup phone ftc_http_win.exe -d  
+  - First cleanup phone ftc_http_win.exe -e  
   - Upload your code ftc_http_win.exe -u
   - Compile your Code ftc_http_win.exe -b
-  - ![Here is a session of these commands in VSCode]()
+  - Upload and Compile in one step: ftc_http_win.exe -ub
+  - ![Here is a session of these commands in VSCode](https://github.com/ksamavedam/OnBotJava/blob/master/Misc/VSCode-Term-ftc-http-Annotation%202019-10-20%20101012.jpg)
+  - ![Here is a session of ERROR Scenario VSCode](https://github.com/ksamavedam/OnBotJava/blob/master/Misc/VSCode-Term-ftc-http-error-Annotation%202019-10-20%20101012.jpg)
   
 
