@@ -56,7 +56,7 @@
      * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
      * is explained below.
      */
-    // KS Added
+    // KS Removed
     @TeleOp(name = "anjali: vufo", group = "anjali")
     
     public class MyVuFo extends LinearOpMode {
