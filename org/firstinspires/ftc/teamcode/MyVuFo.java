@@ -44,8 +44,7 @@
     import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
     import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
     import java.lang.Math;
-    
-    Hello
+
     /**
      * This 2019-2020 OpMode illustrates the basics of using the TensorFlow Object Detection API to
      * determine the position of the Skystone game elements.
