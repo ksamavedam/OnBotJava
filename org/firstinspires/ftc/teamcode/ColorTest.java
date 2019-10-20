@@ -75,7 +75,7 @@ public class ColorTest extends LinearOpMode {
      */
     ColorSensor sensorColor;
     DistanceSensor sensorDistance;
-Hello
+
      double HMIN_STONE = 14.0;
      double HMIN_SKYSTONE = 35.0;
      double HMAX_STONE = 33.0;
