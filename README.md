@@ -1,7 +1,8 @@
 # OnBotJava
 OnBot Java Repository
 ## Download and Install
-- Download and install: https://desktop.github.com/  
+- Download and install GIT: https://git-scm.com/downloads  ( You can install without Admin )
+- Download and install: https://desktop.github.com/  ( You can install without Admin )
   - Create GitHub account and let me know your id; I need to add your id to it as a collaborator
 - Download and install: https://code.visualstudio.com/download
   - Also install extension: https://marketplace.visualstudio.com/items?itemName=donjayamanne.githistory
