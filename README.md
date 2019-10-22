@@ -25,7 +25,8 @@ OnBot Java Repository
 - You can create a branch and request for merge to *main* for team's consumption. 
 
 ## *When using this method to for software development, close all the browsers that are on the OnBotJava sessions*
-
+## Network Topology
+https://docs.google.com/presentation/d/1NhesHN_2yTfkL89epyCxxy_pO_8ICulcpbltfVJjRwc/edit?usp=sharing
 ## Coding and Testing
 - Assumption is that GitHub has latest of all the code bases on different branches. 
 - Get the latest code from GitHub and switch to your branch.
