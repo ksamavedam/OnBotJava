@@ -1,11 +1,11 @@
 # OnBotJava
 OnBot Java Repository
 ## Download and Install (Stick to the order - Otherwise things won't work properly :) ) 
-- Download and install GIT: https://git-scm.com/downloads  ( You can install without Admin )
-- Download and install: https://desktop.github.com/  ( You can install without Admin )
-  - Create GitHub account and let me know your id; I need to add your id to it as a collaborator
-- Download and install: https://code.visualstudio.com/download
-  - Also install extension: https://marketplace.visualstudio.com/items?itemName=donjayamanne.githistory
+1. Download and install GIT: https://git-scm.com/downloads  ( You can install without Admin )
+2. Download and install: https://desktop.github.com/  ( You can install without Admin )
+    - Create GitHub account and let me know your id; I need to add your id to it as a collaborator
+3. Download and install: https://code.visualstudio.com/download
+    - Also install extension: https://marketplace.visualstudio.com/items?itemName=donjayamanne.githistory
 
 - We will use the tools from : https://github.com/TheLostLambda/ftc_http ; These are already in the GitHub. No need to download. This for referance only. 
 
