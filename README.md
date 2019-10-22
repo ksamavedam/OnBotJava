@@ -1,6 +1,6 @@
 # OnBotJava
 OnBot Java Repository
-## Download and Install
+## Download and Install (Stick to the order - Otherwise things won't work properly :) ) 
 - Download and install GIT: https://git-scm.com/downloads  ( You can install without Admin )
 - Download and install: https://desktop.github.com/  ( You can install without Admin )
   - Create GitHub account and let me know your id; I need to add your id to it as a collaborator
