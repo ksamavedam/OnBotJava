@@ -29,6 +29,8 @@
 
 package org.firstinspires.ftc.teamcode;
 
+//WOGHOWEHGWHGOIWEHGOIWEHGIOWEHGOIEHGo HHELLLLOLOOO
+
 //import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 //import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
