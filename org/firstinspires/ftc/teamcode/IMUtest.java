@@ -21,6 +21,7 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+
 import java.util.List;
 import java.lang.*;
 import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -79,7 +80,7 @@ public class IMUtest extends LinearOpMode {
         // Get acceleration due to force of gravity.
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         gravity = imu.getGravity();
-        double targetAngle=90;
+        double targetAngle=250;
         // Display orientation info.
         telemetry.addData("rot about Z", angles.firstAngle);
         telemetry.addData("rot about Y", angles.secondAngle);
@@ -91,33 +92,42 @@ public class IMUtest extends LinearOpMode {
         telemetry.addData("gravity (X)", gravity.xAccel);
         telemetry.update();
         
-        
+        turnIMU(targetAngle);
+        break;
+      }
+    }
+  }
+      public void turnIMU(double targetAngle){
+        double direction=1;
+        Orientation angles;
+        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         if(targetAngle>180){
-          
+          direction=-1;
           targetAngle=targetAngle-360;
         }
-        double direction=1;
+        
         double delta = Math.abs(targetAngle-angles.firstAngle); 
+        telemetry.addData("Delta ", delta);
+        telemetry.update();
+        tlMotor.setPower(direction*.3);
+        blMotor.setPower(direction*.3);
+        brMotor.setPower(direction*-.3);
+        trMotor.setPower(direction*-.3);
         while(delta >3.0){
           //if (1 == 1) break;
           angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
           delta = Math.abs(targetAngle-angles.firstAngle);
-          telemetry.addData("Delta ", delta);
-          telemetry.update();
-          tlMotor.setPower(direction*.5);
-          blMotor.setPower(direction*.5);
-          brMotor.setPower(direction*-.5);
-          trMotor.setPower(direction*-.5);
         }
         tlMotor.setPower(0);
         blMotor.setPower(0);
         brMotor.setPower(0);
         trMotor.setPower(0);
-        break;
+        
+        
       }
-    }
+
     
   }
   
 
-}
+

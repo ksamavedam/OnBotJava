@@ -38,7 +38,7 @@ public class FrameofReferenceDrive extends LinearOpMode {
         //tlMotor.setDirection(DcMotor.Direction.REVERSE);
         brMotor.setDirection(DcMotor.Direction.REVERSE);
         trMotor.setDirection(DcMotor.Direction.REVERSE);
-        //blMotor.setDirection(DcMotor.Direction.REVERSE);
+        //blMotor.setDirection(DcMotor.Direction.REVERSE); 
         
         imuParameters = new BNO055IMU.Parameters();
         // Use degrees as angle unit.
