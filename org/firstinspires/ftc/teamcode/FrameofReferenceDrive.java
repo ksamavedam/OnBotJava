@@ -82,7 +82,7 @@ public class FrameofReferenceDrive extends LinearOpMode {
             telemetry.update();
             double scale= Math.sqrt(((gamepad1.right_stick_y)*(gamepad1.right_stick_y))+((gamepad1.right_stick_x)*(gamepad1.right_stick_x)));
             double turnScale= gamepad1.left_stick_x;
-            double scale2 = .75*10;
+            double scale2 = .75;
             double[] powers=OttermelonMotion.move(angle,scale,turnScale);
             tlMotor.setPower(powers[0]*scale2);
             blMotor.setPower(powers[1]*scale2);

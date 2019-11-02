@@ -31,73 +31,47 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
-@Autonomous(name = "IMUtest (Blocks to Java)", group = "")
-public class IMUtest extends LinearOpMode {
 
-  private BNO055IMU imu;
-  private DcMotor tlMotor;
-  private DcMotor blMotor;
-  private DcMotor brMotor;
-  private DcMotor trMotor;
+public class OttermelonNavigation extends LinearOpMode{
 
+    private BNO055IMU imu;
+    private DcMotor tlMotor;
+    private DcMotor blMotor;
+    private DcMotor brMotor;
+    private DcMotor trMotor;
 
-  /**
-   * This function is executed when this Op Mode is selected from the Driver Station.
-   */
-  @Override
-  public void runOpMode() {
-    BNO055IMU.Parameters imuParameters;
-    Orientation angles;
-    Acceleration gravity;
+    public void runOpMode(){
 
-    imu = hardwareMap.get(BNO055IMU.class, "imu");
-    tlMotor=hardwareMap.get(DcMotor.class, "topLeft");
-    blMotor=hardwareMap.get(DcMotor.class, "bottomLeft");
-    brMotor=hardwareMap.get(DcMotor.class, "bottomRight");
-    trMotor=hardwareMap.get(DcMotor.class, "topRight");
-    
-    tlMotor.setDirection(DcMotor.Direction.REVERSE);
-    blMotor.setDirection(DcMotor.Direction.REVERSE);
+        BNO055IMU.Parameters imuParameters;
+        Orientation angles;
+        Acceleration gravity;
 
-    // Create new IMU Parameters object.
-    imuParameters = new BNO055IMU.Parameters();
-    // Use degrees as angle unit.
-    imuParameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-    // Express acceleration as m/s^2.
-    imuParameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-    // Disable logging.
-    imuParameters.loggingEnabled = false;
-    // Initialize IMU.
-    imu.initialize(imuParameters);
-    // Prompt user to press start buton.
-    telemetry.addData("IMU Example", "Press start to continue...");
-    telemetry.update();
-    waitForStart();
-    if (opModeIsActive()) {
-      // Put run blocks here.
-      while (opModeIsActive()) {
-        // Get absolute orientation
-        // Get acceleration due to force of gravity.
-        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        gravity = imu.getGravity();
-        double targetAngle=90;
-        // Display orientation info.
-        telemetry.addData("rot about Z", angles.firstAngle);
-        telemetry.addData("rot about Y", angles.secondAngle);
-        telemetry.addData("rot about X", angles.thirdAngle);
-        telemetry.addData("target angle", targetAngle);
-        // Display gravitational acceleration.
-        telemetry.addData("gravity (Z)", gravity.zAccel);
-        telemetry.addData("gravity (Y)", gravity.yAccel);
-        telemetry.addData("gravity (X)", gravity.xAccel);
+        imu = hardwareMap.get(BNO055IMU.class, "imu");
+        tlMotor=hardwareMap.get(DcMotor.class, "topLeft");
+        blMotor=hardwareMap.get(DcMotor.class, "bottomLeft");
+        brMotor=hardwareMap.get(DcMotor.class, "bottomRight");
+        trMotor=hardwareMap.get(DcMotor.class, "topRight");
+        
+        tlMotor.setDirection(DcMotor.Direction.REVERSE);
+        blMotor.setDirection(DcMotor.Direction.REVERSE);
+
+        // Create new IMU Parameters object.
+        imuParameters = new BNO055IMU.Parameters();
+        // Use degrees as angle unit.
+        imuParameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        // Express acceleration as m/s^2.
+        imuParameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        // Disable logging.
+        imuParameters.loggingEnabled = false;
+        // Initialize IMU.
+        imu.initialize(imuParameters);
+        // Prompt user to press start buton.
+        telemetry.addData("IMU Example", "Press start to continue...");
         telemetry.update();
         
-        proportionalTurnIMU(targetAngle);
-        break;
-      }
     }
-  }
-      public void turnIMU(double targetAngle){
+
+    public void turnIMU(double targetAngle){
         double direction=1;
         Orientation angles;
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -125,7 +99,7 @@ public class IMUtest extends LinearOpMode {
         
       }
 
-      public void proportionalTurnIMU(double targetAngle){
+      public static void proportionalTurnIMU(double targetAngle){
 
         double direction=1;
         Orientation angles;
@@ -135,33 +109,24 @@ public class IMUtest extends LinearOpMode {
           targetAngle=targetAngle-360;
         }
         
-        double delta = (targetAngle-angles.firstAngle); 
+        double delta = Math.abs(targetAngle-angles.firstAngle); 
         
 
-        while(Math.abs(delta)>1){
+        while(delta >3.0){
             
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            delta = (targetAngle-angles.firstAngle);
-            double power= (delta*.05);  
-            power=(Math.min(Math.abs(power), .75))*(Math.abs(power)/power);
-
+            delta = Math.abs(targetAngle-angles.firstAngle);
+            double power= delta*.5;
             tlMotor.setPower(direction*power);
             blMotor.setPower(direction*power);
             brMotor.setPower(direction*-1*power);
             trMotor.setPower(direction*-1*power);
           }
 
-          tlMotor.setPower(0);
-          blMotor.setPower(0);
-          brMotor.setPower(0);
-          trMotor.setPower(0);
+            tlMotor.setPower(0);
+            blMotor.setPower(0);
+            brMotor.setPower(0);
+            trMotor.setPower(0);
         
       }
-
-
-
-    
-  }
-  
-
-
+}
