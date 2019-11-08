@@ -50,13 +50,13 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
  *
  * @see <a href="http://revrobotics.com">REV Robotics Web Page</a>
  */
-@TeleOp(name = "Sensor: REV2mDistance", group = "Sensor")
+@TeleOp(name = "Sensor: REV2mDistance - EE", group = "Sensor")
 
 public class DistanceTest extends LinearOpMode {
 
     private DistanceSensor sensorRange;
 
-    @Override
+    @Override 
     public void runOpMode() {
         // you can use this as a regular DistanceSensor.
         sensorRange = hardwareMap.get(DistanceSensor.class, "distanceS");

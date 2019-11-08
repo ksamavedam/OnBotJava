@@ -29,7 +29,7 @@
     
     package org.firstinspires.ftc.teamcode;
     
-    //import com.qualcomm.robotcore.eventloop.opmode.Disabled;
+    import com.qualcomm.robotcore.eventloop.opmode.Disabled;
     import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
     import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
     import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -39,9 +39,12 @@
     import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
     import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
     import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
-    //import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
-    
-    
+    import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+    import com.qualcomm.robotcore.hardware.DistanceSensor;
+    import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
+    import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
+    import java.lang.Math;
+
     /**
      * This 2019-2020 OpMode illustrates the basics of using the TensorFlow Object Detection API to
      * determine the position of the Skystone game elements.
@@ -52,13 +55,17 @@
      * IMPORTANT: In order to use this OpMode, you need to obtain your own Vuforia license key as
      * is explained below.
      */
+    // KS Added
+    @TeleOp(name = "TFandDSFunctions", group = "anjali")
     
-    @TeleOp(name = "anjali: vufo914", group = "anjali")
-    
-    public class Vufo914 extends LinearOpMode {
+    public class TFandDSFunctions extends LinearOpMode {
         private static final String TFOD_MODEL_ASSET = "Skystone.tflite";
         private static final String LABEL_FIRST_ELEMENT = "Stone";
-        private static final String LABEL_SECOND_ELEMENT = "Skystone";
+        private static final String LABEL_SECOND_ELEMENT = "Skystone";    
+        //sasa
+        
+        private DistanceSensor sensorRange;
+
     
         /*
          * IMPORTANT: You need to obtain your own license key to use Vuforia. The string below with which
@@ -92,6 +99,9 @@
             // The TFObjectDetector uses the camera frames from the VuforiaLocalizer, so we create that
             // first.
             initVuforia();
+            sensorRange = hardwareMap.get(DistanceSensor.class, "distanceS");
+            Rev2mDistanceSensor sensorTimeOfFlight = (Rev2mDistanceSensor)sensorRange;
+
     
             if (ClassFactory.getInstance().canCreateTFObjectDetector()) {
                 initTfod();
@@ -114,6 +124,7 @@
     
             if (opModeIsActive()) {
                 while (opModeIsActive()) {
+                    
                     if (tfod != null) {
                         // getUpdatedRecognitions() will return null if no new information is available since
                         // the last time that call was made.
@@ -129,8 +140,17 @@
                              //                 recognition.getLeft(), recognition.getTop());
                         //    telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
                           //          recognition.getRight(), recognition.getBottom());
-                        //    double  v = recognition.estimateAngleToObject(AngleUnit.DEGREES);
-                            if(recognition.getLabel() == "Skystone"){
+                           
+                           
+//MAKING A FUNCTION
+                            double  d_angle = recognition.estimateAngleToObject(AngleUnit.DEGREES);
+                            String sky = recognition.getlabel();
+                            
+                            String mvmt = findMvmt(d_angle, sky);
+
+                           
+                           
+                           /* if(recognition.getLabel() == "Skystone"){
                                 telemetry.addData("%s", "  ITS A SKYSTONE");
                                 telemetry.addData(String.format("  angle ", i), "%.03f", recognition.estimateAngleToObject(AngleUnit.DEGREES));
                                 if(recognition.estimateAngleToObject(AngleUnit.DEGREES)>1){
@@ -143,6 +163,17 @@
                                     telemetry.addData("%s", " go forward");
                                 }
                           }
+                          else{
+                              telemetry.addData("%s", "  not a skystone :(");
+                          }*/
+//MAKING A FUNCTION
+                          telemetry.addData("range", String.format("%.01f in", sensorRange.getDistance(DistanceUnit.INCH)));
+                          double distance = sensorRange.getDistance(DistanceUnit.INCH);
+                          double D_move = calcDiagMove(d_angle, distance);
+                          double H_move = calcHorizMove(d_angle, distance);
+                          telemetry.addData(String.format("  horiz. movement: ", i), "%.03f", H_move);
+                          telemetry.addData(String.format("  diag. movement: ", i), "%.03f", D_move);
+                          
                           telemetry.update();
                         }
                     } 
@@ -158,6 +189,39 @@
         /**
          * Initialize the Vuforia localization engine.
          */
+         
+       
+        //function that finds whether to move left or right given that skystone is detected
+        public double findMvmt (double d_angle, String sky){
+            String mvmt = "";
+            if(sky == "Skystone"){
+                if(d_angle>1){
+                    mvmt = "move right";
+                }
+                else if(d_angle<-1){
+                    mvmt = "move left";
+                }
+                else if(d_angle>-1 && d_angle<1){
+                    mvmt = "go forward";
+                }
+            }
+            else{
+                mvmt = "not a skystone :(";
+            }
+            return mvmt;
+        }
+       
+        //function calculates horizontal distance needed
+        public double calcHorizMove (double d_angle, double distance){
+            double r_angle=Math.toRadians(d_angle);
+            double horiz_move = (distance * Math.tan(r_angle));
+            return horiz_move;
+        }
+        public double calcDiagMove (double d_angle, double distance){
+            double r_angle=Math.toRadians(d_angle);
+            double diag_move = (distance / Math.cos(r_angle));
+            return diag_move;
+        }
         private void initVuforia() {
             /*
              * Configure Vuforia by creating a Parameter object, and passing it to the Vuforia engine.
