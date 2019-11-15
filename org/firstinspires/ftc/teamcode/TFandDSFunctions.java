@@ -125,48 +125,7 @@
             if (opModeIsActive()) {
                 while (opModeIsActive()) {
                     
-                    if (tfod != null) {
-                        // getUpdatedRecognitions() will return null if no new information is available since
-                        // the last time that call was made.
-                        List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
-                        if (updatedRecognitions != null) {
-                          //telemetry.addData("# Object Detected", updatedRecognitions.size());
-    
-                          // step through the list of recognitions and display boundary info.
-                          int i = 0;
-                          for (Recognition recognition : updatedRecognitions) {
-                            //telemetry.addData(String.format("label (%d)", i), recognition.getLabel());
-                           // telemetry.addData(String.format("  left,top (%d)", i), "%.03f , %.03f",
-                             //                 recognition.getLeft(), recognition.getTop());
-                        //    telemetry.addData(String.format("  right,bottom (%d)", i), "%.03f , %.03f",
-                          //          recognition.getRight(), recognition.getBottom());
-                           
-                           
-//MAKING A FUNCTION
-                            double  d_angle = recognition.estimateAngleToObject(AngleUnit.DEGREES);
-                            String sky = recognition.getlabel();
-                            
-                            String mvmt = findMvmt(d_angle, sky);
 
-                           
-                           
-                           /* if(recognition.getLabel() == "Skystone"){
-                                telemetry.addData("%s", "  ITS A SKYSTONE");
-                                telemetry.addData(String.format("  angle ", i), "%.03f", recognition.estimateAngleToObject(AngleUnit.DEGREES));
-                                if(recognition.estimateAngleToObject(AngleUnit.DEGREES)>1){
-                                        telemetry.addData("%s", " move right");
-                                }
-                                else if(recognition.estimateAngleToObject(AngleUnit.DEGREES)<-1){
-                                    telemetry.addData("%s", " move left ");
-                                }
-                                else if(recognition.estimateAngleToObject(AngleUnit.DEGREES)>-1 && recognition.estimateAngleToObject(AngleUnit.DEGREES)<1){
-                                    telemetry.addData("%s", " go forward");
-                                }
-                          }
-                          else{
-                              telemetry.addData("%s", "  not a skystone :(");
-                          }*/
-//MAKING A FUNCTION
                           telemetry.addData("range", String.format("%.01f in", sensorRange.getDistance(DistanceUnit.INCH)));
                           double distance = sensorRange.getDistance(DistanceUnit.INCH);
                           double D_move = calcDiagMove(d_angle, distance);
@@ -177,8 +136,7 @@
                           telemetry.update();
                         }
                     } 
-                    }
-                }
+                } 
             }
     
             if (tfod != null) {
@@ -190,26 +148,41 @@
          * Initialize the Vuforia localization engine.
          */
          
-       
-        //function that finds whether to move left or right given that skystone is detected
-        public double findMvmt (double d_angle, String sky){
-            String mvmt = "";
-            if(sky == "Skystone"){
-                if(d_angle>1){
-                    mvmt = "move right";
-                }
-                else if(d_angle<-1){
-                    mvmt = "move left";
-                }
-                else if(d_angle>-1 && d_angle<1){
-                    mvmt = "go forward";
-                }
-            }
-            else{
-                mvmt = "not a skystone :(";
-            }
-            return mvmt;
-        }
+        public String getSkyStoneLocation(bool foundSS, int direction, double hzDist, double vtDistance ) {
+            if (tfod != null) {
+                List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
+                if (updatedRecognitions != null) {
+                  int i = 0;
+                  for (Recognition recognition : updatedRecognitions) {
+                    double  d_angle = recognition.estimateAngleToObject(AngleUnit.DEGREES);
+                    String sky = recognition.getlabel();
+                    if (sky == "Skystone") {
+
+                    }
+                    String mvmt = findMvmt(d_angle, sky);
+                   
+                   if(recognition.getLabel() == "Skystone"){
+                        telemetry.addData("%s", "  ITS A SKYSTONE");
+                        telemetry.addData(String.format("  angle ", i), "%.03f", recognition.estimateAngleToObject(AngleUnit.DEGREES));
+
+                        if(recognition.estimateAngleToObject(AngleUnit.DEGREES)>1){
+                                telemetry.addData("%s", " move right");
+                        }
+                        else if(recognition.estimateAngleToObject(AngleUnit.DEGREES)<-1){
+                            telemetry.addData("%s", " move left ");
+                        }
+                        else if(recognition.estimateAngleToObject(AngleUnit.DEGREES)>-1 && recognition.estimateAngleToObject(AngleUnit.DEGREES)<1){
+                            telemetry.addData("%s", " go forward");
+                        }
+                  }
+                  else{
+                      telemetry.addData("%s", "  not a skystone :(");
+                  }
+                 
+          }
+      }
+    }
+}
        
         //function calculates horizontal distance needed
         public double calcHorizMove (double d_angle, double distance){
@@ -249,3 +222,4 @@
             tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
         }
     }
+
