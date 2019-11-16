@@ -35,7 +35,60 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 public class SkyStoneAuto extends LinearOpMode{
     private RobotHardware hw = new RobotHardware("OtterMelon", hardwareMap);
     private RobotDrive rd = new RobotDrive(hw); 
+    private RobotSense rs= new RobotSense();
+    //Vuforia, scan a picture and decide wheter you are on Loading side or Building side
+    
+    String whichSide= rs.scanBegin();
 
+    //Loading zone: Robot starts in the loading zone 
+    if(whichSide.equals("LOADING ZONE"){
+        LoadingZone();
+
+    }
+    
+ public void LoadingZone(){
+     //Start by scanning each stone to see if it is a skystone
+
+        //if robot sees a skystone return true
+        while(!rs.isSkystone){
+            //while the robot does not see a skyStone keep moving
+            rd.move(RobotDrive.Direction.RIGHT,8.0, double speed);
+        }
+
+        //robot now sees a skyskystone.
+        /*robotSense should give back the distance to which the robot needs to travel 
+        in an array [horizontal distance,forward distance]
+        */
+        double[] distance= rs.locateSkystone();
+        rd.move(RobotDrive.Direction.RIGHT,distance[0],double speed);
+        rd.move(RobotDrive.Direction.FORWARD,distance[1],double speed);
+
+        //drop the arm to drag the skystone 
+
+        //go backward with the skystone
+        rd.move(RobotDrive.Direction.REVERSE,double distance,double speed);
+        rd.move(RobotDrive.Direction.LEFT,double distance/*direction needed to travel to deliver the stone*/,double speed);
+
+        rd.move(RobotDrive.Direction.RIGHT,double distance/*direction needed to travel to deliver the stone*/,double speed);
+
+
+        //move to the second skystone.
+        //you are now infront of where the first skystone used to be,. you now where the second skystone is
+
+        //the second skystone is 3 blocks over 
+        rd.move(RobotDrive.Direction.Right,24,double speed);
+
+        //drop the arm to drag the skystone 
+
+        //go backward with the skystone
+        rd.move(RobotDrive.Direction.REVERSE,double distance,double speed);
+        rd.move(RobotDrive.Direction.LEFT,double distance/*direction needed to travel to deliver the stone*/,double speed);
+
+
+        //park
+        rd.move(RobotDrive.Direction.RIGHT,double distance,double speed);
+
+ }
     
 
 }
