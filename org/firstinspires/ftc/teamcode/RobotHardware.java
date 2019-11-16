@@ -3,6 +3,8 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.hardware.bosch.BNO055IMU;
+
 
 public class RobotHardware {
     public BNO055IMU imu;
@@ -15,7 +17,6 @@ public class RobotHardware {
 
     Servo foundationServo;
     Servo grabber;
-    Blinker expansion_Hub_2;
     double ticksToInchV = 32.0;
     double ticksToInchH = 37.0;
     double ticksToInchR = 15.0;
@@ -35,6 +36,7 @@ public class RobotHardware {
             ticksToInchR = 15.0;
             ticksToInchD = 49.0;
         }
+
         hwMap = hw;
         tlMotor = hwMap.get(DcMotor.class, "topLeft");
         blMotor = hwMap.get(DcMotor.class, "bottomLeft");
