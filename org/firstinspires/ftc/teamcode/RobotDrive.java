@@ -1,6 +1,9 @@
+package org.firstinspires.ftc.teamcode;
+
 import org.firstinspires.ftc.teamcode.RobotHardware;
 
 public class RobotDrive {
+
     // Constants for moving in each direction
     double ticksToInchV = 0;
     double ticksToInchH = 0;
@@ -16,7 +19,7 @@ public class RobotDrive {
         ticksToInchR = hw.getTicksToInchR();
         ticksToInchD = hw.getTicksToInchD();
 
-        resetEncoders();
+      //  resetEncoders();
     }
 
     enum Direction {
@@ -30,7 +33,8 @@ public class RobotDrive {
         CLOCKWISE,
         ANTICLOCKWISE
     }
-
+    public void enumTest(RobotDrive.Direction dir, int i) {}
+    /*
     public void move(RobotDrive.Direction dir, double distance, double speed){
         switch (dir) 
         {
@@ -49,7 +53,7 @@ public class RobotDrive {
 
         }
     }
-    public void rotate(RobotDrive.Rotation dir, double speed)){
+    public void rotate(RobotDrive.Rotation dir, double speed){
         switch (dir) 
         {
             case CLOCKWISE:
@@ -195,4 +199,5 @@ public class RobotDrive {
         }
         return powers;
     }
+    */
 }
