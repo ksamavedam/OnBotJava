@@ -23,6 +23,9 @@ import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.Came
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 
 import java.util.List;
+
+//import java.lang.model.util.ElementScanner6;
+
 import java.lang.*;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
@@ -39,6 +42,7 @@ public class OttermelonNavigation extends LinearOpMode{
     private DcMotor blMotor;
     private DcMotor brMotor;
     private DcMotor trMotor;
+    private ElapsedTime mRunTime= new ElapsedTime();
 
     public void runOpMode(){
 
@@ -68,10 +72,9 @@ public class OttermelonNavigation extends LinearOpMode{
         // Prompt user to press start buton.
         telemetry.addData("IMU Example", "Press start to continue...");
         telemetry.update();
-        
     }
 
-    public void turnIMU(double targetAngle){
+      public void turnIMU(double targetAngle){
         double direction=1;
         Orientation angles;
         angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -99,7 +102,7 @@ public class OttermelonNavigation extends LinearOpMode{
         
       }
 
-      public static void proportionalTurnIMU(double targetAngle){
+      public void proportionalTurnIMU(double targetAngle){
 
         double direction=1;
         Orientation angles;
@@ -109,24 +112,60 @@ public class OttermelonNavigation extends LinearOpMode{
           targetAngle=targetAngle-360;
         }
         
-        double delta = Math.abs(targetAngle-angles.firstAngle); 
+        double delta = (targetAngle-angles.firstAngle); 
         
-
-        while(delta >3.0){
+        mRunTime.reset();
+        while(mRunTime.time()<1.5){
             
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            delta = Math.abs(targetAngle-angles.firstAngle);
-            double power= delta*.5;
-            tlMotor.setPower(direction*power);
-            blMotor.setPower(direction*power);
-            brMotor.setPower(direction*-1*power);
-            trMotor.setPower(direction*-1*power);
+            delta = (targetAngle-angles.firstAngle);
+            double power= (delta*.05);  
+            power=(Math.min(Math.abs(power), .75))*(Math.abs(power)/power)*direction;
+            setPower(power,power,-power,-power);
           }
 
-            tlMotor.setPower(0);
-            blMotor.setPower(0);
-            brMotor.setPower(0);
-            trMotor.setPower(0);
+          setPower(0,0,0,0);
         
+      }
+
+      public void moveDist(double dist, double angle, double power){
+
+        double f_Ticks_Per_Inch=57.14;
+        double s_Ticks_Per_Inch=62.5;
+        double targetPosition=0;
+        if(angle==0){
+
+          targetPosition=f_Ticks_Per_Inch*dist;
+          //setPower(power, power, power, power);
+        }
+        else if (angle==180) {
+          targetPosition=f_Ticks_Per_Inch*dist;
+          //setPower(-power, -power, -power, -power);
+        }
+        else if (angle==90) {
+          targetPosition=s_Ticks_Per_Inch*dist;
+          //setPower(power, -power, power, -power);
+        }
+        else if (angle==270) {
+          targetPosition=s_Ticks_Per_Inch*dist;
+          //setPower(-power, power, -power, power);
+        }
+        else {
+
+          throw new IllegalArgumentException("Ya can't be enterin an angle other than 0, 90 ,180 or 270.");
+        }
+
+        while(Math.abs(tlMotor.getCurrentPosition())<targetPosition){
+
+        }
+         //setPower(0, 0, 0, 0);
+      }
+
+      public void setPower(double tlPower, double blPower, double brPower, double trPower){
+
+        tlMotor.setPower(tlPower);
+        blMotor.setPower(blPower);
+        brMotor.setPower(brPower);
+        trMotor.setPower(trPower);
       }
 }

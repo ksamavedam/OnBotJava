@@ -7,6 +7,7 @@ import java.lang.Math;
 public class OttermelonMotion {
 
      public static double[] move(double angle, double scale, double turnScale){
+         
         double topLeft=0;
         double bottomLeft=0;
         double bottomRight=0;

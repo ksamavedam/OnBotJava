@@ -32,13 +32,14 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @Autonomous(name = "IMUtest (Blocks to Java)", group = "")
-public class IMUtest extends LinearOpMode {
+public class IMUtest  extends LinearOpMode {
 
   private BNO055IMU imu;
   private DcMotor tlMotor;
   private DcMotor blMotor;
   private DcMotor brMotor;
   private DcMotor trMotor;
+  public ElapsedTime mRunTime= new ElapsedTime();
 
 
   /**
@@ -137,8 +138,8 @@ public class IMUtest extends LinearOpMode {
         
         double delta = (targetAngle-angles.firstAngle); 
         
-
-        while(Math.abs(delta)>1){
+        mRunTime.reset();
+        while(mRunTime.time()<1.5){
             
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             delta = (targetAngle-angles.firstAngle);

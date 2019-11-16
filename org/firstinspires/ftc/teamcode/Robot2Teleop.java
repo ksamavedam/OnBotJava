@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Servo;
+import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.hardware.Gyroscope;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -15,16 +16,18 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import java.util.Arrays;
 import java.lang.Math;
 
-@TeleOp(name = "FrameofReferenceDrive", group = "TeleOpModes")
+@TeleOp(name = "Robot2Teleop", group = "TeleOpModes")
 
-public class FrameofReferenceDrive extends LinearOpMode {
+public class Robot2Teleop extends LinearOpMode {
     private BNO055IMU imu;
     private DcMotor tlMotor;
     private DcMotor blMotor;
     private DcMotor brMotor;
     private DcMotor trMotor;
     private Blinker expansion_Hub_2;
-        @Override
+    public ElapsedTime mRunTime= new ElapsedTime();
+    
+    @Override
     public void runOpMode(){
         BNO055IMU.Parameters imuParameters;
         Orientation angles;
@@ -33,6 +36,7 @@ public class FrameofReferenceDrive extends LinearOpMode {
         blMotor=hardwareMap.get(DcMotor.class, "bottomLeft");
         brMotor=hardwareMap.get(DcMotor.class, "bottomRight");
         trMotor=hardwareMap.get(DcMotor.class, "topRight");
+        
         imu = hardwareMap.get(BNO055IMU.class, "imu");
        
         //tlMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -58,6 +62,7 @@ public class FrameofReferenceDrive extends LinearOpMode {
         
         
         while(opModeIsActive()){
+
             angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             double offset =  -1*Math.toRadians(angles.firstAngle);
             double angle= 0;
@@ -76,18 +81,18 @@ public class FrameofReferenceDrive extends LinearOpMode {
             else {
                 angle = 0;
             }
+
             angle+=offset;
             telemetry.addData("offset", offset);
             telemetry.addData("Angle: ", angle);
             telemetry.update();
-            double scale= Math.sqrt(((gamepad1.right_stick_y)*(gamepad1.right_stick_y))+((gamepad1.right_stick_x)*(gamepad1.right_stick_x)));
+            double scale= Math.sqrt(((gamepad1.right_stick_y)*(gamepad1.right_stick_y))+((gamepad1.right_stick_x)*(gamepad1.right_stick_x)))*.75;
             double turnScale= gamepad1.left_stick_x;
-            double scale2 = .75*10;
-            double[] powers=OttermelonMotion.move(angle,scale,turnScale);
-            tlMotor.setPower(powers[0]*scale2);
-            blMotor.setPower(powers[1]*scale2);
-            brMotor.setPower(powers[2]*scale2);
-            trMotor.setPower(powers[3]*scale2);
+            double[] powers= OttermelonMotion.move(angle,scale,turnScale);
+            tlMotor.setPower(powers[0]);
+            blMotor.setPower(powers[1]);
+            brMotor.setPower(powers[2]);
+            trMotor.setPower(powers[3]);
             
             if(gamepad1.a){
 
@@ -99,11 +104,11 @@ public class FrameofReferenceDrive extends LinearOpMode {
             }
             else if(gamepad1.x){
 
-                brMotor.setPower(.5);
+                brMotor.setPower(-.4);
             }
             else if(gamepad1.y){
 
-                trMotor.setPower(.5);
+                trMotor.setPower(-.4);
             }
             /*if(gamepad2.x){
                 grabberArm.setTargetPosition(-220);
