@@ -1,12 +1,25 @@
+package org.firstinspires.ftc.teamcode;
+
 import org.firstinspires.ftc.teamcode.RobotHardware;
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.util.ElapsedTime;
+
+import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
+import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
+import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class RobotDrive {
     // Constants for moving in each direction
     double ticksToInchV = 0;
     double ticksToInchH = 0;
-    double ticksToInchR = 0;
+    double ticksToInchR = 0
     double ticksToInchD = 0;
+    Orientation angles;
+    private BNO055IMU imu;
     RobotHardware hw; 
+    ElapsedTime mRunTime;
 
     RobotDrive(RobotHardware rhw) {
         hw = rhw; 
@@ -31,24 +44,27 @@ public class RobotDrive {
         ANTICLOCKWISE
     }
 
-    public void move(RobotDrive.Direction dir, double distance, double speed){
+    public void moveDist(RobotDrive.Direction dir, double distance, double power){
+          
         switch (dir) 
         {
             case FORWARD:
-                moveEnc(0, speed, 0, distance);
+                moveImpl(distance, 0, power);
                 break; 
             case REVERSE:
-                moveEnc(180, speed, 0, distance);
+                moveImpl(distance, 180, power);
                 break; 
             case RIGHT:
-                moveEnc(90, speed, 0, distance);
+                moveImpl(distance, 90, power);
                 break; 
             case LEFT:
-                moveEnc(-90, speed, 0, distance);
+                moveImpl(distance, -90, power);
                 break; 
 
         }
     }
+    
+    /*
     public void rotate(RobotDrive.Rotation dir, double speed)){
         switch (dir) 
         {
@@ -58,10 +74,92 @@ public class RobotDrive {
             case ANTICLOCKWISE:
                 moveEnc(180, 0, -1*speed, distance);
                 break; 
-        }
-    }
+        }*/
 
-    private void moveEnc(double angle, double scale, double turnScale, double distEnc) {
+        private void moveImpl(double dist, double angle, double power){
+
+                
+            double f_Ticks_Per_Inch=57.14;
+            double s_Ticks_Per_Inch=62.5;
+            double targetPosition=0;
+            
+            if(angle==0){
+    
+              targetPosition=f_Ticks_Per_Inch*dist;
+              
+            }
+            else if (angle==180) {
+              targetPosition=f_Ticks_Per_Inch*dist;
+              
+            }
+            else if (angle==90) {
+              targetPosition=s_Ticks_Per_Inch*dist;
+              
+            }
+            else if (angle==270) {
+              targetPosition=s_Ticks_Per_Inch*dist;
+              
+            }
+            else {
+    
+              throw new IllegalArgumentException("Ya can't be enterin an angle other than 0, 90 ,180 or 270.");
+            }
+            angle = Math.toRadians(angle);
+            moveAngle(angle, power);
+            while(Math.abs(hw.tlMotor.getCurrentPosition())<targetPosition){
+    
+                
+            }
+             moveAngle(0,0);   
+             resetEncoders();
+          }
+
+          public void moveAngle(double angle, double power){
+
+            double[] powers= new double[4];
+            powers=  move(angle, power, 0);
+            hw.tlMotor.setPower(powers[0]);
+            hw.blMotor.setPower(powers[1]);
+            hw.brMotor.setPower(powers[2]);
+            hw.trMotor.setPower(powers[3]);
+          }
+
+          public void proportionalTurnIMU(double targetAngle, double time){
+
+            double direction=1;
+            Orientation angles;
+            angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            if(targetAngle>180){
+              direction=-1;
+              targetAngle=targetAngle-360;
+            }
+            
+            double delta = (targetAngle-angles.firstAngle); 
+            
+            mRunTime.reset();
+            while(mRunTime.time()<time){
+                
+                angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+                delta = (targetAngle-angles.firstAngle);
+                double power= (delta*.05);  
+                power=(Math.min(Math.abs(power), .75))*(Math.abs(power)/power)*direction;
+                setPower(power,power,-power,-power);
+              }
+    
+              setPower(0,0,0,0);
+            
+          }
+
+          public void setPower(double tlPower, double blPower, double brPower, double trPower){
+
+            hw.tlMotor.setPower(tlPower);
+            hw.blMotor.setPower(blPower);
+            hw.brMotor.setPower(brPower);
+            hw.trMotor.setPower(trPower);
+          }
+    
+
+    /*private void move(double angle, double scale, double turnScale, double distEnc) {
         // Converts input angle to radians
         double r_angle = Math.toRadians(angle);
 
@@ -136,7 +234,7 @@ public class RobotDrive {
         }
         resetEncoders();
     }
-
+    */
     private double getMaxPower(double a, double b, double c, double d){
 
         return(Math.max(a, Math.max(b, Math.max(c,d))));
@@ -149,10 +247,10 @@ public class RobotDrive {
         hw.brMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         hw.trMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
 
-        hw.tlMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        hw.blMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        hw.brMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        hw.trMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        hw.tlMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODERS);
+        hw.blMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODERS);
+        hw.brMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODERS);
+        hw.trMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODERS);
     }
 
     // returns powers of each motor to move at a certain angle
