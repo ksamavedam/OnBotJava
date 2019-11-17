@@ -89,6 +89,14 @@ public class SkyStoneAuto extends LinearOpMode{
         rd.move(RobotDrive.Direction.RIGHT,double distance,double speed);
 
  }
+ public void BuildingZone(){
+     //move the foundation
+     rd.move(RobotDrive.Direction.RIGHT,double distance,double speed);
+
+     //distance should be such that it takes the robot to be in front of the first stone.
+
+     LoadingZone();
+ }
     
 
 }
