@@ -32,29 +32,46 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 @Autonomous(name = "SkyStoneAuto", group = "Linear Opmode")
 public class OtterMelonAutonomous extends LinearOpMode {
-    private RobotHardware hw = new RobotHardware("OtterMelon", hardwareMap);
-    private RobotDrive rd = new RobotDrive(hw);
-    private RobotSense rs = new RobotSense();
-
+    RobotHardware hw = null;
+    private RobotDrive rd = null;
+    private RobotSense rs = null;
+    
+    @Override
     public void runOpMode() {
 
-        // Vuforia, scan a picture and decide wheter you are on Loading side or Building
-        // side
+        hw = new RobotHardware("OtterMelon", hardwareMap);
+        rd = new RobotDrive(hw);
+        rs = new RobotSense();
+        waitForStart();
+        while(opModeIsActive()){
 
-        RobotSense.Zone whichSide = rs.scanBegin();
-
-  
-        // Loading zone: Robot starts in the loading zone
-        if (whichSide == RobotSense.Zone.LOADING) {
-            LoadingZone();
-
+            goSquare();
         }
 
 
 
+
+        // Vuforia, scan a picture and decide wheter you are on Loading side or Building
+        // side
+        
+       // RobotSense.Zone whichSide = rs.scanBegin();
+
+  
+        // Loading zone: Robot starts in the loading zone
+        /*if (whichSide == RobotSense.Zone.LOADING) {
+            LoadingZone();
+
+        }*/
     }
 
-    public void ksTestForBla(){}
+
+    public void goSquare(){
+
+        rd.moveDist(RobotDrive.Direction.FORWARD, 15, .5);
+        rd.moveDist(RobotDrive.Direction.LEFT, 15, .5);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 15, .5);
+        rd.moveDist(RobotDrive.Direction.RIGHT, 15, .5);
+    }
 
     public void LoadingZone() {
         /*
