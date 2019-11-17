@@ -17,8 +17,10 @@ import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import java.lang.Math;
 
 public class RobotSense {
+/*    
     RobotHardware hw;
 
+    enum Zone { LOADING, BUILDING};
     // initialize later
 RobotSense(RobotHardware rhw) {
     hw = rhw; 
@@ -78,4 +80,5 @@ RobotSense(RobotHardware rhw) {
         parameters.cameraDirection = CameraDirection.BACK;
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
     }
+*/
 }
