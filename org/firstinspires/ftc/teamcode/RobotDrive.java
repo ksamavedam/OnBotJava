@@ -4,8 +4,6 @@ import org.firstinspires.ftc.teamcode.RobotHardware;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.DcMotor;
-
-import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
@@ -18,7 +16,6 @@ public class RobotDrive {
     double ticksToInchR = 0;
     double ticksToInchD = 0;
     Orientation angles;
-    private BNO055IMU imu;
     RobotHardware hw;
     ElapsedTime mRunTime;
 
@@ -68,22 +65,20 @@ public class RobotDrive {
 
     private void moveImpl(double dist, double angle, double power) {
 
-        double f_Ticks_Per_Inch = 57.14;
-        double s_Ticks_Per_Inch = 62.5;
         double targetPosition = 0;
 
         if (angle == 0) {
 
-            targetPosition = f_Ticks_Per_Inch * dist;
+            targetPosition =ticksToInchV * dist;
 
         } else if (angle == 180) {
-            targetPosition = f_Ticks_Per_Inch * dist;
+            targetPosition =ticksToInchV * dist;
 
         } else if (angle == 90) {
-            targetPosition = s_Ticks_Per_Inch * dist;
+            targetPosition = ticksToInchH * dist;
 
         } else if (angle == 270) {
-            targetPosition = s_Ticks_Per_Inch * dist;
+            targetPosition = ticksToInchH * dist;
 
         } else {
 
@@ -131,7 +126,7 @@ public class RobotDrive {
 
     private double getAngularOriFirst() {
         Orientation angles;
-        angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        angles = hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         return (angles.firstAngle);
     }
     public void setPower(double tlPower, double blPower, double brPower, double trPower) {
