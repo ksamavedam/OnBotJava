@@ -43,16 +43,16 @@ public class RobotDrive {
         switch (dir) {
         case FORWARD:
             moveImpl(distance, 0, power);
-            break;
+            //break;
         case REVERSE:
             moveImpl(distance, 180, power);
-            break;
+            //break;
         case RIGHT:
-            moveImpl(distance, 90, power);
-            break;
+            moveImpl(distance, 270, power);
+            //break;
         case LEFT:
-            moveImpl(distance, -90, power);
-            break;
+            moveImpl(distance, 90, power);
+            //break;
 
         }
     }
@@ -93,7 +93,7 @@ public class RobotDrive {
         resetEncoders();
     }
 
-    public void moveAngle(double angle, double power) {
+    private void moveAngle(double angle, double power) {
 
         double[] powers = new double[4];
         powers = move(angle, power, 0);
@@ -102,6 +102,17 @@ public class RobotDrive {
         hw.brMotor.setPower(powers[2]);
         hw.trMotor.setPower(powers[3]);
     }
+
+    public void moveTeleop(double angle, double scale, double turnScale){
+
+        double[] powers =new double[4];
+        powers=move(angle, scale, turnScale);
+        
+        hw.tlMotor.setPower(powers[0]);
+        hw.blMotor.setPower(powers[1]);
+        hw.brMotor.setPower(powers[2]);
+        hw.trMotor.setPower(powers[3]);
+    }    
 
     public void proportionalTurn(double targetAngle, double time) {
 
@@ -220,10 +231,10 @@ public class RobotDrive {
         double[] powers = new double[4];
 
         if (scale != 0.0) {
-            topLeft = (Math.cos(angle) / Math.sqrt(2)) + -1 * (Math.sin(angle)) + turnScale * 1;
-            bottomLeft = (Math.cos(angle) / Math.sqrt(2)) + (Math.sin(angle)) + turnScale * 1;
-            bottomRight = (Math.cos(angle) / Math.sqrt(2)) + -1 * (Math.sin(angle)) + turnScale * -1;
-            topRight = (Math.cos(angle) / Math.sqrt(2)) + (Math.sin(angle)) + turnScale * -1;
+            topLeft = (Math.cos(angle) ) + -1 * (Math.sin(angle)) + turnScale * 1;
+            bottomLeft = (Math.cos(angle) ) + (Math.sin(angle)) + turnScale * 1;
+            bottomRight = (Math.cos(angle)) + -1 * (Math.sin(angle)) + turnScale * -1;
+            topRight = (Math.cos(angle) ) + (Math.sin(angle)) + turnScale * -1;
 
             maxPower = getMaxPower(topLeft, bottomLeft, bottomRight, topRight);
 

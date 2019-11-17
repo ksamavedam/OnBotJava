@@ -37,10 +37,12 @@ public class RobotHardware {
         hwMap = hw;
 
         tlMotor = hwMap.get(DcMotor.class, "topLeft");
-
         blMotor = hwMap.get(DcMotor.class, "bottomLeft");
         brMotor = hwMap.get(DcMotor.class, "bottomRight");
         trMotor = hwMap.get(DcMotor.class, "topRight");
+
+        blMotor.setDirection(DcMotor.Direction.REVERSE);
+        brMotor.setDirection(DcMotor.Direction.REVERSE);
         
 
         imu = hwMap.get(BNO055IMU.class, "imu");

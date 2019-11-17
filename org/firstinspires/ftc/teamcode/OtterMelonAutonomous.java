@@ -46,6 +46,7 @@ public class OtterMelonAutonomous extends LinearOpMode {
         while(opModeIsActive()){
 
             goSquare();
+            break;
         }
 
 
