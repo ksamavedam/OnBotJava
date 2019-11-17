@@ -3,6 +3,7 @@ package org.firstinspires.ftc.teamcode;
 import org.firstinspires.ftc.teamcode.RobotHardware;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
+import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -14,7 +15,7 @@ public class RobotDrive {
     // Constants for moving in each direction
     double ticksToInchV = 0;
     double ticksToInchH = 0;
-    double ticksToInchR = 0
+    double ticksToInchR = 0;
     double ticksToInchD = 0;
     Orientation angles;
     private BNO055IMU imu;

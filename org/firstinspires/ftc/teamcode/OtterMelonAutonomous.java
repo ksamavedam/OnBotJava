@@ -32,7 +32,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 
 @Autonomous(name="SkyStoneAuto", group="Linear Opmode")
-public class SkyStoneAuto extends LinearOpMode{
+public class OtterMelonAutonomous extends LinearOpMode{
     private RobotHardware hw = new RobotHardware("OtterMelon", hardwareMap);
     private RobotDrive rd = new RobotDrive(hw); 
     private RobotSense rs= new RobotSense();
@@ -96,12 +96,14 @@ public class SkyStoneAuto extends LinearOpMode{
 */
  }
  public void BuildingZone(){
+     /*
      //move the foundation
      rd.move(RobotDrive.Direction.RIGHT,double distance,double speed);
 
      //distance should be such that it takes the robot to be in front of the first stone.
 
      LoadingZone();
+     */
  }
     
 
