@@ -13,7 +13,6 @@ public class RobotHardware {
     public DcMotor brMotor;
     public DcMotor trMotor;
     public DcMotor grabberMotor;
-    BNO055IMU.Parameters imuParameters;
 
     Servo foundationServo;
     Servo grabber;
@@ -47,7 +46,7 @@ public class RobotHardware {
         grabber = hwMap.get(Servo.class, "grabber");
 
         imu = hwMap.get(BNO055IMU.class, "imu");
-        imuParameters = new BNO055IMU.Parameters();
+        BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
         // Use degrees as angle unit.
         imuParameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
         // Express acceleration as m/s^2.
