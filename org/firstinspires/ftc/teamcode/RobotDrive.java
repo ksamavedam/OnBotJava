@@ -185,6 +185,11 @@ public class RobotDrive {
         double maxPower = 0;
         double[] powers = new double[4];
 
+        //DP
+        //There is a problem with the scheme below. Let's say you want to make a turn very fast, but while turning
+        //also move SLOW along a direction. The slow translation implies a low scale number. In the scheme below
+        //because scale multiplies to turn power also, the turn will become slow as well. I am suggesting a modification
+        //in Slack.
         if (scale != 0.0) {
             topLeft = (Math.cos(angle) ) + -1 * (Math.sin(angle)) + turnScale * 1;
             bottomLeft = (Math.cos(angle) ) + (Math.sin(angle)) + turnScale * 1;
