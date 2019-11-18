@@ -46,6 +46,8 @@ public class OtterMelonAutonomous extends LinearOpMode {
         while(opModeIsActive()){
 
             goSquare();
+            hw.intakeMotorLeft.setPower(-.5);
+            hw.intakeMotorRight.setPower(.5);
             break;
         }
 
@@ -72,6 +74,8 @@ public class OtterMelonAutonomous extends LinearOpMode {
         rd.moveDist(RobotDrive.Direction.LEFT, 15, .5);
         rd.moveDist(RobotDrive.Direction.REVERSE, 15, .5);
         rd.moveDist(RobotDrive.Direction.RIGHT, 15, .5);
+        
+
     }
 
     public void LoadingZone() {

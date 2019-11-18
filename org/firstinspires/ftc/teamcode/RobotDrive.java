@@ -4,10 +4,14 @@ import org.firstinspires.ftc.teamcode.RobotHardware;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.DcMotor;
+
+import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
+
+
 
 public class RobotDrive {
     // Constants for moving in each direction
@@ -43,16 +47,16 @@ public class RobotDrive {
         switch (dir) {
         case FORWARD:
             moveImpl(distance, 0, power);
-            //break;
+            break;
         case REVERSE:
             moveImpl(distance, 180, power);
-            //break;
+            break;
         case RIGHT:
             moveImpl(distance, 270, power);
-            //break;
+            break;
         case LEFT:
             moveImpl(distance, 90, power);
-            //break;
+            break;
 
         }
     }
@@ -148,62 +152,13 @@ public class RobotDrive {
         hw.trMotor.setPower(trPower);
     }
 
-    /*
-     * private void move(double angle, double scale, double turnScale, double
-     * distEnc) { // Converts input angle to radians double r_angle =
-     * Math.toRadians(angle);
-     * 
-     * // getting powers to go in desired angle double[] powers = move(r_angle,
-     * scale, turnScale); double encoders;
-     * 
-     * // In this auto, we don't turn and move straight at the same time // Below
-     * block is for moving over plane if (scale != 0) {
-     * 
-     * // next block checks which angle we are going at, sets the encoder counts by
-     * // mulitplying by that constant, // then sets the motors to run to that
-     * encoder position using run to position if (angle == 0) { encoders = distEnc *
-     * ticksToInchV; hw.tlMotor.setTargetPosition((int) encoders);
-     * hw.blMotor.setTargetPosition((int) encoders);
-     * hw.brMotor.setTargetPosition((int) encoders);
-     * hw.trMotor.setTargetPosition((int) encoders); } else if (angle == 180) {
-     * encoders = distEnc * ticksToInchV; hw.tlMotor.setTargetPosition(-(int)
-     * encoders); hw.blMotor.setTargetPosition(-(int) encoders);
-     * hw.brMotor.setTargetPosition(-(int) encoders);
-     * hw.trMotor.setTargetPosition(-(int) encoders); } else if (angle == 90) {
-     * encoders = distEnc + ticksToInchH; hw.tlMotor.setTargetPosition((int)
-     * encoders * -1); hw.blMotor.setTargetPosition((int) encoders);
-     * hw.brMotor.setTargetPosition((int) encoders * -1);
-     * hw.trMotor.setTargetPosition((int) encoders); } else { encoders = distEnc *
-     * ticksToInchH; hw.tlMotor.setTargetPosition((int) encoders);
-     * hw.blMotor.setTargetPosition((int) encoders * -1);
-     * hw.brMotor.setTargetPosition((int) encoders);
-     * hw.trMotor.setTargetPosition((int) encoders * -1); } } else { // does the
-     * same thing as aboove excpect it does it for turning encoders = distEnc *
-     * ticksToInchR; if (turnScale < 0) { hw.tlMotor.setTargetPosition((int)
-     * encoders); hw.blMotor.setTargetPosition((int) encoders);
-     * hw.brMotor.setTargetPosition(-1 * (int) encoders);
-     * hw.trMotor.setTargetPosition(-1 * (int) encoders); } else {
-     * hw.tlMotor.setTargetPosition(-1 * (int) encoders);
-     * hw.blMotor.setTargetPosition(-1 * (int) encoders);
-     * hw.brMotor.setTargetPosition((int) encoders);
-     * hw.trMotor.setTargetPosition((int) encoders); }
-     * 
-     * }
-     * 
-     * // gives motor their powers hw.tlMotor.setPower(powers[0]);
-     * hw.blMotor.setPower(powers[1]); hw.brMotor.setPower(powers[2]);
-     * hw.trMotor.setPower(powers[3]); telemetry.addData("Test", 0);
-     * telemetry.addData("TL", powers[0]); telemetry.addData("BL", powers[1]);
-     * telemetry.addData("BR", powers[2]); telemetry.addData("TR", powers[3]);
-     * telemetry.update();
-     * 
-     * // does not give next command until motors have reached their position while
-     * (opModeIsActive() && tlMotor.isBusy()) {
-     * 
-     * } resetEncoders(); }
-     */
+    
     private double getMaxPower(double a, double b, double c, double d) {
 
+        a=Math.abs(a);
+        b=Math.abs(b);
+        c=Math.abs(c);
+        d=Math.abs(d);
         return (Math.max(a, Math.max(b, Math.max(c, d))));
 
     }

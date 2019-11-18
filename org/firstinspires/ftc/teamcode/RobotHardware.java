@@ -3,6 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import android.graphics.drawable.GradientDrawable.Orientation;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 
 
@@ -14,6 +17,7 @@ public class RobotHardware {
     public DcMotor trMotor=null;
     public DcMotor intakeMotorLeft=null;
     public DcMotor intakeMotorRight=null;
+    public Orientation angles;
     double ticksToInchV = 32.0;
     double ticksToInchH = 37.0;
     double ticksToInchR = 15.0;
@@ -22,8 +26,8 @@ public class RobotHardware {
 
     public RobotHardware(String name, HardwareMap hw) {
         if (name == "OtterMelon") {
-            ticksToInchV = 32.0;
-            ticksToInchH = 37.0;
+            ticksToInchV = 62.5;
+            ticksToInchH = 57.2;
             ticksToInchR = 15.0;
             ticksToInchD = 49.0;
         } else if (name == "{Ri3D}") {
@@ -40,8 +44,10 @@ public class RobotHardware {
         blMotor = hwMap.get(DcMotor.class, "bottomLeft");
         brMotor = hwMap.get(DcMotor.class, "bottomRight");
         trMotor = hwMap.get(DcMotor.class, "topRight");
+        intakeMotorLeft=hwMap.get(DcMotor.class, "leftIntake");
+        intakeMotorRight=hwMap.get(DcMotor.class, "rightIntake");
 
-        blMotor.setDirection(DcMotor.Direction.REVERSE);
+        trMotor.setDirection(DcMotor.Direction.REVERSE);
         brMotor.setDirection(DcMotor.Direction.REVERSE);
         
 
