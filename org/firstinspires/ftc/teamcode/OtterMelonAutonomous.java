@@ -35,7 +35,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 public class OtterMelonAutonomous extends LinearOpMode{
     private RobotHardware hw = new RobotHardware("OtterMelon", hardwareMap);
     private RobotDrive rd = new RobotDrive(hw); 
-    private RobotSense rs= new RobotSense();
+    private RobotSense rs= new RobotSense(hw);
 
 
     public void runOpMode(){
