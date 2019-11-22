@@ -3,6 +3,9 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
+
+import android.graphics.drawable.GradientDrawable.Orientation;
+
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -23,14 +26,13 @@ import java.lang.Math;
 
 public class RobotHardware {
     public BNO055IMU imu;
-    public DcMotor tlMotor;
-    public DcMotor blMotor;
-    public DcMotor brMotor;
-    public DcMotor trMotor;
-    public DcMotor grabberMotor;
-
-    Servo foundationServo;
-    Servo grabber;
+    public DcMotor tlMotor=null;
+    public DcMotor blMotor=null;
+    public DcMotor brMotor=null;
+    public DcMotor trMotor=null;
+    public DcMotor intakeMotorLeft=null;
+    public DcMotor intakeMotorRight=null;
+    public Orientation angles;
     double ticksToInchV = 32.0;
     double ticksToInchH = 37.0;
     double ticksToInchR = 15.0;
@@ -44,8 +46,8 @@ public class RobotHardware {
 
     public RobotHardware(String name, HardwareMap hw) {
         if (name == "OtterMelon") {
-            ticksToInchV = 32.0;
-            ticksToInchH = 37.0;
+            ticksToInchV = 62.5;
+            ticksToInchH = 57.2;
             ticksToInchR = 15.0;
             ticksToInchD = 49.0;
         } else if (name == "{Ri3D}") {
@@ -57,13 +59,17 @@ public class RobotHardware {
         }
 
         hwMap = hw;
+
         tlMotor = hwMap.get(DcMotor.class, "topLeft");
         blMotor = hwMap.get(DcMotor.class, "bottomLeft");
         brMotor = hwMap.get(DcMotor.class, "bottomRight");
         trMotor = hwMap.get(DcMotor.class, "topRight");
-        grabberMotor = hwMap.get(DcMotor.class, "grabber arm");
-        foundationServo = hwMap.get(Servo.class, "foundationServo");
-        grabber = hwMap.get(Servo.class, "grabber");
+        intakeMotorLeft=hwMap.get(DcMotor.class, "leftIntake");
+        intakeMotorRight=hwMap.get(DcMotor.class, "rightIntake");
+
+        trMotor.setDirection(DcMotor.Direction.REVERSE);
+        brMotor.setDirection(DcMotor.Direction.REVERSE);
+        
 
         imu = hwMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
