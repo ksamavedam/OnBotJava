@@ -119,7 +119,7 @@ public class RobotSense {
     public double[] locateSkystone(int iterations) {
         double[] dist_angle = new double[3];
         double detected = 0;
-        int count = 0; 
+        int count = 0;
         while (count++ < iterations) {
             if (tfod != null) {
                 List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
@@ -149,14 +149,14 @@ public class RobotSense {
 
     // returns angle using imu
     public double imuAngle() {
-
-        return 0;
+        double var = 0;
+        return var;
     }
 
     // returns coordinates to getZone to determine what side we're on
-    private double getCoordinates() {
-
-        return 0;
+    private double[] getCoordinates() {
+        double[] var = { 0, 0, 0 };
+        return var;
     }
 
     public double calcHorizMove(double d_angle, double distance) {
@@ -170,19 +170,4 @@ public class RobotSense {
         double diag_move = (distance / Math.cos(r_angle));
         return diag_move;
     }
-    /*
-     * private void initTfod() { int tfodMonitorViewId =
-     * hw.appContext.getResources().getIdentifier("tfodMonitorViewId", "id",
-     * hw.appContext.getPackageName()); TFObjectDetector.Parameters tfodParameters =
-     * new TFObjectDetector.Parameters(tfodMonitorViewId);
-     * tfodParameters.minimumConfidence = 0.8; tfod =
-     * ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
-     * tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT,
-     * LABEL_SECOND_ELEMENT); }
-     * 
-     * private void initVuforia() { VuforiaLocalizer.Parameters parameters = new
-     * VuforiaLocalizer.Parameters(); parameters.vuforiaLicenseKey = VUFORIA_KEY;
-     * parameters.cameraDirection = CameraDirection.BACK; vuforia =
-     * ClassFactory.getInstance().createVuforia(parameters); }
-     */
 }

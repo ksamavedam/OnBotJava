@@ -39,8 +39,8 @@ public class RobotHardware {
 
 
         if (name == "OtterMelon") {
-            ticksToInchV = 32.0;
-            ticksToInchH = 37.0;
+            ticksToInchV = 62.5;
+            ticksToInchH = 57.2;
             ticksToInchR = 15.0;
             ticksToInchD = 49.0;
         } else if (name == "Ri3D") {
