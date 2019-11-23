@@ -18,7 +18,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import java.util.Arrays;
 import java.lang.Math;
 
-@TeleOp(name = "OTttermelonTeleop", group = "TeleOpModes")
+@TeleOp(name = "OtttermelonTeleopTEST", group = "TeleOpModes")
 
 public class OttermelonTeleop extends LinearOpMode {
     private BNO055IMU imu;
