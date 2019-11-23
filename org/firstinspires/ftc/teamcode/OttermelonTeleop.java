@@ -62,8 +62,8 @@ public class OttermelonTeleop extends LinearOpMode {
         waitForStart();
         while(opModeIsActive()){
 
-            //angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            //double offset =  -1*Math.toRadians(angles.firstAngle);
+           Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            double offset =  -1*Math.toRadians(angles.firstAngle);
             double angle= 0;
             if (gamepad1.right_stick_x > 0 && gamepad1.right_stick_y <= 0) {
                 angle = Math.atan(-gamepad1.right_stick_y/gamepad1.right_stick_x)+3*Math.PI/2;
@@ -81,8 +81,8 @@ public class OttermelonTeleop extends LinearOpMode {
                 angle = 0;
             }
 
-            //angle+=offset;
-            //telemetry.addData("offset", offset);
+            angle+=offset;
+            telemetry.addData("offset", offset);
             telemetry.addData("Angle: ", Math.toDegrees(angle));
             double scale= Math.sqrt(((gamepad1.right_stick_y)*(gamepad1.right_stick_y))+((gamepad1.right_stick_x)*(gamepad1.right_stick_x)))*.75;
             double turnScale= gamepad1.left_stick_x;
