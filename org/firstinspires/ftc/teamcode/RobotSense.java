@@ -26,6 +26,8 @@ public class RobotSense {
     private TFObjectDetector tfod;
     private VuforiaLocalizer vuforia;
     double dist;
+    private static final int max_tf_iterations = 100;  
+
 
     enum Zone {
         LOADING, BUILDING
@@ -116,11 +118,11 @@ public class RobotSense {
     // index 0: 1-detected or 0-not
     // index 1 - Distance
     // index 2 - Angle
-    public double[] locateSkystone(int iterations) {
-        double[] dist_angle = new double[3];
+    public double[] locateSkystone() {
+        double[] dist_angle = new double[3]; //(whether skystone is detected or not, diag move, angle to object)
         double detected = 0;
         int count = 0;
-        while (count++ < iterations) {
+        while (count++ < max_tf_iterations) {
             if (tfod != null) {
                 List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                 if (updatedRecognitions != null) {
@@ -142,9 +144,9 @@ public class RobotSense {
         return dist_angle;
     }
 
-    private double getDistance() {
-        return dist++;
-        // return hw.sensorRange.getDistance(DistanceUnit.INCH);
+    public double getDistance() {
+        //return dist++;
+        return hw.sensorRange.getDistance(DistanceUnit.INCH);
     }
 
     // returns angle using imu
