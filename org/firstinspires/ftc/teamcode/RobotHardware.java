@@ -46,8 +46,8 @@ public class RobotHardware {
 
     public RobotHardware(String name, HardwareMap hw) {
         if (name == "OtterMelon") {
-            ticksToInchV = 62.5;
-            ticksToInchH = 57.2;
+            ticksToInchV = 57.2;
+            ticksToInchH = 62.5;
             ticksToInchR = 15.0;
             ticksToInchD = 49.0;
         } else if (name == "{Ri3D}") {
