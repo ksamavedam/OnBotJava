@@ -61,12 +61,13 @@ public class OtterMelonAutonomous extends LinearOpMode {
 
     public void playVuforia() {
 
-        double[] d = rs.locateSkystone(100);
+        double[] d = rs.locateSkystone();
         // distance and angle are valid only if the skystone is detected.
         if (d[0] == 1) {
             ssDetCount++;
             telemetry.addData("ITS A SKYSTONE, DetCount:", "%d ssNotDetCount:%d", ssDetCount, ssNotDetCount);
             telemetry.addData("Skystone Dist - Angle ", "%f - %f", d[1], d[2]);
+            telemetry.addData("actual distance", "%f", rs.getDistance());
 
         } else {
             ssNotDetCount++;
