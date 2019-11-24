@@ -33,18 +33,16 @@ public class RobotSense {
         LOADING, BUILDING
     };
 
-    enum Direction {
-        LEFT, RIGHT, NONE
-    };
-
-    public class DirectionVals {
-        RobotSense.Direction dir;
-        double distance;
+    public class SSLocation {
+        boolean detected;
+        double diagDistance;
+        double hzDistance;
         double angle;
 
-        DirectionVals() {
-            dir = Direction.NONE;
-            distance = 0;
+        SSLocation() {
+            detected = false;
+            diagDistance = 0;
+            hzDistance = 0;
             angle = 0;
         }
     };
@@ -70,21 +68,16 @@ public class RobotSense {
 
     }
 
-    void shutdown() {
+    public void shutdown() {
         if (tfod != null) {
             tfod.shutdown();
         }
     }
 
+
     // give what zone the robot is in (use the getCoordinates )
     public void getZone() {
 
-    }
-
-    // Some how this is not working; do not use this
-    // use locateSkystone instead
-    public boolean isSkystoneInSight() {
-        return false;
     }
 
     // Test function - not used anywhere
@@ -113,14 +106,9 @@ public class RobotSense {
     }
 
     // detect skystone and determine relative position in inches
-    // Pass iteration count which is number of detection attempts should be done
-    // Return array
-    // index 0: 1-detected or 0-not
-    // index 1 - Distance
-    // index 2 - Angle
-    public double[] locateSkystone() {
-        double[] dist_angle = new double[3]; //(whether skystone is detected or not, diag move, angle to object)
-        double detected = 0;
+    
+    public SSLocation locateSkystone() {
+        SSLocation ssl = new SSLocation(); 
         int count = 0;
         while (count++ < max_tf_iterations) {
             if (tfod != null) {
@@ -130,18 +118,17 @@ public class RobotSense {
                     for (Recognition recognition : updatedRecognitions) {
                         double d_angle = recognition.estimateAngleToObject(AngleUnit.DEGREES);
                         if (recognition.getLabel() == "Skystone") {
-                            dist_angle[2] = recognition.estimateAngleToObject(AngleUnit.DEGREES);
-                            detected = 1;
+                            ssl.angle = recognition.estimateAngleToObject(AngleUnit.DEGREES);
+                            ssl.detected = true;
                             break; // as soon as we detect, break and return the results
                         }
                     }
                 }
             }
         }
-        dist_angle[0] = detected;
-        dist_angle[1] = calcDiagMove(dist_angle[2], getDistance());
-
-        return dist_angle;
+        ssl.diagDistance = calcDiagMove(ssl.angle, getDistance());
+        ssl.hzDistance   = calcHorizMove(ssl.angle, getDistance());
+        return ssl;
     }
 
     public double getDistance() {
