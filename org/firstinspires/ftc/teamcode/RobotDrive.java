@@ -21,6 +21,19 @@ public class RobotDrive {
     RobotHardware hw;
     ElapsedTime mRunTime;
 
+    class Powers {
+        double topLeft;
+        double topRight; 
+        double bottomLeft;
+        double bottomRight; 
+        Powers() {
+            topLeft     = 0; 
+            topRight    = 0; 
+            bottomLeft  = 0;
+            bottomRight = 0;
+        }
+    };
+
     RobotDrive(RobotHardware rhw) {
         hw = rhw;
 
@@ -97,23 +110,23 @@ public class RobotDrive {
 
     private void moveAngle(double angle, double power) {
 
-        double[] powers = new double[4];
-        powers = move(angle, power, 0);
-        hw.tlMotor.setPower(powers[0]);
-        hw.blMotor.setPower(powers[1]);
-        hw.brMotor.setPower(powers[2]);
-        hw.trMotor.setPower(powers[3]);
+        Powers p;
+        p = move(angle, power, 0);
+        hw.tlMotor.setPower(p.topLeft);
+        hw.blMotor.setPower(p.bottomLeft);
+        hw.brMotor.setPower(p.bottomRight);
+        hw.trMotor.setPower(p.topRight);
     }
 
     public void moveTeleop(double angle, double scale, double turnScale) {
 
-        double[] powers = new double[4];
-        powers = move(angle, scale, turnScale);
+        Powers p;
+        p = move(angle, scale, turnScale);
 
-        hw.tlMotor.setPower(powers[0]);
-        hw.blMotor.setPower(powers[1]);
-        hw.brMotor.setPower(powers[2]);
-        hw.trMotor.setPower(powers[3]);
+        hw.tlMotor.setPower(p.topLeft);
+        hw.blMotor.setPower(p.bottomLeft);
+        hw.brMotor.setPower(p.bottomRight);
+        hw.trMotor.setPower(p.topRight);
     }
 
     public void proportionalTurn(double targetAngle, double time) {
@@ -151,12 +164,12 @@ public class RobotDrive {
         hw.trMotor.setPower(trPower);
     }
 
-    private double getMaxPower(double a, double b, double c, double d) {
+    private double getMaxPower(Powers p) {
 
-        a = Math.abs(a);
-        b = Math.abs(b);
-        c = Math.abs(c);
-        d = Math.abs(d);
+        double a = Math.abs(p.topLeft);
+        double b = Math.abs(p.topRight);
+        double c = Math.abs(p.bottomLeft);
+        double d = Math.abs(p.bottomRight);
         return (Math.max(a, Math.max(b, Math.max(c, d))));
 
     }
@@ -175,14 +188,10 @@ public class RobotDrive {
     }
 
     // returns powers of each motor to move at a certain angle
-    private double[] move(double angle, double scale, double turnScale) {
-        double topLeft = 0;
-        double bottomLeft = 0;
-        double bottomRight = 0;
-        double topRight = 0;
+    private Powers move(double angle, double scale, double turnScale) {
+        Powers p = new Powers() ;
         double maxPower = 0;
-        double[] powers = new double[4];
-
+        
         // DP
         // There is a problem with the scheme below. Let's say you want to make a turn
         // very fast, but while turning
@@ -192,34 +201,29 @@ public class RobotDrive {
         // well. I am suggesting a modification
         // in Slack.
         if (scale != 0.0) {
-            topLeft = (Math.cos(angle)) + -1 * (Math.sin(angle)) + turnScale * 1;
-            bottomLeft = (Math.cos(angle)) + (Math.sin(angle)) + turnScale * 1;
-            bottomRight = (Math.cos(angle)) + -1 * (Math.sin(angle)) + turnScale * -1;
-            topRight = (Math.cos(angle)) + (Math.sin(angle)) + turnScale * -1;
+             
+            p.topLeft = (Math.cos(angle)) + -1 * (Math.sin(angle)) + turnScale * 1;
+            p.bottomLeft = (Math.cos(angle)) + (Math.sin(angle)) + turnScale * 1;
+            p.bottomRight = (Math.cos(angle)) + -1 * (Math.sin(angle)) + turnScale * -1;
+            p.topRight = (Math.cos(angle)) + (Math.sin(angle)) + turnScale * -1;
 
-            maxPower = getMaxPower(topLeft, bottomLeft, bottomRight, topRight);
+            maxPower = getMaxPower(p);
 
-            topLeft = topLeft / maxPower;
-            bottomLeft = bottomLeft / maxPower;
-            bottomRight = bottomRight / maxPower;
-            topRight = topRight / maxPower;
+            p.topLeft     /=  maxPower;
+            p.bottomLeft  /=  maxPower;
+            p.bottomRight /= maxPower;
+            p.topRight    /=  maxPower;
 
-            topLeft *= scale;
-            bottomLeft *= scale;
-            bottomRight *= scale;
-            topRight *= scale;
-
-            powers[0] = topLeft;
-            powers[1] = bottomLeft;
-            powers[2] = bottomRight;
-            powers[3] = topRight;
+            p.topLeft     *= scale;
+            p.bottomLeft  *= scale;
+            p.bottomRight *= scale;
+            p.topRight    *= scale;
         } else {
-            powers[0] = 1 * turnScale;
-            powers[1] = 1 * turnScale;
-            powers[2] = -1 * turnScale;
-            powers[3] = -1 * turnScale;
-
+            p.topLeft     = turnScale;
+            p.bottomLeft  = turnScale ;
+            p.bottomRight = turnScale * -1;
+            p.topRight    = turnScale  * -1;
         }
-        return powers;
+        return p;
     }
 }

@@ -22,13 +22,13 @@ import java.lang.Math;
 
 public class OttermelonTeleop extends LinearOpMode {
     private BNO055IMU imu;
-
+    RobotHardware rh = null;
+    RobotDrive rd = null;
     public ElapsedTime mRunTime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
-        RobotHardware rh = null;
-        RobotDrive rd = null;
+
         rh = new RobotHardware("OtterMelon", hardwareMap);
         rd = new RobotDrive(rh);
         waitForStart();
@@ -36,45 +36,61 @@ public class OttermelonTeleop extends LinearOpMode {
 
             Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             double offset = -1 * Math.toRadians(angles.firstAngle);
-            double angle = 0;
-            if (gamepad1.right_stick_x > 0 && gamepad1.right_stick_y <= 0) {
-                angle = Math.atan(-gamepad1.right_stick_y / gamepad1.right_stick_x) + 3 * Math.PI / 2;
-            } else if (gamepad1.right_stick_x >= 0 && gamepad1.right_stick_y > 0) {
-                angle = Math.atan(gamepad1.right_stick_x / gamepad1.right_stick_y) + Math.PI;
-            } else if (gamepad1.right_stick_x < 0 && gamepad1.right_stick_y >= 0) {
-                angle = Math.atan(gamepad1.right_stick_y / -gamepad1.right_stick_x) + Math.PI / 2;
-            } else if (gamepad1.right_stick_x <= 0 && gamepad1.right_stick_y < 0) {
-                angle = Math.atan(gamepad1.right_stick_x / gamepad1.right_stick_y);
-            } else {
-                angle = 0;
-            }
-
+            double angle = calcAngleGP1_RtStick();
             angle += offset;
+
             telemetry.addData("offset", offset);
             telemetry.addData("Angle: ", Math.toDegrees(angle));
-            double scale = Math.sqrt(((gamepad1.right_stick_y) * (gamepad1.right_stick_y))
-                    + ((gamepad1.right_stick_x) * (gamepad1.right_stick_x))) * .75;
+
+            double scale = calcScaleGP1_RtStick();
+
             double turnScale = gamepad1.left_stick_x;
             telemetry.addData("Scale", scale);
             telemetry.addData("turnScale", turnScale);
             telemetry.update();
+
             rd.moveTeleop(angle, scale, turnScale);
-            if (gamepad1.a) {
 
-                rh.tlMotor.setPower(.5);
-            } else if (gamepad1.b) {
-
-                rh.blMotor.setPower(.5);
-            } else if (gamepad1.x) {
-
-                rh.brMotor.setPower(.4);
-            } else if (gamepad1.y) {
-
-                rh.trMotor.setPower(.4);
-            }
+            setMotPwr_GP1_abxy();
 
         }
 
     }
 
+    private void setMotPwr_GP1_abxy(){
+        
+        if (gamepad1.a) {
+            rh.tlMotor.setPower(.5);
+        } else if (gamepad1.b) {
+            rh.blMotor.setPower(.5);
+        } else if (gamepad1.x) {
+            rh.brMotor.setPower(.4);
+        } else if (gamepad1.y) {
+            rh.trMotor.setPower(.4);
+        }
+    }
+
+    private double calcScaleGP1_RtStick() {
+        double scale = 0;
+        double x = gamepad1.right_stick_x; 
+        double y = gamepad1.right_stick_y; 
+        return (Math.sqrt(((y) * (y)) + ((x) * (x))) * .75);
+    }
+
+    private double calcAngleGP1_RtStick() {
+        double angle = 0;
+        double x = gamepad1.right_stick_x; 
+        double y = gamepad1.right_stick_y; 
+        
+        if (x > 0 && y <= 0) {
+            angle = Math.atan(-y / x) + 3 * Math.PI / 2;
+        } else if (x >= 0 && y > 0) {
+            angle = Math.atan(x / y) + Math.PI;
+        } else if (x < 0 && y >= 0) {
+            angle = Math.atan(y / -x) + Math.PI / 2;
+        } else if (x <= 0 && y < 0) {
+            angle = Math.atan(x / y);
+        } 
+        return angle;
+    }
 }
