@@ -22,13 +22,13 @@ import java.lang.Math;
 
 public class OttermelonTeleop extends LinearOpMode {
     private BNO055IMU imu;
-
+    RobotHardware rh = null;
+    RobotDrive rd = null;
     public ElapsedTime mRunTime = new ElapsedTime();
 
     @Override
     public void runOpMode() {
-        RobotHardware rh = null;
-        RobotDrive rd = null;
+
         rh = new RobotHardware("OtterMelon", hardwareMap);
         rd = new RobotDrive(rh);
         waitForStart();
