@@ -116,8 +116,9 @@ public class RobotDrive {
         hw.trMotor.setPower(powers[3]);
     }
 
-    /*public void proportionalTurn(double targetAngle, double time) {
+    public void proportionalTurn(double targetAngle, double time) {
 
+        mRunTime= new ElapsedTime();
         double direction = 1;
         if (targetAngle > 180) {
             direction = -1;
@@ -135,13 +136,13 @@ public class RobotDrive {
         }
 
         setPower(0, 0, 0, 0);
-    }*/
+    }
 
-   /* private double getAngularOriFirst() {
-        //Orientation angles;
-        //angles = hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+    private double getAngularOriFirst() {
+        Orientation angles;
+        angles = hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         return (angles.firstAngle);
-    }*/
+    }
 
     public void setPower(double tlPower, double blPower, double brPower, double trPower) {
 

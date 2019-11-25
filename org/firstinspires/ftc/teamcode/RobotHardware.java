@@ -73,6 +73,11 @@ public class RobotHardware {
             // telemetry.addData("%s", "  ITS A SKYSTONE");
             brMotor.setDirection(DcMotor.Direction.REVERSE);
             trMotor.setDirection(DcMotor.Direction.REVERSE);
+
+            tlMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            blMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            brMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            trMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
         sensorRange = hwMap.get(DistanceSensor.class, "distanceS");
     }
