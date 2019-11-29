@@ -46,7 +46,7 @@ public class OtterMelonAutonomous extends LinearOpMode {
         // These must be initialized in the runOpmode
         hw = new RobotHardware(robotName, hardwareMap);
         // rd = new RobotDrive(hw);
-        rs = new RobotSense(hw, telemetry);
+        rs = new RobotSense(hw, telemetry, false);
 
         telemetry.addData("Ready! ", "Go Flamangos!"); 
         telemetry.update();
@@ -59,7 +59,16 @@ public class OtterMelonAutonomous extends LinearOpMode {
         rs.shutdown();
     }
 
-    public void playVuforia() {
+    public void playVuforia(){
+        RobotSense.VuCoordinates vc = rs.getCoordinates();
+        if(vc.detected)
+        {
+            telemetry.addData("Coordinates: ", "%s", vc.retStr);
+            telemetry.update();
+        }
+    }
+
+    public void playTfod() {
 
         RobotSense.SSLocation ssl = rs.locateSkystone();
         // distance and angle are valid only if the skystone is detected.
