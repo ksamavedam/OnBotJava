@@ -58,7 +58,9 @@ public class OtterMelonAutonomous extends LinearOpMode {
         while (opModeIsActive()) {
 
             //.\bin\ftc_http_win.exe -ub
-            goSquareThenTurn();
+            //goSquareThenTurn();
+            //LoadingZone();
+            playVuforia();
             
             break;
         }
@@ -95,7 +97,19 @@ public class OtterMelonAutonomous extends LinearOpMode {
 
     public void LoadingZone() {
 
-        rs.locateSkystone();
+        RobotSense.SSLocation ssl = rs.locateSkystone();
+
+        rd.moveDist(RobotDrive.Direction.LEFT, 5, .5);
+        rd.proportionalTurn(90,1.5);
+        if(ssl.hzDistance<0){
+
+            rd.moveDist(RobotDrive.Direction.LEFT, Math.abs(ssl.hzDistance), .5);
+        }
+        else{
+
+            rd.moveDist(RobotDrive.Direction.RIGHT, ssl.hzDistance, .5);
+        }
+        
         /*
          * double speed_for_sstone = 0.3; // why this speed ? double speed_for_blad =
          * 0.9;
