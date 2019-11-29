@@ -202,6 +202,12 @@ public class RobotDrive {
         return (angles.firstAngle);
     }
 
+    public void startIntake(double power){
+
+        hw.intakeMotorLeft.setPower(power);
+        hw.intakeMotorRight.setPower(-power);
+    }
+
     private void setPower(double tlPower, double blPower, double brPower, double trPower) {
 
         hw.tlMotor.setPower(tlPower);

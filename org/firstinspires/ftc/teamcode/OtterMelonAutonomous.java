@@ -48,6 +48,7 @@ public class OtterMelonAutonomous extends LinearOpMode {
         // These must be initialized in the runOpmode
         hw = new RobotHardware(robotName, hardwareMap);
          rd = new RobotDrive(hw);
+         rs=new RobotSense(hw, telemetry);
         //rs = new RobotSense(hw, telemetry);
 
         telemetry.addData("Ready! ", "Go Flamangos!"); 
@@ -86,15 +87,15 @@ public class OtterMelonAutonomous extends LinearOpMode {
 
     public void goSquareThenTurn() {
 
-        /*rd.moveDist(RobotDrive.Direction.FORWARD, 15, .5);
-        rd.moveDist(RobotDrive.Direction.LEFT, 15, .5);
-        rd.moveDist(RobotDrive.Direction.REVERSE, 15, .5);
+        rd.moveDist(RobotDrive.Direction.FORWARD, 27, .5);
         rd.moveDist(RobotDrive.Direction.RIGHT, 15, .5);
-        */
-        rd.proportionalTurn(180, 1.5);
+        rd.startIntake(.4);
+        rd.moveDist(RobotDrive.Direction.FORWARD, 15, .3);
     }
 
     public void LoadingZone() {
+
+        rs.locateSkystone();
         /*
          * double speed_for_sstone = 0.3; // why this speed ? double speed_for_blad =
          * 0.9;

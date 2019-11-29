@@ -76,6 +76,8 @@ public class OttermelonTeleop extends LinearOpMode {
                 rh.trMotor.setPower(.4);
             }
 
+            rd.startIntake(gamepad1.left_trigger);
+
            // rh.intakeMotorLeft.setPower(gamepad1.left_trigger);
             //rh.intakeMotorRight.setPower(-gamepad1.right_trigger);
 
