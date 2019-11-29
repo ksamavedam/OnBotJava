@@ -32,7 +32,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "SkyStoneAuto", group = "Linear Opmode")
+@Autonomous(name = "OtterMelonAutonomous", group = "Linear Opmode")
 public class OtterMelonAutonomous extends LinearOpMode {
     RobotHardware hw = null;
     private RobotDrive rd = null;
@@ -48,85 +48,24 @@ public class OtterMelonAutonomous extends LinearOpMode {
         // These must be initialized in the runOpmode
         hw = new RobotHardware(robotName, hardwareMap);
          rd = new RobotDrive(hw);
-        rs = new RobotSense(hw, telemetry);
+        //rs = new RobotSense(hw, telemetry);
 
         telemetry.addData("Ready! ", "Go Flamangos!"); 
         telemetry.update();
 
         waitForStart();
         while (opModeIsActive()) {
-            //playVuforia();
 
+            //.\bin\ftc_http_win.exe -ub
+            goSquareThenTurn();
             
-            Orientation angles= hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            double currentAngle=angles.secondAngle;
-            double targetAngle=90.0;
-            telemetry.addData("current angle" ,currentAngle);
-            telemetry.addData("target angle", targetAngle);
-            telemetry.update();
-            proportionalTurn(targetAngle,1.5);
             break;
         }
 
-        rs.shutdown();
+        //rs.shutdown();
     }
 
-    public void proportionalTurn(double targetAngle, double time) {
-
-        Orientation angles= hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        mRunTime= new ElapsedTime();
-        double direction = 1;
-        if (targetAngle > 180) {
-            direction = -1;
-            targetAngle = targetAngle - 360;
-        }
-
-        double delta = (targetAngle - angles.firstAngle);
-
-        mRunTime.reset();
-        while (mRunTime.time() < time) {
-            angles= hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            delta = (targetAngle - angles.firstAngle);
-            telemetry.addData("current angle", angles.firstAngle);
-            //telemetry.addData("delta", delta);
-            telemetry.update();
-            double power = (delta * .025);
-            power = (Math.min(Math.abs(power), .75)) * (Math.abs(power) / power) ;
-            setPower(-power* direction, -power* direction, power* direction, power* direction);
-        }
-
-        setPower(0, 0, 0, 0);
-    }
-
-    public void turn(double targetAngle){
-        Orientation angles= hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        double direction = .75;
-        if (targetAngle > 180) {
-            direction = -1*direction;
-            targetAngle = targetAngle - 360;
-        }
-        while(targetAngle-angles.firstAngle>0){
-            angles= hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            telemetry.addData("current angle", angles.firstAngle);
-            telemetry.update();
-            setPower(-direction, -direction, direction, direction);
-        }
-        setPower(0, 0, 0, 0);
-    }
-
-    private double getAngularOriFirst() {
-        Orientation angles;
-        angles = hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        return (angles.firstAngle);
-    }
-
-    public void setPower(double tlPower, double blPower, double brPower, double trPower) {
-
-        hw.tlMotor.setPower(tlPower);
-        hw.blMotor.setPower(blPower);
-        hw.brMotor.setPower(brPower);
-        hw.trMotor.setPower(trPower);
-    }
+    
 
 
     public void playVuforia() {
@@ -145,12 +84,14 @@ public class OtterMelonAutonomous extends LinearOpMode {
         telemetry.update();
     }
 
-    public void goSquare() {
+    public void goSquareThenTurn() {
 
-        rd.moveDist(RobotDrive.Direction.FORWARD, 15, .5);
+        /*rd.moveDist(RobotDrive.Direction.FORWARD, 15, .5);
         rd.moveDist(RobotDrive.Direction.LEFT, 15, .5);
         rd.moveDist(RobotDrive.Direction.REVERSE, 15, .5);
         rd.moveDist(RobotDrive.Direction.RIGHT, 15, .5);
+        */
+        rd.proportionalTurn(180, 1.5);
     }
 
     public void LoadingZone() {
