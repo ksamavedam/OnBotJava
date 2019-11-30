@@ -21,6 +21,8 @@ import com.qualcomm.robotcore.util.Range;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
+import org.firstinspires.ftc.teamcode.RobotDrive.Direction;
+
 import java.util.List;
 import java.lang.*;
 import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -59,13 +61,13 @@ public class OtterMelonAutonomous extends LinearOpMode {
 
             //.\bin\ftc_http_win.exe -ub
             //goSquareThenTurn();
-            //LoadingZone();
-            playVuforia();
+            LoadingZone();
+            //playVuforia();
             
             break;
         }
 
-        //rs.shutdown();
+        rs.shutdown();
     }
 
     
@@ -91,7 +93,9 @@ public class OtterMelonAutonomous extends LinearOpMode {
 
         rd.moveDist(RobotDrive.Direction.FORWARD, 27, .5);
         rd.moveDist(RobotDrive.Direction.RIGHT, 15, .5);
-        rd.startIntake(.4);
+        rd.proportionalTurn(90,1.5);
+        rd.resetEncoders();
+        //rd.startIntake(.4);
         rd.moveDist(RobotDrive.Direction.FORWARD, 15, .3);
     }
 
@@ -99,16 +103,22 @@ public class OtterMelonAutonomous extends LinearOpMode {
 
         RobotSense.SSLocation ssl = rs.locateSkystone();
 
+        telemetry.addData("distance", rs.getDistance());
+        telemetry.addData("H dist", "%f", ssl.hzDistance);
+        telemetry.update();
         rd.moveDist(RobotDrive.Direction.LEFT, 5, .5);
-        rd.proportionalTurn(90,1.5);
+        double dist=rs.getDistance();
         if(ssl.hzDistance<0){
 
-            rd.moveDist(RobotDrive.Direction.LEFT, Math.abs(ssl.hzDistance), .5);
+            rd.moveDist(RobotDrive.Direction.REVERSE, Math.abs(ssl.hzDistance)+5, .5);
         }
         else{
 
-            rd.moveDist(RobotDrive.Direction.RIGHT, ssl.hzDistance, .5);
+            rd.moveDist(RobotDrive.Direction.FORWARD, ssl.hzDistance+5, .5);
         }
+        rd.moveDist(RobotDrive.Direction.LEFT, dist, .5);
+        rd.resetEncoders();
+        
         
         /*
          * double speed_for_sstone = 0.3; // why this speed ? double speed_for_blad =
