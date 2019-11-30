@@ -18,7 +18,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import java.util.Arrays;
 import java.lang.Math;
 
-@TeleOp(name = "OTttermelonTeleop", group = "TeleOpModes")
+@TeleOp(name = "OtttermelonTeleop", group = "TeleOpModes")
 
 public class OttermelonTeleop extends LinearOpMode {
     private BNO055IMU imu;
@@ -33,8 +33,8 @@ public class OttermelonTeleop extends LinearOpMode {
         rd = new RobotDrive(rh);
         waitForStart();
         while (opModeIsActive()) {
-
-            Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            Orientation angles= rh.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            //Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             double offset = -1 * Math.toRadians(angles.firstAngle);
             double angle = 0;
             if (gamepad1.right_stick_x > 0 && gamepad1.right_stick_y <= 0) {
@@ -61,9 +61,12 @@ public class OttermelonTeleop extends LinearOpMode {
             rd.moveTeleop(angle, scale, turnScale);
             if (gamepad1.a) {
 
+                //rh.intakeMotorLeft.setPower(.4);
+                //rh.intakeMotorRight.setPower(-.4);
                 rh.tlMotor.setPower(.5);
             } else if (gamepad1.b) {
-
+                //rh.intakeMotorLeft.setPower(.4);
+                //rh.intakeMotorRight.setPower(-.4);
                 rh.blMotor.setPower(.5);
             } else if (gamepad1.x) {
 
@@ -72,6 +75,11 @@ public class OttermelonTeleop extends LinearOpMode {
 
                 rh.trMotor.setPower(.4);
             }
+
+            rd.startIntake(gamepad1.left_trigger);
+
+           // rh.intakeMotorLeft.setPower(gamepad1.left_trigger);
+            //rh.intakeMotorRight.setPower(-gamepad1.right_trigger);
 
         }
 

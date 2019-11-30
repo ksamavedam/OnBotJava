@@ -57,6 +57,8 @@ public class RobotHardware {
             blMotor = hwMap.get(DcMotor.class, "bottomLeft");
             brMotor = hwMap.get(DcMotor.class, "bottomRight");
             trMotor = hwMap.get(DcMotor.class, "topRight");
+            intakeMotorLeft=hwMap.get(DcMotor.class, "leftIntake");
+            intakeMotorRight=hwMap.get(DcMotor.class, "rightIntake");
 
             imu = hwMap.get(BNO055IMU.class, "imu");
             BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
@@ -69,9 +71,17 @@ public class RobotHardware {
             // Initialize IMU.
             imu.initialize(imuParameters);
             // telemetry.addData("%s", "  ITS A SKYSTONE");
+            brMotor.setDirection(DcMotor.Direction.REVERSE);
+            trMotor.setDirection(DcMotor.Direction.REVERSE);
+
+            tlMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            blMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            brMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            trMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
         sensorRange = hwMap.get(DistanceSensor.class, "distanceS");
     }
+    
     public double getTicksToInchV() {return ticksToInchV; }
     public double getTicksToInchH() {return ticksToInchH; }
     public double getTicksToInchR() {return ticksToInchR; }
