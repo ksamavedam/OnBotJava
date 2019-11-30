@@ -52,34 +52,43 @@ public class RobotHardware {
         }
 
         hwMap = hw;
+        tlMotor = hwMap.get(DcMotor.class, "topLeft");
+        blMotor = hwMap.get(DcMotor.class, "bottomLeft");
+        brMotor = hwMap.get(DcMotor.class, "bottomRight");
+        trMotor = hwMap.get(DcMotor.class, "topRight");
+        
+
+        imu = hwMap.get(BNO055IMU.class, "imu");
+        BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
+        // Use degrees as angle unit.
+        imuParameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        // Express acceleration as m/s^2.
+        imuParameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        // Disable logging.
+        imuParameters.loggingEnabled = false;
+        // Initialize IMU.
+        imu.initialize(imuParameters);
+        
+        tlMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        blMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        brMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        trMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
         if (name == "OtterMelon") {
-            tlMotor = hwMap.get(DcMotor.class, "topLeft");
-            blMotor = hwMap.get(DcMotor.class, "bottomLeft");
-            brMotor = hwMap.get(DcMotor.class, "bottomRight");
-            trMotor = hwMap.get(DcMotor.class, "topRight");
             intakeMotorLeft=hwMap.get(DcMotor.class, "leftIntake");
             intakeMotorRight=hwMap.get(DcMotor.class, "rightIntake");
-
-            imu = hwMap.get(BNO055IMU.class, "imu");
-            BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
-            // Use degrees as angle unit.
-            imuParameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
-            // Express acceleration as m/s^2.
-            imuParameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
-            // Disable logging.
-            imuParameters.loggingEnabled = false;
-            // Initialize IMU.
-            imu.initialize(imuParameters);
+            sensorRange = hwMap.get(DistanceSensor.class, "distanceS");    
+           
             // telemetry.addData("%s", "  ITS A SKYSTONE");
             brMotor.setDirection(DcMotor.Direction.REVERSE);
             trMotor.setDirection(DcMotor.Direction.REVERSE);
 
-            tlMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            blMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            brMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-            trMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         }
-        sensorRange = hwMap.get(DistanceSensor.class, "distanceS");
+        
+        else if (name == "AppleBee") {
+                tlMotor.setDirection(DcMotor.Direction.REVERSE);
+                brMotor.setDirection(DcMotor.Direction.REVERSE);
+        } 
     }
     
     public double getTicksToInchV() {return ticksToInchV; }

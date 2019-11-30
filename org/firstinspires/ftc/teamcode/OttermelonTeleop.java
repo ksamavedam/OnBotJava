@@ -29,7 +29,7 @@ public class OttermelonTeleop extends LinearOpMode {
     public void runOpMode() {
         RobotHardware rh = null;
         RobotDrive rd = null;
-        rh = new RobotHardware("OtterMelon", hardwareMap);
+        rh = new RobotHardware("AppleBee", hardwareMap);
         rd = new RobotDrive(rh);
         waitForStart();
         while (opModeIsActive()) {
@@ -76,7 +76,7 @@ public class OttermelonTeleop extends LinearOpMode {
                 rh.trMotor.setPower(.4);
             }
 
-            rd.startIntake(gamepad1.left_trigger);
+           // rd.startIntake(gamepad1.left_trigger);
 
            // rh.intakeMotorLeft.setPower(gamepad1.left_trigger);
             //rh.intakeMotorRight.setPower(-gamepad1.right_trigger);
