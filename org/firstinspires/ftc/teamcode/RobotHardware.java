@@ -19,6 +19,9 @@ public class RobotHardware {
     public DcMotor blMotor=null;
     public DcMotor brMotor=null;
     public DcMotor trMotor=null;
+    public DcMotor rMotor=null;
+    public DcMotor lMotor=null;
+
     public DcMotor intakeMotorLeft=null;
     public DcMotor intakeMotorRight=null;
     public DistanceSensor sensorRange=null;
@@ -52,12 +55,12 @@ public class RobotHardware {
         }
 
         hwMap = hw;
-        tlMotor = hwMap.get(DcMotor.class, "topLeft");
-        blMotor = hwMap.get(DcMotor.class, "bottomLeft");
-        brMotor = hwMap.get(DcMotor.class, "bottomRight");
-        trMotor = hwMap.get(DcMotor.class, "topRight");
+        rMotor = hwMap.get(DcMotor.class, "right");
+        lMotor = hwMap.get(DcMotor.class, "left");
+        lMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        rMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         
-
+/*
         imu = hwMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
         // Use degrees as angle unit.
@@ -88,13 +91,15 @@ public class RobotHardware {
         else if (name == "AppleBee") {
                 tlMotor.setDirection(DcMotor.Direction.REVERSE);
                 brMotor.setDirection(DcMotor.Direction.REVERSE);
-        } 
+        }
+        */ 
     }
     
     public double getTicksToInchV() {return ticksToInchV; }
     public double getTicksToInchH() {return ticksToInchH; }
     public double getTicksToInchR() {return ticksToInchR; }
     public double getTicksToInchD() {return ticksToInchD; }
+    
     public void initTfod() {
         int tfodMonitorViewId = hwMap.appContext.getResources().getIdentifier("tfodMonitorViewId", "id",
         hwMap.appContext.getPackageName());
