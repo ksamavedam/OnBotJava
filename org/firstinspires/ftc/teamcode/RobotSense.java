@@ -38,12 +38,16 @@ public class RobotSense {
         double diagDistance;
         double hzDistance;
         double angle;
+        String name;
+        int position;
 
         SSLocation() {
             detected = false;
             diagDistance = 0;
             hzDistance = 0;
             angle = 0;
+            name = "";
+            position = 0; 
         }
     };
 
@@ -110,22 +114,29 @@ public class RobotSense {
     public SSLocation locateSkystone() {
         SSLocation ssl = new SSLocation(); 
         int count = 0;
+        int recCount = 0;
         while (count++ < max_tf_iterations) {
             if (tfod != null) {
                 List<Recognition> updatedRecognitions = tfod.getUpdatedRecognitions();
                 if (updatedRecognitions != null) {
 
                     for (Recognition recognition : updatedRecognitions) {
+                        recCount ++;
                         double d_angle = recognition.estimateAngleToObject(AngleUnit.DEGREES);
                         if (recognition.getLabel() == "Skystone") {
                             ssl.angle = recognition.estimateAngleToObject(AngleUnit.DEGREES);
                             ssl.detected = true;
+                            ssl.name = "skystone hehe";
+                            ssl.position = recCount;
                             break; // as soon as we detect, break and return the results
                         }
+                        ssl.name = "stone ha";
+
                     }
                 }
             }
         }
+        //ssl.objectName = recognition.getLabel();
         ssl.diagDistance = calcDiagMove(ssl.angle, getDistance());
         ssl.hzDistance   = calcHorizMove(ssl.angle, getDistance());
         return ssl;
