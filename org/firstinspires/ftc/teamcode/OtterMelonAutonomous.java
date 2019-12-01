@@ -41,6 +41,10 @@ public class OtterMelonAutonomous extends LinearOpMode {
     private RobotSense rs = null;
     //private static final String robotName = "VuforiaTest";
      private static final String robotName = "OtterMelon";
+    private static final double initialRDist = 31.5;
+    private static final double toMoveRDist = 25;
+
+
     int ssDetCount = 0;
     int ssNotDetCount = 0;
     ElapsedTime mRunTime;
@@ -63,8 +67,9 @@ public class OtterMelonAutonomous extends LinearOpMode {
             //goSquareThenTurn();
             LoadingZone();
             //playVuforia();
-            
-            break;
+            //angleTest();
+                    
+            //break;
         }
 
         rs.shutdown();
@@ -98,26 +103,45 @@ public class OtterMelonAutonomous extends LinearOpMode {
         //rd.startIntake(.4);
         rd.moveDist(RobotDrive.Direction.FORWARD, 15, .3);
     }
+   
+  /*  public void angleTest() {
+        while(rs.getDistance = )
+        rd.moveAngle(Math.toRadians(30), .5);     
+    }*/
+
 
     public void LoadingZone() {
 
         RobotSense.SSLocation ssl = rs.locateSkystone();
 
+        //get: rs. position; 
+
         telemetry.addData("distance", rs.getDistance());
         telemetry.addData("H dist", "%f", ssl.hzDistance);
+        telemetry.addData("angle in deg", "%f", ssl.angle);
+        telemetry.addData("object name", ssl.name);
         telemetry.update();
-        rd.moveDist(RobotDrive.Direction.LEFT, 5, .5);
-        double dist=rs.getDistance();
-        if(ssl.hzDistance<0){
 
-            rd.moveDist(RobotDrive.Direction.REVERSE, Math.abs(ssl.hzDistance)+5, .5);
+        rd.moveDist(RobotDrive.Direction.LEFT, toMoveRDist-0, .5);
+        double dist=rs.getDistance();
+
+        if(ssl.hzDistance<0){
+            rd.moveDist(RobotDrive.Direction.REVERSE, Math.abs(ssl.hzDistance)+2, .5);
         }
         else{
 
-            rd.moveDist(RobotDrive.Direction.FORWARD, ssl.hzDistance+5, .5);
+            rd.moveDist(RobotDrive.Direction.FORWARD, ssl.hzDistance+2, .5);
         }
-        rd.moveDist(RobotDrive.Direction.LEFT, dist, .5);
+        telemetry.addData("new dist", "%f", dist);
+        telemetry.addData("new hzdist", ssl.hzDistance);
+
+        telemetry.update();
+
+        rd.proportionalTurn(90, 1.5);
         rd.resetEncoders();
+        rd.startIntake(.3);
+        rd.moveDist(RobotDrive.Direction.FORWARD, 17, .2);
+
         
         
         /*
