@@ -29,7 +29,7 @@ public class OttermelonTeleop extends LinearOpMode {
     public void runOpMode() {
         RobotHardware rh = null;
         RobotDrive rd = null;
-        rh = new RobotHardware("AppleBee", hardwareMap);
+        rh = new RobotHardware("OtterMelon", hardwareMap);
         rd = new RobotDrive(rh);
         waitForStart();
         while (opModeIsActive()) {

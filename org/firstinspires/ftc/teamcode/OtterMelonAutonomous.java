@@ -34,7 +34,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "OtterMelonAutonomous", group = "Linear Opmode")
+@Autonomous(name = "OtterMelonAutonomous1", group = "Linear Opmode")
 public class OtterMelonAutonomous extends LinearOpMode {
     RobotHardware hw = null;
     private RobotDrive rd = null;
@@ -65,11 +65,12 @@ public class OtterMelonAutonomous extends LinearOpMode {
 
             //.\bin\ftc_http_win.exe -ub
             //goSquareThenTurn();
+            //rd.moveDist(RobotDrive.Direction.LEFT, 15, .5);
             LoadingZone();
             //playVuforia();
             //angleTest();
                     
-            //break;
+            break;
         }
 
         rs.shutdown();
@@ -101,6 +102,7 @@ public class OtterMelonAutonomous extends LinearOpMode {
         rd.proportionalTurn(90,1.5);
         rd.resetEncoders();
         //rd.startIntake(.4);
+
         rd.moveDist(RobotDrive.Direction.FORWARD, 15, .3);
     }
    
@@ -112,17 +114,57 @@ public class OtterMelonAutonomous extends LinearOpMode {
 
     public void LoadingZone() {
 
-        RobotSense.SSLocation ssl = rs.locateSkystone();
+        RobotSense.SSLocation ssl; 
 
+        double position=1;
+        double h_disp=0;
         //get: rs. position; 
+        //rd.moveDist(RobotDrive.Direction.LEFT, 10, .5);
+        ssl= rs.locateSkystone();
+        if(!ssl.detected){
 
-        telemetry.addData("distance", rs.getDistance());
-        telemetry.addData("H dist", "%f", ssl.hzDistance);
-        telemetry.addData("angle in deg", "%f", ssl.angle);
-        telemetry.addData("object name", ssl.name);
+            position=2;
+            h_disp=4.5;
+            rd.moveDist(RobotDrive.Direction.RIGHT, h_disp, .5);
+        }
+        else if((ssl.angle>-5 && ssl.angle<=10)){
+
+            position=2;
+            h_disp=4.5;
+            rd.moveDist(RobotDrive.Direction.RIGHT, h_disp, .5);
+        }
+        else if(ssl.angle>13){
+
+            h_disp=12.5;
+            position=3;
+            rd.moveDist(RobotDrive.Direction.RIGHT, h_disp, .5);
+        }
+        else{
+
+            position=1;
+            h_disp=3.5;
+            rd.moveDist(RobotDrive.Direction.LEFT, h_disp, .5);
+        }
+        
+        if(ssl.detected){
+        telemetry.addData("position", position);
+        //telemetry.addData("Skystone DDist -HDist - Angle ", "%f  %f  %f", ssl.diagDistance, ssl.hzDistance, ssl.angle);
+
+        telemetry.addData("angle", ssl.angle);
         telemetry.update();
+        }
+        else{
+            telemetry.addData("NOT DETECTED", 0);
+            telemetry.update();
+    
+        }
 
-        rd.moveDist(RobotDrive.Direction.LEFT, toMoveRDist-0, .5);
+        rd.moveDist(RobotDrive.Direction.FORWARD, 31, .5);
+        rd.startIntake(.4);
+        rd.moveDist(RobotDrive.Direction.FORWARD, 10, .3);
+        
+
+        /*rd.moveDist(RobotDrive.Direction.LEFT, toMoveRDist-0, .5);
         double dist=rs.getDistance();
 
         if(ssl.hzDistance<0){
