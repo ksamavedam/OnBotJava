@@ -130,7 +130,8 @@ public class RobotSense {
                             ssl.position = recCount;
                             break; // as soon as we detect, break and return the results
                         }
-                        ssl.name = "stone ha";
+                        else 
+                            ssl.name = "stone ha";
 
                     }
                 }
