@@ -49,11 +49,11 @@ public class OttermelonTeleop extends LinearOpMode {
                 angle = 0;
             }
 
-            angle += offset;
+           // angle += offset;
             telemetry.addData("offset", offset);
             telemetry.addData("Angle: ", Math.toDegrees(angle));
             double scale = Math.sqrt(((gamepad1.right_stick_y) * (gamepad1.right_stick_y))
-                    + ((gamepad1.right_stick_x) * (gamepad1.right_stick_x))) * .75;
+                    + ((gamepad1.right_stick_x) * (gamepad1.right_stick_x))) ;
             double turnScale = gamepad1.left_stick_x;
             telemetry.addData("Scale", scale);
             telemetry.addData("turnScale", turnScale);
@@ -61,19 +61,25 @@ public class OttermelonTeleop extends LinearOpMode {
             rd.moveTeleop(angle, scale, turnScale);
             if (gamepad1.a) {
 
-                //rh.intakeMotorLeft.setPower(.4);
-                //rh.intakeMotorRight.setPower(-.4);
+                //rh.intakeMotorLeft.setPower(-.4);
+                //rh.intakeMotorRight.setPower(.4);
                 rh.tlMotor.setPower(.5);
+                telemetry.addData(" tl Motor: ",rh.tlMotor.getCurrentPosition());
             } else if (gamepad1.b) {
-                //rh.intakeMotorLeft.setPower(.4);
-                //rh.intakeMotorRight.setPower(-.4);
+
+                //rh.intakeMotorLeft.setPower(.35);
+                //rh.intakeMotorRight.setPower(-.35);
                 rh.blMotor.setPower(.5);
-            } else if (gamepad1.x) {
+                telemetry.addData(" bl Motor: ",rh.blMotor.getCurrentPosition());
+            } 
+            else if (gamepad1.x) {
 
                 rh.brMotor.setPower(.4);
+                telemetry.addData("br motor: ", rh.brMotor.getCurrentPosition());
             } else if (gamepad1.y) {
 
                 rh.trMotor.setPower(.4);
+                telemetry.addData("tr Motor: ", rh.trMotor.getCurrentPosition());
             }
 
            // rd.startIntake(gamepad1.left_trigger);
