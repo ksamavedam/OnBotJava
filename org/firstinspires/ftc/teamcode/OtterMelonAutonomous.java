@@ -55,7 +55,7 @@ public class OtterMelonAutonomous extends LinearOpMode {
         hw = new RobotHardware(robotName, hardwareMap);
          rd = new RobotDrive(hw);
          rs=new RobotSense(hw, telemetry);
-        //rs = new RobotSense(hw, telemetry);
+        rs = new RobotSense(hw, telemetry);
 
         telemetry.addData("Ready! ", "Go Flamangos!"); 
         telemetry.update();
