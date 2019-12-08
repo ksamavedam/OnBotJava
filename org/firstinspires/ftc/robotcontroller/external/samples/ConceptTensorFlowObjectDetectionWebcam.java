@@ -38,7 +38,6 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.tfod.TFObjectDetector;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaSkyStone;
 
 /**
  * This 2019-2020 OpMode illustrates the basics of using the TensorFlow Object Detection API to
@@ -77,9 +76,6 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
      * localization engine.
      */
     private VuforiaLocalizer vuforia;
-
-    private VuforiaSkyStone vuforiaSkyStone;
-
 
     /**
      * {@link #tfod} is the variable we will use to store our instance of the TensorFlow Object
@@ -156,13 +152,10 @@ public class ConceptTensorFlowObjectDetectionWebcam extends LinearOpMode {
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
         parameters.cameraName = hardwareMap.get(WebcamName.class, "Webcam 1");
 
-
         //  Instantiate the Vuforia engine
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
 
         // Loading trackables is not necessary for the TensorFlow Object Detection engine.
-
-        
     }
 
     /**
