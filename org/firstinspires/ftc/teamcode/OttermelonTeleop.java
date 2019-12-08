@@ -53,7 +53,7 @@ public class OttermelonTeleop extends LinearOpMode {
             telemetry.addData("offset", offset);
             telemetry.addData("Angle: ", Math.toDegrees(angle));
             double scale = Math.sqrt(((gamepad1.right_stick_y) * (gamepad1.right_stick_y))
-                    + ((gamepad1.right_stick_x) * (gamepad1.right_stick_x))) * .75;
+                    + ((gamepad1.right_stick_x) * (gamepad1.right_stick_x))) ;
             double turnScale = gamepad1.left_stick_x;
             telemetry.addData("Scale", scale);
             telemetry.addData("turnScale", turnScale);
