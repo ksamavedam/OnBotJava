@@ -22,6 +22,8 @@ public class RobotHardware {
     public DcMotor trMotor=null;
     public DcMotor intakeMotorLeft=null;
     public DcMotor intakeMotorRight=null;
+    public DcMotor slideRight;
+    public DcMotor slideLeft;
     public DistanceSensor sensorRange=null;
     public Servo gripper;
     public Servo armRight;
@@ -87,11 +89,13 @@ public class RobotHardware {
         if (name == "OtterMelon") {
             intakeMotorLeft=hwMap.get(DcMotor.class, "leftIntake");
             intakeMotorRight=hwMap.get(DcMotor.class, "rightIntake");
-            sensorRange = hwMap.get(DistanceSensor.class, "distanceS");    
+            sensorRange = hwMap.get(DistanceSensor.class, "distanceS"); 
+            slideLeft=hwMap.get(DcMotor.class, "slideLeft");
+            slideRight=hwMap.get(DcMotor.class, "slideRight");   
            
             // telemetry.addData("%s", "  ITS A SKYSTONE");
+            tlMotor.setDirection(DcMotor.Direction.REVERSE);
             brMotor.setDirection(DcMotor.Direction.REVERSE);
-            trMotor.setDirection(DcMotor.Direction.REVERSE);
 
         }
         
