@@ -61,25 +61,17 @@ public class OttermelonTeleop extends LinearOpMode {
             rd.moveTeleop(angle, scale, turnScale);
             if (gamepad1.a) {
 
-                //rh.intakeMotorLeft.setPower(-.4);
-                //rh.intakeMotorRight.setPower(.4);
-                rh.tlMotor.setPower(.5);
-                telemetry.addData(" tl Motor: ",rh.tlMotor.getCurrentPosition());
+                rh.level.setPosition(0);
             } else if (gamepad1.b) {
 
-                //rh.intakeMotorLeft.setPower(.35);
-                //rh.intakeMotorRight.setPower(-.35);
-                rh.blMotor.setPower(.5);
-                telemetry.addData(" bl Motor: ",rh.blMotor.getCurrentPosition());
+                rh.level.setPosition(.5);
             } 
             else if (gamepad1.x) {
 
-                rh.brMotor.setPower(.4);
-                telemetry.addData("br motor: ", rh.brMotor.getCurrentPosition());
+                rh.level.setPosition(1);
             } else if (gamepad1.y) {
 
-                rh.trMotor.setPower(.4);
-                telemetry.addData("tr Motor: ", rh.trMotor.getCurrentPosition());
+                
             }
 
            // rd.startIntake(gamepad1.left_trigger);
