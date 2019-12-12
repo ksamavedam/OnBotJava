@@ -34,7 +34,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "OtterMelonAutonomous1", group = "Linear Opmode")
+@Autonomous(name = "OtterMelonAutonomous", group = "Linear Opmode")
 public class OtterMelonAutonomous extends LinearOpMode {
     RobotHardware hw = null;
     private RobotDrive rd = null;
@@ -55,7 +55,7 @@ public class OtterMelonAutonomous extends LinearOpMode {
         hw = new RobotHardware(robotName, hardwareMap);
          rd = new RobotDrive(hw);
          rs=new RobotSense(hw, telemetry);
-        rs = new RobotSense(hw, telemetry);
+         rs = new RobotSense(hw, telemetry);
 
         telemetry.addData("Ready! ", "Go Flamangos!"); 
         telemetry.update();
@@ -64,9 +64,9 @@ public class OtterMelonAutonomous extends LinearOpMode {
         while (opModeIsActive()) {
 
             //.\bin\ftc_http_win.exe -ub
-            //goSquareThenTurn();
+            goSquareThenTurn();
             //rd.moveDist(RobotDrive.Direction.LEFT, 15, .5);
-            LoadingZone();
+           // LoadingZone();
             //playVuforia();
             //angleTest();
                     
