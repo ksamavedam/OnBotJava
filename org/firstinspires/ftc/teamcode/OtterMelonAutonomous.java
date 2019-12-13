@@ -54,7 +54,6 @@ public class OtterMelonAutonomous extends LinearOpMode {
         // These must be initialized in the runOpmode
         hw = new RobotHardware(robotName, hardwareMap);
          rd = new RobotDrive(hw);
-         rs=new RobotSense(hw, telemetry);
          rs = new RobotSense(hw, telemetry);
 
         telemetry.addData("Ready! ", "Go Flamangos!"); 
@@ -64,9 +63,9 @@ public class OtterMelonAutonomous extends LinearOpMode {
         while (opModeIsActive()) {
 
             //.\bin\ftc_http_win.exe -ub
-            goSquareThenTurn();
+            //goSquareThenTurn();
             //rd.moveDist(RobotDrive.Direction.LEFT, 15, .5);
-           // LoadingZone();
+              LoadingZone();
             //playVuforia();
             //angleTest();
                     

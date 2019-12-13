@@ -109,10 +109,12 @@ public class RobotHardware {
     public double getTicksToInchH() {return ticksToInchH; }
     public double getTicksToInchR() {return ticksToInchR; }
     public double getTicksToInchD() {return ticksToInchD; }
+
     public void initTfod() {
         int tfodMonitorViewId = hwMap.appContext.getResources().getIdentifier("tfodMonitorViewId", "id",
         hwMap.appContext.getPackageName());
-        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+       //TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
+        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters();
         tfodParameters.minimumConfidence = 0.8;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
@@ -121,7 +123,7 @@ public class RobotHardware {
     public void initVuforia() {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        parameters.cameraDirection = CameraDirection.BACK;
+        //parameters.cameraDirection = CameraDirection.BACK;
         parameters.cameraName = hwMap.get(WebcamName.class, "Webcam 1");
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
     }
