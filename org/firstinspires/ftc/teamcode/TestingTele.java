@@ -45,6 +45,7 @@ public class TestingTele extends LinearOpMode {
                 s1Pos=.4;
             } else if (gamepad1.b) {
                 telemetry.addData("HI", "HI");
+                telemetry.update();
                 gripper.setPosition(.5);
                 s1Pos=.2;
             } 
