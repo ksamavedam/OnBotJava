@@ -33,6 +33,8 @@ public class OttermelonTeleop extends LinearOpMode {
         rd = new RobotDrive(rh);
         waitForStart();
         while (opModeIsActive()) {
+            //DRIVER 1 CONTROLS
+            //*************************************************************************************/
             Orientation angles= rh.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             //Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             double offset = -1 * Math.toRadians(angles.firstAngle);
@@ -81,10 +83,59 @@ public class OttermelonTeleop extends LinearOpMode {
                 rh.trMotor.setPower(.5);
             }
 
-           // rd.startIntake(gamepad1.left_trigger);
+            // rd.startIntake(gamepad1.left_trigger);
+            /***************************************************************************** */
+            //DRIVER 2 CONTROLS
+            /***************************************************************************** */
+            
+            //Normal Speed Slides (Left Joystick)
+            rh.slideLeft.setPower(gamepad2.left_stick_y);
+            rh.slideRight.setPower(gamepad2.left_stick_y);
 
-           rh.slideLeft.setPower(gamepad2.left_stick_y);
-           rh.slideRight.setPower(gamepad2.left_stick_y);
+            //Intake (Left Trigger)
+            if (gamepad2.left_trigger > 0){
+                rh.rightIntake.setPower(.45);
+                rh.leftIntake.setPower(-.45);
+            }
+
+            //Outtake (Right Trigger)
+            else if (gamepad2.right_trigger > 0){
+                //Getting the gripper out of the way of the block
+                rh.gripper.setPosition(0);
+                rh.rightIntake.setPower(-.45);
+                rh.leftIntake.setPower(.45);
+            }
+
+            //Stop Intake (Passive)
+            else {
+                rh.rightIntake.setPower(0);
+                rh.leftIntake.setPower(0);
+            }
+
+            //Grip the stone (Button X)
+            if (gamepad2.x){
+                rh.gripper.setPosition(.6);
+            }
+
+            //Drop the stone (Button Y)
+            else if (gamepad2.y){
+                rh.gripper.setPosition(.45);
+            }
+
+            //Arm in the robot (Button A) TEST
+            if (gamepad2.a){
+                s1Pos = 0;
+            }
+
+            //Arm in scoring position (Button B) TEST
+            else if (gamepad2.b){
+                s1Pos = .6;
+            }
+            
+            rh.armRight.setPosition(1-s1Pos);
+            rh.armLeft.setPosition(s1Pos);
+            rh.level.setPosition(s1Pos+.05);
+            /***************************************************************************** */
         }
 
     }

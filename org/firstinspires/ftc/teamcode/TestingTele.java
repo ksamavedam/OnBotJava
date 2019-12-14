@@ -70,7 +70,7 @@ public class TestingTele extends LinearOpMode {
             
             /*armRight.setPosition(1-s1Pos);
             armLeft.setPosition(s1Pos);
-            level.setPosition(s1Pos+.08);*/
+            level.setPosition(s1Pos+.05);*/
         }
     }
 }
