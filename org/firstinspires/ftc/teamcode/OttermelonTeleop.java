@@ -83,7 +83,6 @@ public class OttermelonTeleop extends LinearOpMode {
                 rh.trMotor.setPower(.5);
             }
 
-            // rd.startIntake(gamepad1.left_trigger);
             /***************************************************************************** */
             //DRIVER 2 CONTROLS
             /***************************************************************************** */
@@ -131,7 +130,7 @@ public class OttermelonTeleop extends LinearOpMode {
             else if (gamepad2.b){
                 s1Pos = .6;
             }
-            
+
             rh.armRight.setPosition(1-s1Pos);
             rh.armLeft.setPosition(s1Pos);
             rh.level.setPosition(s1Pos+.05);
