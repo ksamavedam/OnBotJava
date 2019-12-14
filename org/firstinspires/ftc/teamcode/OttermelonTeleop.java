@@ -60,17 +60,21 @@ public class OttermelonTeleop extends LinearOpMode {
             telemetry.update();
             rd.moveTeleop(angle, scale, turnScale);
             if (gamepad1.a) {
-
-                rh.slideLeft.setPower(-1);
-                rh.slideRight.setPower(1);
+                rh.rightIntake.setPower(.45);
+                rh.leftIntake.setPower(-.45);
+                /*rh.slideLeft.setPower(-1);
+                rh.slideRight.setPower(1);*/
                 //rh.tlMotor.setPower(.5);
             } else if (gamepad1.b) {
-                rh.slideLeft.setPower(1);
-                rh.slideRight.setPower(-1);
+                rh.rightIntake.setPower(0);
+                rh.leftIntake.setPower(0);
+                /*rh.slideLeft.setPower(1);
+                rh.slideRight.setPower(-1);*/
                 //rh.blMotor.setPower(.5);
             } 
             else if (gamepad1.x) {
-
+                rh.rightIntake.setPower(-.45);
+                rh.leftIntake.setPower(.45);
                 rh.brMotor.setPower(.5);
             } else if (gamepad1.y) {
 
@@ -79,12 +83,8 @@ public class OttermelonTeleop extends LinearOpMode {
 
            // rd.startIntake(gamepad1.left_trigger);
 
-            rh.slideLeft.setPower(-gamepad1.left_trigger);
-           rh.slideRight.setPower(gamepad1.left_trigger);
-
-           rh.slideLeft.setPower(gamepad1.right_trigger);
-           rh.slideRight.setPower(-gamepad1.right_trigger);
-
+           rh.slideLeft.setPower(gamepad2.left_stick_y);
+           rh.slideRight.setPower(gamepad2.left_stick_y);
         }
 
     }

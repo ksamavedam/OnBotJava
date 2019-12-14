@@ -20,8 +20,8 @@ public class RobotHardware {
     public DcMotor blMotor=null;
     public DcMotor brMotor=null;
     public DcMotor trMotor=null;
-    public DcMotor intakeMotorLeft=null;
-    public DcMotor intakeMotorRight=null;
+    public DcMotor rightIntake=null;
+    public DcMotor leftIntake=null;
     public DcMotor slideRight;
     public DcMotor slideLeft;
     public DistanceSensor sensorRange=null;
@@ -87,8 +87,8 @@ public class RobotHardware {
         trMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         if (name == "OtterMelon") {
-            intakeMotorLeft=hwMap.get(DcMotor.class, "leftIntake");
-            intakeMotorRight=hwMap.get(DcMotor.class, "rightIntake");
+            leftIntake=hwMap.get(DcMotor.class, "leftIntake");
+            rightIntake=hwMap.get(DcMotor.class, "rightIntake");
             sensorRange = hwMap.get(DistanceSensor.class, "distanceS"); 
             slideLeft=hwMap.get(DcMotor.class, "slideLeft");
             slideRight=hwMap.get(DcMotor.class, "slideRight");   
