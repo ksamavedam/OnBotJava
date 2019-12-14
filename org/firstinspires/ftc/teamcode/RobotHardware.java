@@ -29,6 +29,8 @@ public class RobotHardware {
     public Servo armRight;
     public Servo armLeft;
     public Servo level;
+    public Servo foundationLeft;
+    public Servo foundationRight;
     double ticksToInchV = 32.0;
     double ticksToInchH = 37.0;
     double ticksToInchR = 15.0;
@@ -67,8 +69,8 @@ public class RobotHardware {
         armLeft=hwMap.get(Servo.class, "armLeft");
         armRight=hwMap.get(Servo.class, "armRight");
         level=hwMap.get(Servo.class, "level");
-        
-        
+        foundationLeft=hwMap.get(Servo.class, "foundationLeft");
+        foundationRight=hwMap.get(Servo.class, "foundationRight");
 
         imu = hwMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();

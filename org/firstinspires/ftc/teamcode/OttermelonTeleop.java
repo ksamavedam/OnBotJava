@@ -33,12 +33,16 @@ public class OttermelonTeleop extends LinearOpMode {
         rd = new RobotDrive(rh);
         waitForStart();
         while (opModeIsActive()) {
+            /************************************************************************************ */
             //DRIVER 1 CONTROLS
             //*************************************************************************************/
+
+            //Drivetrain (Left Joystick - Rotate, Right Joystick - Moving)
             Orientation angles= rh.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             //Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             double offset = -1 * Math.toRadians(angles.firstAngle);
             double angle = 0;
+            //Finding orientation of the right stick
             if (gamepad1.right_stick_x > 0 && gamepad1.right_stick_y <= 0) {
                 angle = Math.atan(-gamepad1.right_stick_y / gamepad1.right_stick_x) + 3 * Math.PI / 2;
             } else if (gamepad1.right_stick_x >= 0 && gamepad1.right_stick_y > 0) {
@@ -54,34 +58,31 @@ public class OttermelonTeleop extends LinearOpMode {
            // angle += offset;
             telemetry.addData("offset", offset);
             telemetry.addData("Angle: ", Math.toDegrees(angle));
+
+            //Desired power of moving
             double scale = Math.sqrt(((gamepad1.right_stick_y) * (gamepad1.right_stick_y))
                     + ((gamepad1.right_stick_x) * (gamepad1.right_stick_x))) ;
+
+            //Rotating one
             double turnScale = gamepad1.left_stick_x;
             telemetry.addData("Scale", scale);
             telemetry.addData("turnScale", turnScale);
             telemetry.update();
-            rd.moveTeleop(angle, scale, turnScale);
-            if (gamepad1.a) {
-                rh.rightIntake.setPower(.45);
-                rh.leftIntake.setPower(-.45);
-                /*rh.slideLeft.setPower(-1);
-                rh.slideRight.setPower(1);*/
-                //rh.tlMotor.setPower(.5);
-            } else if (gamepad1.b) {
-                rh.rightIntake.setPower(0);
-                rh.leftIntake.setPower(0);
-                /*rh.slideLeft.setPower(1);
-                rh.slideRight.setPower(-1);*/
-                //rh.blMotor.setPower(.5);
-            } 
-            else if (gamepad1.x) {
-                rh.rightIntake.setPower(-.45);
-                rh.leftIntake.setPower(.45);
-                rh.brMotor.setPower(.5);
-            } else if (gamepad1.y) {
 
-                rh.trMotor.setPower(.5);
-            }
+            //Actual call of the move function
+            rd.moveTeleop(angle, scale, turnScale);
+
+            //Foundation Servos Down (Button A)
+            if (gamepad1.a) {
+                rh.foundationLeft.setPosition(1);
+                rh.foundationRight.setPosition(1);
+            } 
+            
+            //Foundation Servos Up (Button B)
+            else if (gamepad1.b) {
+                rh.foundationLeft.setPosition(0);
+                rh.foundationRight.setPosition(0);
+            } 
 
             /***************************************************************************** */
             //DRIVER 2 CONTROLS
@@ -134,7 +135,6 @@ public class OttermelonTeleop extends LinearOpMode {
             rh.armRight.setPosition(1-s1Pos);
             rh.armLeft.setPosition(s1Pos);
             rh.level.setPosition(s1Pos+.05);
-            /***************************************************************************** */
         }
 
     }
