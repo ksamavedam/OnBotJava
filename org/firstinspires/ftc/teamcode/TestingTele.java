@@ -41,14 +41,15 @@ public class TestingTele extends LinearOpMode {
            
             if (gamepad1.a) {
 
-                
+                gripper.setPosition(0);
                 s1Pos=.4;
             } else if (gamepad1.b) {
-
+                telemetry.addData("HI", "HI");
+                gripper.setPosition(.5);
                 s1Pos=.2;
             } 
             else if (gamepad1.x) {
-
+                gripper.setPosition(1);
                 s1Pos=.3;
             } else if (gamepad1.y) {
 
@@ -56,9 +57,9 @@ public class TestingTele extends LinearOpMode {
             }
             
             
-            armRight.setPosition(1-s1Pos);
+            /*armRight.setPosition(1-s1Pos);
             armLeft.setPosition(s1Pos);
-            level.setPosition(s1Pos+.08);
+            level.setPosition(s1Pos+.08);*/
         }
     }
 }
