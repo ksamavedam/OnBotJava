@@ -32,6 +32,7 @@ public class OttermelonTeleop extends LinearOpMode {
         rh = new RobotHardware("OtterMelon", hardwareMap);
         rd = new RobotDrive(rh);
         waitForStart();
+        double s1Pos=.3;
         while (opModeIsActive()) {
             Orientation angles= rh.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             //Orientation angles = imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
@@ -59,34 +60,52 @@ public class OttermelonTeleop extends LinearOpMode {
             telemetry.addData("turnScale", turnScale);
             telemetry.update();
             rd.moveTeleop(angle, scale, turnScale);
+            double power=.5;
             if (gamepad1.a) {
+                rh.gripper.setPosition(0);
+                //s1Pos=.4;
+                //rh.intakeMotorLeft.setPower(-power);
+                //rh.intakeMotorRight.setPower(power);
 
-                rh.slideLeft.setPower(-1);
-                rh.slideRight.setPower(1);
+                //rh.slideLeft.setPower(-1);
+                //rh.slideRight.setPower(1);
                 //rh.tlMotor.setPower(.5);
             } else if (gamepad1.b) {
-                rh.slideLeft.setPower(1);
-                rh.slideRight.setPower(-1);
+                s1Pos=0;
+
+               // rh.intakeMotorLeft.setPower(power);
+                //rh.intakeMotorRight.setPower(-power);
+                //rh.slideLeft.setPower(1);
+                //rh.slideRight.setPower(-1);
                 //rh.blMotor.setPower(.5);
             } 
             else if (gamepad1.x) {
+                s1Pos=.3;
+                rh.gripper.setPosition(1);
 
-                rh.brMotor.setPower(.5);
+                //rh.intakeMotorLeft.setPower(0);
+                //rh.intakeMotorRight.setPower(0);
+
+                //rh.brMotor.setPower(.5);
             } else if (gamepad1.y) {
-
-                rh.trMotor.setPower(.5);
+                s1Pos=.5;
+                //rh.trMotor.setPower(.5);
             }
 
+            rh.armRight.setPosition(1-s1Pos);
+            rh.armLeft.setPosition(s1Pos);
+            rh.level.setPosition(s1Pos+.05);
            // rd.startIntake(gamepad1.left_trigger);
 
-            rh.slideLeft.setPower(-gamepad1.left_trigger);
-           rh.slideRight.setPower(gamepad1.left_trigger);
+            rh.slideLeft.setPower(gamepad2.right_stick_y);
+            rh.slideRight.setPower(gamepad2.right_stick_y);
 
-           rh.slideLeft.setPower(gamepad1.right_trigger);
-           rh.slideRight.setPower(-gamepad1.right_trigger);
+           // rh.slideLeft.setPower(gamepad2.right_stick_y);
+           // rh.slideRight.setPower(-gamepad2.right_stick_y);
 
         }
 
     }
+    
 
 }
