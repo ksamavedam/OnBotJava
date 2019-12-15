@@ -29,6 +29,8 @@ public class RobotHardware {
     public Servo armRight;
     public Servo armLeft;
     public Servo level;
+    public Servo f_servoRight;
+    public Servo f_servoLeft;
     double ticksToInchV = 32.0;
     double ticksToInchH = 37.0;
     double ticksToInchR = 15.0;
@@ -67,6 +69,8 @@ public class RobotHardware {
         armLeft=hwMap.get(Servo.class, "armLeft");
         armRight=hwMap.get(Servo.class, "armRight");
         level=hwMap.get(Servo.class, "level");
+        f_servoLeft=hwMap.get(Servo.class, "f_servoLeft");
+        f_servoRight=hwMap.get(Servo.class, "f_servoRight");
         
         
 

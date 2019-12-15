@@ -64,8 +64,8 @@ public class OttermelonTeleop extends LinearOpMode {
             if (gamepad1.a) {
                 rh.gripper.setPosition(0);
                 //s1Pos=.4;
-                //rh.intakeMotorLeft.setPower(-power);
-                //rh.intakeMotorRight.setPower(power);
+                rh.intakeMotorLeft.setPower(-power);
+                rh.intakeMotorRight.setPower(power);
 
                 //rh.slideLeft.setPower(-1);
                 //rh.slideRight.setPower(1);
@@ -73,8 +73,8 @@ public class OttermelonTeleop extends LinearOpMode {
             } else if (gamepad1.b) {
                 s1Pos=0;
 
-               // rh.intakeMotorLeft.setPower(power);
-                //rh.intakeMotorRight.setPower(-power);
+                rh.intakeMotorLeft.setPower(power);
+                rh.intakeMotorRight.setPower(-power);
                 //rh.slideLeft.setPower(1);
                 //rh.slideRight.setPower(-1);
                 //rh.blMotor.setPower(.5);
@@ -83,8 +83,8 @@ public class OttermelonTeleop extends LinearOpMode {
                 s1Pos=.3;
                 rh.gripper.setPosition(1);
 
-                //rh.intakeMotorLeft.setPower(0);
-                //rh.intakeMotorRight.setPower(0);
+                rh.intakeMotorLeft.setPower(0);
+                rh.intakeMotorRight.setPower(0);
 
                 //rh.brMotor.setPower(.5);
             } else if (gamepad1.y) {
