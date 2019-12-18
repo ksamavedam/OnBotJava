@@ -72,13 +72,13 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             //Actual call of the move function
             rd.moveTeleop(angle, scale, turnScale);
 
-            //Foundation Servos Down (Button A)
+            //Foundation Servos Down (Button A) TEST
             if (gamepad1.a) {
                 rh.foundationLeft.setPosition(1);
                 rh.foundationRight.setPosition(1);
             } 
             
-            //Foundation Servos Up (Button B)
+            //Foundation Servos Up (Button B) TEST
             else if (gamepad1.b) {
                 rh.foundationLeft.setPosition(0);
                 rh.foundationRight.setPosition(0);
