@@ -155,7 +155,7 @@ public class OttermelonTeleopFinal extends LinearOpMode {
 
             rh.armRight.setPosition(1-s1Pos);
             rh.armLeft.setPosition(s1Pos);
-            rh.level.setPosition(s1Pos+.02);
+            rh.level.setPosition(s1Pos+.05);
         }
 
     }
