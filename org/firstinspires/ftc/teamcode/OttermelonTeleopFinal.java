@@ -33,7 +33,7 @@ public class OttermelonTeleopFinal extends LinearOpMode {
         rd = new RobotDrive(rh);
         waitForStart();
         while (opModeIsActive()) {
-            double s1Pos=0.025;
+            double s1Pos=0.00;
             /************************************************************************************ */
             //DRIVER 1 CONTROLS
             //*************************************************************************************/
