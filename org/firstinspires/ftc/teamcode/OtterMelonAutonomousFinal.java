@@ -34,8 +34,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "OtterMelonAutonomous", group = "Linear Opmode")
-public class OtterMelonAutonomous extends LinearOpMode {
+@Autonomous(name = "OtterMelonAutonomousFinal", group = "Linear Opmode")
+public class OtterMelonAutonomousFinal extends LinearOpMode {
     RobotHardware hw = null;
     private RobotDrive rd = null;
     private RobotSense rs = null;

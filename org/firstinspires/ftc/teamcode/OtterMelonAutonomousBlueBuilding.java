@@ -35,7 +35,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name = "BlueBuilding", group = "Linear Opmode")
-public class OtterMelonAutonomous extends LinearOpMode {
+public class OtterMelonAutonomousBlueBuilding extends LinearOpMode {
     RobotHardware hw = null;
     private RobotDrive rd = null;
     private RobotSense rs = null;
@@ -65,8 +65,12 @@ public class OtterMelonAutonomous extends LinearOpMode {
         /*hw.armRight.setPosition(1-.3);
         hw.armLeft.setPosition(.3);
         hw.level.setPosition(.3+.05);*/
-        hw.f_servoLeft.setPosition(0);
-        hw.f_servoRight.setPosition(0);
+        hw.f_servoLeft.setPosition(.5);
+        hw.f_servoRight.setPosition(.5);
+        hw.armLeft.setPosition(.1);
+        hw.armRight.setPosition(1-.1);
+        hw.level.setPosition(.1+.05);
+        hw.gripper.setPosition(.7);
         waitForStart();
         while (opModeIsActive()) {
 
@@ -132,9 +136,7 @@ public class OtterMelonAutonomous extends LinearOpMode {
         //grab first skystone
         rd.startIntake(-.45);
         rd.moveDist(RobotDrive.Direction.FORWARD, 44.7, .3);
-        hw.armLeft.setPosition(.1);
-        hw.armRight.setPosition(1-.1);
-        hw.level.setPosition(.1+.05);
+        
 
         //deliever first skystone
         rd.moveDist(RobotDrive.Direction.REVERSE,25, 1);
@@ -146,6 +148,7 @@ public class OtterMelonAutonomous extends LinearOpMode {
         }
         rd.moveDist(RobotDrive.Direction.FORWARD, 60+h_disp, 1);
         rd.startIntake(.6);
+        rd.proportionalTurn(90, 1);
 
         //go back to loading zone
         rd.moveDist(RobotDrive.Direction.REVERSE,60+h_disp+24,.8);
@@ -176,13 +179,16 @@ public class OtterMelonAutonomous extends LinearOpMode {
     
     public void BuildingZone() {
 
-        rd.moveDist(RobotDrive.Direction.REVERSE, 31, .8);
-        rd.moveDist(RobotDrive.Direction.RIGHT,13, .8);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 30.5, .3);
+        rd.moveDist(RobotDrive.Direction.RIGHT,13, .3);
         hw.f_servoLeft.setPosition(1);
         hw.f_servoRight.setPosition(1);
+        rd.moveDist(RobotDrive.Direction.RIGHT, 3, .3);
 
-        rd.moveDist(RobotDrive.Direction.FORWARD,30, .8);
-        rd.moveDist(RobotDrive.Direction.LEFT, 37, .8);
+        rd.moveDist(RobotDrive.Direction.FORWARD,30.5 ,.3);
+        hw.f_servoLeft.setPosition(.5);
+        hw.f_servoRight.setPosition(.5);
+        rd.moveDist(RobotDrive.Direction.LEFT, 50, .5);
     }
 
 }

@@ -35,7 +35,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name = "RedBuilding", group = "Linear Opmode")
-public class OtterMelonAutonomous extends LinearOpMode {
+public class OtterMelonAutonomousRedBuilding extends LinearOpMode {
     RobotHardware hw = null;
     private RobotDrive rd = null;
     private RobotSense rs = null;
@@ -65,8 +65,12 @@ public class OtterMelonAutonomous extends LinearOpMode {
         /*hw.armRight.setPosition(1-.3);
         hw.armLeft.setPosition(.3);
         hw.level.setPosition(.3+.05);*/
-        hw.f_servoLeft.setPosition(0);
-        hw.f_servoRight.setPosition(0);
+        hw.f_servoLeft.setPosition(0.5);
+        hw.f_servoRight.setPosition(0.5);
+        hw.armLeft.setPosition(.1);
+        hw.armRight.setPosition(1-.1);
+        hw.level.setPosition(.1+.05);
+        hw.gripper.setPosition(0.7);
         waitForStart();
         while (opModeIsActive()) {
 
@@ -78,13 +82,14 @@ public class OtterMelonAutonomous extends LinearOpMode {
     }
     public void BuildingZone() {
 
-        rd.moveDist(RobotDrive.Direction.REVERSE, 31, .8);
-        rd.moveDist(RobotDrive.Direction.LEFT,13, .8);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 30.5, .3);
+        rd.moveDist(RobotDrive.Direction.LEFT,13, .3);
         hw.f_servoLeft.setPosition(1);
         hw.f_servoRight.setPosition(1);
+        rd.moveDist(RobotDrive.Direction.LEFT, .6, .1);
 
-        rd.moveDist(RobotDrive.Direction.FORWARD,30, .8);
-        rd.moveDist(RobotDrive.Direction.RIGHT, 37, .8);
+        rd.moveDist(RobotDrive.Direction.FORWARD,30.5, .8);
+        rd.moveDist(RobotDrive.Direction.RIGHT, 55,  .8);
     }
 
 
@@ -143,9 +148,6 @@ public class OtterMelonAutonomous extends LinearOpMode {
         //grab first skystone
         rd.startIntake(-.45);
         rd.moveDist(RobotDrive.Direction.FORWARD, 44.7, .3);
-        hw.armLeft.setPosition(.1);
-        hw.armRight.setPosition(1-.1);
-        hw.level.setPosition(.1+.05);
 
         //deliever first skystone
         rd.moveDist(RobotDrive.Direction.REVERSE,25, 1);

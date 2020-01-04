@@ -35,7 +35,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 @Autonomous(name = "RedLoading", group = "Linear Opmode")
-public class OtterMelonAutonomous extends LinearOpMode {
+public class OtterMelonAutonomousRedLoading extends LinearOpMode {
     RobotHardware hw = null;
     private RobotDrive rd = null;
     private RobotSense rs = null;
@@ -65,13 +65,19 @@ public class OtterMelonAutonomous extends LinearOpMode {
         /*hw.armRight.setPosition(1-.3);
         hw.armLeft.setPosition(.3);
         hw.level.setPosition(.3+.05);*/
-        hw.f_servoLeft.setPosition(0);
-        hw.f_servoRight.setPosition(0);
+        hw.f_servoLeft.setPosition(0.5);
+        hw.f_servoRight.setPosition(0.5);
+        hw.armLeft.setPosition(.1);
+        hw.armRight.setPosition(1-.1);
+        hw.level.setPosition(.1+.05);
+        hw.gripper.setPosition(.7);
         waitForStart();
         while (opModeIsActive()) {
 
             //.\bin\ftc_http_win.exe -ub
-            LoadingZone();      
+            //LoadingZone();
+            sleep(20000);
+            rd.moveDist(RobotDrive.Direction.RIGHT, 12, .5);      
             break;
         }
 
@@ -112,7 +118,7 @@ public class OtterMelonAutonomous extends LinearOpMode {
         ssl= rs.locateSkystone();
         if(!ssl.detected){
 
-            position=2;
+            position=3;
             h_disp=10;
             rd.moveDist(RobotDrive.Direction.LEFT, h_disp, .5);
         }
@@ -154,9 +160,6 @@ public class OtterMelonAutonomous extends LinearOpMode {
         
         //deliever first skystone
         rd.moveDist(RobotDrive.Direction.REVERSE,25, 1);
-        hw.armLeft.setPosition(.5);
-        hw.armRight.setPosition(1-.5);
-        hw.level.setPosition(.5+.05);
         rd.proportionalTurn(270, 1.5);
         rd.resetEncoders();
         if(position==1){
@@ -165,27 +168,22 @@ public class OtterMelonAutonomous extends LinearOpMode {
         }
         rd.moveDist(RobotDrive.Direction.FORWARD, 60+h_disp, 1);
         rd.startIntake(.6);
+        rd.proportionalTurn(270, 1.5);
 
         //go back to loading zone
         rd.moveDist(RobotDrive.Direction.REVERSE,60,.8);
-        hw.armLeft.setPosition(.3);
-        hw.armRight.setPosition(1-.3);
-        hw.level.setPosition(.3+.05);
         rd.moveDist(RobotDrive.Direction.REVERSE,h_disp+24,.8);
         
        
         
         //get second skystone
         rd.startIntake(-.45);
-        rd.proportionalTurn(359  , 1.5);
+        rd.proportionalTurn(350  , 1.5);
         rd.resetEncoders();
         rd.moveDist(RobotDrive.Direction.FORWARD, 25, .3);
 
         //deliver second skystone
         rd.moveDist(RobotDrive.Direction.REVERSE,35, .7);
-        hw.armLeft.setPosition(.5);
-        hw.armRight.setPosition(1-.5);
-        hw.level.setPosition(.5+.05);
         rd.proportionalTurn(270,1.5);
         rd.resetEncoders();
         rd.moveDist(RobotDrive.Direction.FORWARD, 75+h_disp, 1);

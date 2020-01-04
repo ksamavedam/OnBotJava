@@ -33,6 +33,7 @@ public class OttermelonTeleopFinal extends LinearOpMode {
         rd = new RobotDrive(rh);
         waitForStart();
         while (opModeIsActive()) {
+            double s1Pos=0.025;
             /************************************************************************************ */
             //DRIVER 1 CONTROLS
             //*************************************************************************************/
@@ -72,16 +73,16 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             //Actual call of the move function
             rd.moveTeleop(angle, scale, turnScale);
 
-            //Foundation Servos Down (Button A) TEST
+            //Foundation Servos Down (Button A) Grab
             if (gamepad1.a) {
-                rh.foundationLeft.setPosition(1);
-                rh.foundationRight.setPosition(1);
+                rh.f_servoLeft.setPosition(1);
+                rh.f_servoRight.setPosition(1);
             } 
             
-            //Foundation Servos Up (Button B) TEST
+            //Foundation Servos Up (Button B) Release
             else if (gamepad1.b) {
-                rh.foundationLeft.setPosition(0);
-                rh.foundationRight.setPosition(0);
+                rh.f_servoLeft.setPosition(.5);
+                rh.f_servoRight.setPosition(.5);
             } 
 
             /***************************************************************************** */
@@ -94,32 +95,32 @@ public class OttermelonTeleopFinal extends LinearOpMode {
 
             //Intake (Left Trigger)
             if (gamepad2.left_trigger > 0){
-                rh.rightIntake.setPower(.45);
-                rh.leftIntake.setPower(-.45);
+                rh.intakeMotorRight.setPower(.4);
+                rh.intakeMotorLeft.setPower(-.4);
             }
 
             //Outtake (Right Trigger)
             else if (gamepad2.right_trigger > 0){
                 //Getting the gripper out of the way of the block
                 rh.gripper.setPosition(0);
-                rh.rightIntake.setPower(-.45);
-                rh.leftIntake.setPower(.45);
+                rh.intakeMotorRight.setPower(-.45);
+                rh.intakeMotorLeft.setPower(.45);
             }
 
             //Stop Intake (Passive)
             else {
-                rh.rightIntake.setPower(0);
-                rh.leftIntake.setPower(0);
+                rh.intakeMotorRight.setPower(0);
+                rh.intakeMotorLeft.setPower(0);
             }
 
             //Grip the stone (Button X)
             if (gamepad2.x){
-                rh.gripper.setPosition(.6);
+                rh.gripper.setPosition(.7);
             }
 
             //Drop the stone (Button Y)
             else if (gamepad2.y){
-                rh.gripper.setPosition(.45);
+                rh.gripper.setPosition(0);
             }
 
             //Arm in the robot (Button A) TEST
@@ -134,7 +135,7 @@ public class OttermelonTeleopFinal extends LinearOpMode {
 
             rh.armRight.setPosition(1-s1Pos);
             rh.armLeft.setPosition(s1Pos);
-            rh.level.setPosition(s1Pos+.05);
+            rh.level.setPosition(s1Pos+.02);
         }
 
     }
