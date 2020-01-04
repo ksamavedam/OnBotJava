@@ -208,7 +208,7 @@ public class RobotDrive {
         hw.intakeMotorRight.setPower(-power);
     }
 
-    private void setPower(double tlPower, double blPower, double brPower, double trPower) {
+    public void setPower(double tlPower, double blPower, double brPower, double trPower) {
 
         hw.tlMotor.setPower(tlPower);
         hw.blMotor.setPower(blPower);
