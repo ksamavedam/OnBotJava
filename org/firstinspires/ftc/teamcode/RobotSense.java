@@ -26,7 +26,7 @@ public class RobotSense {
     private TFObjectDetector tfod;
     private VuforiaLocalizer vuforia;
     double dist;
-    private static final int max_tf_iterations = 100;  
+    private static final int max_tf_iterations = 2500;  
 
 
     enum Zone {

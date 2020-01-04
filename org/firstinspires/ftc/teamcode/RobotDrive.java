@@ -204,8 +204,8 @@ public class RobotDrive {
 
     public void startIntake(double power){
 
-        hw.leftIntake.setPower(power);
-        hw.rightIntake.setPower(-power);
+        hw.intakeMotorLeft.setPower(power);
+        hw.intakeMotorRight.setPower(-power);
     }
 
     private void setPower(double tlPower, double blPower, double brPower, double trPower) {

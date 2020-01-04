@@ -20,8 +20,8 @@ public class RobotHardware {
     public DcMotor blMotor=null;
     public DcMotor brMotor=null;
     public DcMotor trMotor=null;
-    public DcMotor rightIntake=null;
-    public DcMotor leftIntake=null;
+    public DcMotor intakeMotorLeft=null;
+    public DcMotor intakeMotorRight=null;
     public DcMotor slideRight;
     public DcMotor slideLeft;
     public DistanceSensor sensorRange=null;
@@ -29,6 +29,8 @@ public class RobotHardware {
     public Servo armRight;
     public Servo armLeft;
     public Servo level;
+    public Servo f_servoRight;
+    public Servo f_servoLeft;
     double ticksToInchV = 32.0;
     double ticksToInchH = 37.0;
     double ticksToInchR = 15.0;
@@ -67,6 +69,8 @@ public class RobotHardware {
         armLeft=hwMap.get(Servo.class, "armLeft");
         armRight=hwMap.get(Servo.class, "armRight");
         level=hwMap.get(Servo.class, "level");
+        f_servoLeft=hwMap.get(Servo.class, "f_servoLeft");
+        f_servoRight=hwMap.get(Servo.class, "f_servoRight");
         
         
 
@@ -87,8 +91,8 @@ public class RobotHardware {
         trMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         if (name == "OtterMelon") {
-            leftIntake=hwMap.get(DcMotor.class, "leftIntake");
-            rightIntake=hwMap.get(DcMotor.class, "rightIntake");
+            intakeMotorLeft=hwMap.get(DcMotor.class, "leftIntake");
+            intakeMotorRight=hwMap.get(DcMotor.class, "rightIntake");
             sensorRange = hwMap.get(DistanceSensor.class, "distanceS"); 
             slideLeft=hwMap.get(DcMotor.class, "slideLeft");
             slideRight=hwMap.get(DcMotor.class, "slideRight");   
@@ -96,6 +100,8 @@ public class RobotHardware {
             // telemetry.addData("%s", "  ITS A SKYSTONE");
             tlMotor.setDirection(DcMotor.Direction.REVERSE);
             brMotor.setDirection(DcMotor.Direction.REVERSE);
+           // slideLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+           // slideRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         }
         
@@ -109,12 +115,10 @@ public class RobotHardware {
     public double getTicksToInchH() {return ticksToInchH; }
     public double getTicksToInchR() {return ticksToInchR; }
     public double getTicksToInchD() {return ticksToInchD; }
-
     public void initTfod() {
         int tfodMonitorViewId = hwMap.appContext.getResources().getIdentifier("tfodMonitorViewId", "id",
         hwMap.appContext.getPackageName());
-       //TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
-        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters();
+        TFObjectDetector.Parameters tfodParameters = new TFObjectDetector.Parameters(tfodMonitorViewId);
         tfodParameters.minimumConfidence = 0.8;
         tfod = ClassFactory.getInstance().createTFObjectDetector(tfodParameters, vuforia);
         tfod.loadModelFromAsset(TFOD_MODEL_ASSET, LABEL_FIRST_ELEMENT, LABEL_SECOND_ELEMENT);
@@ -123,7 +127,7 @@ public class RobotHardware {
     public void initVuforia() {
         VuforiaLocalizer.Parameters parameters = new VuforiaLocalizer.Parameters();
         parameters.vuforiaLicenseKey = VUFORIA_KEY;
-        //parameters.cameraDirection = CameraDirection.BACK;
+        parameters.cameraDirection = CameraDirection.BACK;
         parameters.cameraName = hwMap.get(WebcamName.class, "Webcam 1");
         vuforia = ClassFactory.getInstance().createVuforia(parameters);
     }
