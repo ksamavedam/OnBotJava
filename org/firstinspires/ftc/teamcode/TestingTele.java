@@ -28,49 +28,37 @@ public class TestingTele extends LinearOpMode {
     public Servo armRight;
     public Servo armLeft;
     public Servo level;
-    public DcMotor rightIntake;
-    public DcMotor leftIntake;
     @Override
     public void runOpMode() {
         gripper=hardwareMap.get(Servo.class, "gripper");
         armLeft=hardwareMap.get(Servo.class, "armLeft");
         armRight=hardwareMap.get(Servo.class, "armRight");
         level=hardwareMap.get(Servo.class, "level");
-        rightIntake=hardwareMap.get(DcMotor.class, "rightIntake");
-        leftIntake=hardwareMap.get(DcMotor.class, "leftIntake");
     
         waitForStart();
         double s1Pos=.3;
         while (opModeIsActive()) {
            
             if (gamepad1.a) {
-                gripper.setPosition(0);
+
+                
                 s1Pos=.4;
             } else if (gamepad1.b) {
-                
-                gripper.setPosition(.6);
+
                 s1Pos=.2;
             } 
             else if (gamepad1.x) {
-                gripper.setPosition(.5);
+
                 s1Pos=.3;
             } else if (gamepad1.y) {
-                gripper.setPosition(.4);
+
                 s1Pos=.5;
             }
-
-            if (gamepad2.a){
-                rightIntake.setPower(.4);
-                leftIntake.setPower(-.4);
-            } else if (gamepad2.b){
-                rightIntake.setPower(0);
-                leftIntake.setPower(0);
-            }
             
             
-            /*armRight.setPosition(1-s1Pos);
+            armRight.setPosition(1-s1Pos);
             armLeft.setPosition(s1Pos);
-            level.setPosition(s1Pos+.08);*/
+            level.setPosition(s1Pos+.08);
         }
     }
 }
