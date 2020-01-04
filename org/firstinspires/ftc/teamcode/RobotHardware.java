@@ -100,8 +100,8 @@ public class RobotHardware {
             // telemetry.addData("%s", "  ITS A SKYSTONE");
             tlMotor.setDirection(DcMotor.Direction.REVERSE);
             brMotor.setDirection(DcMotor.Direction.REVERSE);
-           // slideLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-           // slideRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            slideLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+            slideRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
         }
         
