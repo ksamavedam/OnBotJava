@@ -103,6 +103,10 @@ public class RobotHardware {
                 tlMotor.setDirection(DcMotor.Direction.REVERSE);
                 brMotor.setDirection(DcMotor.Direction.REVERSE);
         } 
+        else if (name == "Ri3D"){
+            tlMotor.setDirection(DcMotor.Direction.REVERSE);
+            brMotor.setDirection(DcMotor.Direction.REVERSE);
+        }
     }
     
     public double getTicksToInchV() {return ticksToInchV; }
