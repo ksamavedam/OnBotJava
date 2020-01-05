@@ -122,6 +122,12 @@ public class OttermelonTeleopFinal extends LinearOpMode {
                 rh.gripper.setPosition(.45);
             }
 
+            boolean first = true;
+            if (first){
+                first = false;
+                double s1Pos = 0;
+            }
+
             //Arm in the robot (Button A) TEST
             if (gamepad2.a){
                 s1Pos = 0;
