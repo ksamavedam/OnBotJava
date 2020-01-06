@@ -60,11 +60,11 @@ public class OutreachTele extends LinearOpMode {
             telemetry.addData("Angle: ", Math.toDegrees(angle));
 
             //Desired power of moving
-            double scale = Math.sqrt(((gamepad1.right_stick_y) * (gamepad1.right_stick_y))
+            double scale = .3*Math.sqrt(((gamepad1.right_stick_y) * (gamepad1.right_stick_y))
                     + ((gamepad1.right_stick_x) * (gamepad1.right_stick_x))) ;
 
             //Rotating one
-            double turnScale = gamepad1.left_stick_x;
+            double turnScale = .3*-gamepad1.left_stick_x;
             telemetry.addData("Scale", scale);
             telemetry.addData("turnScale", turnScale);
             telemetry.update();

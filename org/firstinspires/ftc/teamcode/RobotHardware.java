@@ -63,10 +63,7 @@ public class RobotHardware {
         blMotor = hwMap.get(DcMotor.class, "bottomLeft");
         brMotor = hwMap.get(DcMotor.class, "bottomRight");
         trMotor = hwMap.get(DcMotor.class, "topRight");
-        gripper=hwMap.get(Servo.class, "gripper");
-        armLeft=hwMap.get(Servo.class, "armLeft");
-        armRight=hwMap.get(Servo.class, "armRight");
-        level=hwMap.get(Servo.class, "level");
+        
         
         
 
@@ -92,6 +89,10 @@ public class RobotHardware {
             sensorRange = hwMap.get(DistanceSensor.class, "distanceS"); 
             slideLeft=hwMap.get(DcMotor.class, "slideLeft");
             slideRight=hwMap.get(DcMotor.class, "slideRight");   
+            gripper=hwMap.get(Servo.class, "gripper");
+            armLeft=hwMap.get(Servo.class, "armLeft");
+            armRight=hwMap.get(Servo.class, "armRight");
+            level=hwMap.get(Servo.class, "level");
            
             // telemetry.addData("%s", "  ITS A SKYSTONE");
             tlMotor.setDirection(DcMotor.Direction.REVERSE);
@@ -100,12 +101,12 @@ public class RobotHardware {
         }
         
         else if (name == "AppleBee") {
-                tlMotor.setDirection(DcMotor.Direction.REVERSE);
-                brMotor.setDirection(DcMotor.Direction.REVERSE);
+            tlMotor.setDirection(DcMotor.Direction.REVERSE);
+            brMotor.setDirection(DcMotor.Direction.REVERSE);
         } 
         else if (name == "Ri3D"){
             tlMotor.setDirection(DcMotor.Direction.REVERSE);
-            brMotor.setDirection(DcMotor.Direction.REVERSE);
+            blMotor.setDirection(DcMotor.Direction.REVERSE);
         }
     }
     
