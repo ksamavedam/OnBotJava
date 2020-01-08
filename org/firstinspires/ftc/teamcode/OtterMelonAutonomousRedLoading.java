@@ -65,19 +65,21 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         /*hw.armRight.setPosition(1-.3);
         hw.armLeft.setPosition(.3);
         hw.level.setPosition(.3+.05);*/
-        hw.f_servoLeft.setPosition(0.5);
+        hw.f_servoLeft.setPosition(1);
         hw.f_servoRight.setPosition(0.5);
-        hw.armLeft.setPosition(.1);
-        hw.armRight.setPosition(1-.1);
-        hw.level.setPosition(.1+.05);
-        hw.gripper.setPosition(.7);
+        
+        double startPos=.03;
+        hw.armLeft.setPosition(startPos);
+        hw.armRight.setPosition(1-startPos);
+        hw.level.setPosition(startPos+.05);
+        hw.gripper.setPosition(.3);
         waitForStart();
         while (opModeIsActive()) {
 
             //.\bin\ftc_http_win.exe -ub
-            //LoadingZone();
-            sleep(20000);
-            rd.moveDist(RobotDrive.Direction.RIGHT, 12, .5);      
+            LoadingZone();
+            //sleep(20000);
+            //rd.moveDist(RobotDrive.Direction.RIGHT, 12, .5);      
             break;
         }
 
@@ -110,35 +112,39 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
 
         double position=1;
         double h_disp=0;
+        //get: rs. position; 
+        //rd.moveDist(RobotDrive.Direction.LEFT, 10, .5);
         //wobble
-        rd.moveDist(RobotDrive.Direction.FORWARD, .5, .3);
-        rd.moveDist(RobotDrive.Direction.REVERSE, .5, .3);
+       // rd.moveDist(RobotDrive.Direction.FORWARD, .5, .3);
+        //rd.moveDist(RobotDrive.Direction.REVERSE, .5, .3);
+        hw.gripper.setPosition(0);
 
         //find skystone position
         ssl= rs.locateSkystone();
         if(!ssl.detected){
 
             position=3;
-            h_disp=10;
+            h_disp=12;
             rd.moveDist(RobotDrive.Direction.LEFT, h_disp, .5);
         }
-        else if((ssl.angle>-5)){
-
-            position=2;
-            h_disp=2;
-            rd.moveDist(RobotDrive.Direction.LEFT, h_disp, .5);
-        }
-        /*else if(ssl.angle>13){
-
-            h_disp=12.5;
-            position=3;
-            //rd.moveDist(RobotDrive.Direction.RIGHT, h_disp, .5);
-        }*/
-        else{
+        else if(ssl.angle>9){
 
             position=1;
-            h_disp=7.5;
+            h_disp=7;
             rd.moveDist(RobotDrive.Direction.RIGHT, h_disp, .5);
+            
+        }
+        else if((ssl.angle>-11&&ssl.angle<9)){
+
+            position=2;
+            h_disp=3;
+            rd.moveDist(RobotDrive.Direction.LEFT, h_disp, .5);
+        }
+        else {
+
+            position=3;
+            h_disp=12;
+            rd.moveDist(RobotDrive.Direction.LEFT, h_disp, .5);
         }
         
         if(ssl.detected){
@@ -154,44 +160,65 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
     
         }
 
+       
         //grab first skystone
-        rd.startIntake(-.45);
-        rd.moveDist(RobotDrive.Direction.FORWARD, 44.7, .3);
-        
+        rd.startIntake(.45);
+        rd.moveDist(RobotDrive.Direction.FORWARD, 24, .5);
+        rd.moveDist(RobotDrive.Direction.FORWARD, 23, .3);
+
         //deliever first skystone
-        rd.moveDist(RobotDrive.Direction.REVERSE,25, 1);
-        rd.proportionalTurn(270, 1.5);
+        rd.moveDist(RobotDrive.Direction.REVERSE,38, .5);
+        rd.proportionalTurn(90,3);
         rd.resetEncoders();
         if(position==1){
 
             h_disp*=-1;
         }
-        rd.moveDist(RobotDrive.Direction.FORWARD, 60+h_disp, 1);
-        rd.startIntake(.6);
-        rd.proportionalTurn(270, 1.5);
-
-        //go back to loading zone
-        rd.moveDist(RobotDrive.Direction.REVERSE,60,.8);
-        rd.moveDist(RobotDrive.Direction.REVERSE,h_disp+24,.8);
-        
-       
-        
-        //get second skystone
-        rd.startIntake(-.45);
-        rd.proportionalTurn(350  , 1.5);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 65+h_disp, .5);
+        rd.startIntake(0);
+        hw.gripper.setPosition(.8);
+        sleep(500);
+        double s1Pos=.45;
+        hw.armRight.setPosition(1-s1Pos);
+        hw.armLeft.setPosition(s1Pos);
+        hw.level.setPosition(s1Pos+.08);
+        rd.proportionalTurn(180, 1.5);
         rd.resetEncoders();
-        rd.moveDist(RobotDrive.Direction.FORWARD, 25, .3);
-
-        //deliver second skystone
-        rd.moveDist(RobotDrive.Direction.REVERSE,35, .7);
-        rd.proportionalTurn(270,1.5);
-        rd.resetEncoders();
-        rd.moveDist(RobotDrive.Direction.FORWARD, 75+h_disp, 1);
-        rd.startIntake(.6);
-
-        //park
         rd.moveDist(RobotDrive.Direction.REVERSE, 10, .5);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 15.5, .3);
+        hw.gripper.setPosition(.3);
+        sleep(500);
+        hw.gripper.setPosition(.8);
+        sleep(500);
+        s1Pos=.03;
+        hw.armRight.setPosition(1-s1Pos);
+        hw.armLeft.setPosition(s1Pos);
+        hw.level.setPosition(s1Pos+.08);
+        
+        hw.f_servoRight.setPosition(1);
+        hw.f_servoLeft.setPosition(.5);
+        sleep(1500);
 
+        //move and turn to be parallel to bridge
+        
+        rd.moveDist(RobotDrive.Direction.RIGHT,20, .3);
+        rd.proportionalTurn(90,1.5);
+        rd.resetEncoders();
+
+        //score foundation and unlock
+        rd.moveDist(RobotDrive.Direction.LEFT, 15, .5);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 16, .5);
+        hw.f_servoRight.setPosition(.5);
+        hw.f_servoLeft.setPosition(1);
+        sleep(1500);
+
+        //move to wall and park
+        rd.moveDist(RobotDrive.Direction.LEFT, 40, .5);
+        rd.moveDist(RobotDrive.Direction.FORWARD, 37, .5);
+        
+
+
+        
         
 
     }

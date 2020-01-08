@@ -67,10 +67,6 @@ public class OtterMelonAutonomousRedBuilding extends LinearOpMode {
         hw.level.setPosition(.3+.05);*/
         hw.f_servoLeft.setPosition(0.5);
         hw.f_servoRight.setPosition(0.5);
-        hw.armLeft.setPosition(.1);
-        hw.armRight.setPosition(1-.1);
-        hw.level.setPosition(.1+.05);
-        hw.gripper.setPosition(0.7);
         waitForStart();
         while (opModeIsActive()) {
 
@@ -82,14 +78,32 @@ public class OtterMelonAutonomousRedBuilding extends LinearOpMode {
     }
     public void BuildingZone() {
 
-        rd.moveDist(RobotDrive.Direction.REVERSE, 30.5, .3);
-        rd.moveDist(RobotDrive.Direction.LEFT,13, .3);
-        hw.f_servoLeft.setPosition(1);
-        hw.f_servoRight.setPosition(1);
-        rd.moveDist(RobotDrive.Direction.LEFT, .6, .1);
+         //lock foundation
+        rd.moveDist(RobotDrive.Direction.REVERSE, 20, .5);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 10.5, .2);
 
-        rd.moveDist(RobotDrive.Direction.FORWARD,30.5, .8);
-        rd.moveDist(RobotDrive.Direction.RIGHT, 55,  .8);
+        hw.f_servoRight.setPosition(1);
+        hw.f_servoLeft.setPosition(.5);
+        sleep(1500);
+
+        
+        //move and turn to be parallel to bridge
+        
+        rd.moveDist(RobotDrive.Direction.RIGHT,17, .3);
+        rd.proportionalTurn(270,1.5);
+        rd.resetEncoders();
+
+        //score foundation and unlock
+        rd.moveDist(RobotDrive.Direction.LEFT, 15, .5);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 16, .5);
+        hw.f_servoRight.setPosition(.5);
+        hw.f_servoLeft.setPosition(1);
+        sleep(1500);
+
+        //move to wall and park
+        rd.moveDist(RobotDrive.Direction.LEFT, 40, .5);
+        rd.moveDist(RobotDrive.Direction.FORWARD, 37, .5);
+        
     }
 
 

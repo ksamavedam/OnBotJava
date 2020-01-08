@@ -153,7 +153,18 @@ public class RobotDrive {
     }*/
 
     public void proportionalTurn(double targetAngle, double time) {
+        /*
+        mRunTime= new ElapsedTime();
+        double firstAngle=getAngularOriFirst();
+        mRunTime.reset();
+        while (mRunTime.time() < time) {
 
+            double power= .025*(((firstAngle+targetAngle-getAngularOriFirst())%360+360)%360);
+            power = (Math.min(Math.abs(power), .75)) * (Math.abs(power) / power) ;
+            setPower(-power, -power , power , power);
+        }*/
+
+        
         Orientation angles= hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
         mRunTime= new ElapsedTime();
         double direction = 1;
@@ -163,24 +174,35 @@ public class RobotDrive {
         }
 
         double delta = 0;
-
+        double firstAngle=angles.firstAngle;
         mRunTime.reset();
         while (mRunTime.time() < time) {
 
             angles= hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
             double angle= angles.firstAngle;
-            if(angles.firstAngle<0){
+            if(angle<0){
 
-                angle=Math.abs(angles.firstAngle);
+                if(direction<1){
+
+                    angle=Math.abs(angle);
+                }
+                else{
+                    
+                    angle=360+angle;
+                }
+                
             }
             delta = (targetAngle - angle);
             double power = (delta * .025);
             power = (Math.min(Math.abs(power), .75)) * (Math.abs(power) / power) ;
-            setPower(-power* direction, -power* direction, power* direction, power* direction);
+            setPower(-power*direction, -power*direction, power*direction, power*direction);
         }
 
         setPower(0, 0, 0, 0);
+       
+        //setPower(0, 0, 0, 0);
     }
+
 
     public void turn(double targetAngle){
         Orientation angles= hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
