@@ -206,14 +206,14 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         rd.resetEncoders();
 
         //score foundation and unlock
-        rd.moveDist(RobotDrive.Direction.LEFT, 15, .5);
+        rd.moveDist(RobotDrive.Direction.LEFT, 15.5, .5);
         rd.moveDist(RobotDrive.Direction.REVERSE, 16, .5);
         hw.f_servoRight.setPosition(.5);
         hw.f_servoLeft.setPosition(1);
         sleep(1500);
 
         //move to wall and park
-        rd.moveDist(RobotDrive.Direction.LEFT, 40, .5);
+        rd.moveDist(RobotDrive.Direction.LEFT, 16, .5);
         rd.moveDist(RobotDrive.Direction.FORWARD, 37, .5);
         
 

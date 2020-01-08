@@ -77,7 +77,7 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
 
             //.\bin\ftc_http_win.exe -ub
             LoadingZone();      
-              break;
+             break;
         }
 
         rs.shutdown();
@@ -158,6 +158,8 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
 
         
         //grab first skystone
+        hw.f_servoLeft.setPosition(1);
+        hw.f_servoRight.setPosition(.5);
         rd.startIntake(.45);
         rd.moveDist(RobotDrive.Direction.FORWARD, 24, .5);
         rd.moveDist(RobotDrive.Direction.FORWARD, 23, .3);
@@ -170,7 +172,7 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
 
             h_disp*=-1;
         }
-        rd.moveDist(RobotDrive.Direction.REVERSE, 65+h_disp,.5);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 74+h_disp,.5);
         rd.startIntake(0);
         hw.gripper.setPosition(.8);
         sleep(500);
@@ -181,7 +183,7 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
         rd.proportionalTurn(180, 1.5);
         rd.resetEncoders();
         rd.moveDist(RobotDrive.Direction.REVERSE, 10, .5);
-        rd.moveDist(RobotDrive.Direction.REVERSE, 15.5, .3);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 16.5, .25);
         hw.gripper.setPosition(.3);
         sleep(500);
         hw.gripper.setPosition(.8);
@@ -197,20 +199,22 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
 
         //move and turn to be parallel to bridge
         
-        rd.moveDist(RobotDrive.Direction.LEFT,20, .3);
-        rd.proportionalTurn(270,1.5);
+        rd.moveDist(RobotDrive.Direction.LEFT,17, .5);
+        rd.proportionalTurn(270,2);
         rd.resetEncoders();
 
         //score foundation and unlock
-        rd.moveDist(RobotDrive.Direction.RIGHT, 15, .5);
-        rd.moveDist(RobotDrive.Direction.REVERSE, 16, .5);
+        rd.moveDist(RobotDrive.Direction.RIGHT, 50, .5);
+        rd.moveDist(RobotDrive.Direction.LEFT, 15, .5);
+        rd.proportionalTurn(270,1.5);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 18, .5);
         hw.f_servoRight.setPosition(.5);
         hw.f_servoLeft.setPosition(1);
         sleep(1500);
 
         //move to wall and park
-        rd.moveDist(RobotDrive.Direction.RIGHT, 40, .5);
-        rd.moveDist(RobotDrive.Direction.FORWARD, 37, .5);
+        rd.moveDist(RobotDrive.Direction.LEFT, 10, .5);
+        rd.moveDist(RobotDrive.Direction.FORWARD, 42, .5);
         
 
         
