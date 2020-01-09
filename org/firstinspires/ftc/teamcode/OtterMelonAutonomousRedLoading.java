@@ -72,7 +72,7 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         hw.armLeft.setPosition(startPos);
         hw.armRight.setPosition(1-startPos);
         hw.level.setPosition(startPos+.05);
-        hw.gripper.setPosition(.3);
+        hw.gripper.setPosition(0);
         waitForStart();
         while (opModeIsActive()) {
 
@@ -117,7 +117,7 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         //wobble
        // rd.moveDist(RobotDrive.Direction.FORWARD, .5, .3);
         //rd.moveDist(RobotDrive.Direction.REVERSE, .5, .3);
-        hw.gripper.setPosition(0);
+        hw.gripper.setPosition(0.3);
 
         //find skystone position
         ssl= rs.locateSkystone();
@@ -161,10 +161,10 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         }
 
        
-        //grab first skystone
+       //grab first skystone
         rd.startIntake(.45);
         rd.moveDist(RobotDrive.Direction.FORWARD, 24, .5);
-        rd.moveDist(RobotDrive.Direction.FORWARD, 23, .3);
+        rd.moveDist(RobotDrive.Direction.FORWARD, 23, .25);
 
         //deliever first skystone
         rd.moveDist(RobotDrive.Direction.REVERSE,38, .5);
@@ -185,7 +185,7 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         rd.proportionalTurn(180, 1.5);
         rd.resetEncoders();
         rd.moveDist(RobotDrive.Direction.REVERSE, 10, .5);
-        rd.moveDist(RobotDrive.Direction.REVERSE, 15.5, .3);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 16.5, .25);
         hw.gripper.setPosition(.3);
         sleep(500);
         hw.gripper.setPosition(.8);

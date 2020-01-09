@@ -70,8 +70,7 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             telemetry.addData("turnScale", turnScale);
             telemetry.update();
 
-            //Actual call of the move function
-            rd.moveTeleop(angle, scale, turnScale);
+            
 
             //Foundation Servos Down (Button A) Grab
             if (gamepad1.a) {
@@ -91,7 +90,7 @@ public class OttermelonTeleopFinal extends LinearOpMode {
                 rh.f_servoRight.setPosition(.5);
             }
 
-            //Slow Controls / Turn
+            //All motion
             if(gamepad1.dpad_up){
                 rd.setPower(0.3,0.3,0.3,0.3);
             }
@@ -109,6 +108,10 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             }
             else if(gamepad1.right_bumper){    
                 rd.setPower(0.3,0.3,-0.3,-0.3);
+            }
+            else{
+
+                rd.moveTeleop(angle, scale, turnScale);
             }
 
             /***************************************************************************** */

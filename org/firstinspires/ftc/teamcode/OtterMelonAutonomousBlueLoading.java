@@ -71,7 +71,7 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
         hw.armLeft.setPosition(startPos);
         hw.armRight.setPosition(1-startPos);
         hw.level.setPosition(startPos+.05);
-        hw.gripper.setPosition(.3);
+        hw.gripper.setPosition(0);
         waitForStart();
         while (opModeIsActive()) {
 
@@ -118,6 +118,7 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
 
         //find skystone position
         ssl= rs.locateSkystone();
+        hw.gripper.setPosition(.3);
         if(!ssl.detected||ssl.angle>16){
 
             position=3;
@@ -207,10 +208,11 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
         rd.moveDist(RobotDrive.Direction.RIGHT, 50, .5);
         rd.moveDist(RobotDrive.Direction.LEFT, 15, .5);
         rd.proportionalTurn(270,1.5);
-        rd.moveDist(RobotDrive.Direction.REVERSE, 18, .5);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 20, .5);
         hw.f_servoRight.setPosition(.5);
         hw.f_servoLeft.setPosition(1);
         sleep(1500);
+        hw.f_servoLeft.setPosition(1);
 
         //move to wall and park
         rd.moveDist(RobotDrive.Direction.LEFT, 10, .5);

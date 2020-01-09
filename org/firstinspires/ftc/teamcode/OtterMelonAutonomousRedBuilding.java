@@ -65,8 +65,9 @@ public class OtterMelonAutonomousRedBuilding extends LinearOpMode {
         /*hw.armRight.setPosition(1-.3);
         hw.armLeft.setPosition(.3);
         hw.level.setPosition(.3+.05);*/
-        hw.f_servoLeft.setPosition(0.5);
+        hw.f_servoLeft.setPosition(1);
         hw.f_servoRight.setPosition(0.5);
+        hw.gripper.setPosition(.8);
         waitForStart();
         while (opModeIsActive()) {
 
@@ -99,6 +100,7 @@ public class OtterMelonAutonomousRedBuilding extends LinearOpMode {
         hw.f_servoRight.setPosition(.5);
         hw.f_servoLeft.setPosition(1);
         sleep(1500);
+        
 
         //move to wall and park
         rd.moveDist(RobotDrive.Direction.LEFT, 40, .5);

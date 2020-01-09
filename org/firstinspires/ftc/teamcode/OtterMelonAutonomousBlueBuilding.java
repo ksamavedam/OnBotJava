@@ -67,6 +67,7 @@ public class OtterMelonAutonomousBlueBuilding extends LinearOpMode {
         hw.level.setPosition(.3+.05);*/
         hw.f_servoLeft.setPosition(1);
         hw.f_servoRight.setPosition(.5);
+        hw.gripper.setPosition(0);
         waitForStart();
         while (opModeIsActive()) {
 
@@ -175,6 +176,9 @@ public class OtterMelonAutonomousBlueBuilding extends LinearOpMode {
     
     public void BuildingZone() {
 
+        //set gripper so it doesn't run into bridge
+        hw.gripper.setPosition(.3);
+
         //lock foundation
         rd.moveDist(RobotDrive.Direction.REVERSE, 20, .5);
         rd.moveDist(RobotDrive.Direction.REVERSE, 10.5, .2);
@@ -192,7 +196,7 @@ public class OtterMelonAutonomousBlueBuilding extends LinearOpMode {
 
         //score foundation and unlock
         rd.moveDist(RobotDrive.Direction.RIGHT, 15, .5);
-        rd.moveDist(RobotDrive.Direction.REVERSE, 16, .5);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 18, .5);
         hw.f_servoRight.setPosition(.5);
         hw.f_servoLeft.setPosition(1);
         sleep(1500);
@@ -200,7 +204,8 @@ public class OtterMelonAutonomousBlueBuilding extends LinearOpMode {
         //move to wall and park
         rd.moveDist(RobotDrive.Direction.RIGHT, 40, .5);
         rd.moveDist(RobotDrive.Direction.FORWARD, 37, .5);
-        
+        hw.f_servoLeft.setPosition(1);
+        sleep(1500);
 
     }
 
