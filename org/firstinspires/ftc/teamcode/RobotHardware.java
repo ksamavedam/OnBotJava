@@ -89,6 +89,7 @@ public class RobotHardware {
         blMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         brMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         trMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+       
 
         if (name == "OtterMelon") {
             intakeMotorLeft=hwMap.get(DcMotor.class, "leftIntake");

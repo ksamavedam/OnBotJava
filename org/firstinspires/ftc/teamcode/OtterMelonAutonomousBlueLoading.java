@@ -67,7 +67,7 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
         hw.level.setPosition(.3+.05);*/
         hw.f_servoLeft.setPosition(0.5);
         hw.f_servoRight.setPosition(0.5);
-        double startPos=.03;
+        double startPos=.04;
         hw.armLeft.setPosition(startPos);
         hw.armRight.setPosition(1-startPos);
         hw.level.setPosition(startPos+.05);
@@ -166,7 +166,7 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
         rd.moveDist(RobotDrive.Direction.FORWARD, 23, .3);
 
         //deliever first skystone
-        rd.moveDist(RobotDrive.Direction.REVERSE,38, .5);
+        rd.moveDist(RobotDrive.Direction.REVERSE,19, .5);
         rd.proportionalTurn(270,1.5);
         rd.resetEncoders();
         if(position==1){
@@ -175,32 +175,39 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
         }
         rd.moveDist(RobotDrive.Direction.REVERSE, 74+h_disp,.5);
         rd.startIntake(0);
-        hw.gripper.setPosition(.8);
+        double s1Pos=0;
+        hw.armRight.setPosition(1-s1Pos);
+        hw.armLeft.setPosition(s1Pos);
+        hw.level.setPosition(s1Pos+.08);
         sleep(500);
-        double s1Pos=.45;
+        hw.gripper.setPosition(.8);
+        sleep(1000);
+        s1Pos=.5;
         hw.armRight.setPosition(1-s1Pos);
         hw.armLeft.setPosition(s1Pos);
         hw.level.setPosition(s1Pos+.08);
         rd.proportionalTurn(180, 1.5);
         rd.resetEncoders();
-        rd.moveDist(RobotDrive.Direction.REVERSE, 10, .5);
-        rd.moveDist(RobotDrive.Direction.REVERSE, 16.5, .25);
-        hw.gripper.setPosition(.3);
-        sleep(500);
-        hw.gripper.setPosition(.8);
-        sleep(500);
-        s1Pos=.03;
+        rd.moveDist(RobotDrive.Direction.REVERSE, 4.75, .5);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 6.75, .25);
+        hw.f_servoRight.setPosition(1);
+        hw.f_servoLeft.setPosition(.5);
         hw.armRight.setPosition(1-s1Pos);
         hw.armLeft.setPosition(s1Pos);
         hw.level.setPosition(s1Pos+.08);
-        
-        hw.f_servoRight.setPosition(1);
-        hw.f_servoLeft.setPosition(.5);
         sleep(1500);
-
+        hw.gripper.setPosition(.3);
+        sleep(500);
+        s1Pos=.03;
+        sleep(500);
+        hw.armRight.setPosition(1-s1Pos);
+        hw.armLeft.setPosition(s1Pos);
+        sleep(500);
+        hw.gripper.setPosition(.8);
+        hw.level.setPosition(s1Pos+.08);
         //move and turn to be parallel to bridge
         
-        rd.moveDist(RobotDrive.Direction.LEFT,17, .5);
+        rd.moveDist(RobotDrive.Direction.LEFT,19, .5);
         rd.proportionalTurn(270,2);
         rd.resetEncoders();
 
@@ -215,7 +222,7 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
         hw.f_servoLeft.setPosition(1);
 
         //move to wall and park
-        rd.moveDist(RobotDrive.Direction.LEFT, 10, .5);
+        rd.moveDist(RobotDrive.Direction.LEFT, 3, .5);
         rd.moveDist(RobotDrive.Direction.FORWARD, 42, .5);
         
 

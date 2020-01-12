@@ -33,7 +33,7 @@ public class OttermelonTeleopFinal extends LinearOpMode {
         rd = new RobotDrive(rh);
         waitForStart();
         while (opModeIsActive()) {
-            double s1Pos=0.03;
+            double s1Pos=0.04;
             /************************************************************************************ */
             //DRIVER 1 CONTROLS
             //*************************************************************************************/
@@ -73,21 +73,26 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             
 
             //Foundation Servos Down (Button A) Grab
-            if (gamepad1.a) {
-
-                rh.f_servoRight.setPosition(1);
-            } 
-            else if (gamepad1.b) {
+             if (gamepad1.x) {
                 rh.f_servoLeft.setPosition(.5);
+                rh.f_servoRight.setPosition(.5);
             } 
             
             //Foundation Servos Up (Button B) Release
-            else if (gamepad1.y) {
-                rh.f_servoLeft.setPosition(1);
-            } 
-            else if(gamepad1.x){
+            else if(gamepad1.b){
 
+                rh.f_servoRight.setPosition(1);
+                rh.f_servoLeft.setPosition(1);
+            }
+            else if(gamepad1.left_bumper){
+
+                rh.f_servoLeft.setPosition(1);
                 rh.f_servoRight.setPosition(.5);
+            }
+            else if(gamepad1.right_bumper){
+
+                rh.f_servoLeft.setPosition(.5);
+                rh.f_servoRight.setPosition(1);
             }
 
             //All motion
@@ -103,10 +108,10 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             else if(gamepad1.dpad_left){
                 rd.setPower(-0.3,0.3,-0.3,0.3);
             }
-            else if(gamepad1.left_bumper){
+            else if(gamepad1.left_trigger!=0){
                 rd.setPower(-0.3,-0.3,0.3,0.3);
             }
-            else if(gamepad1.right_bumper){    
+            else if(gamepad1.right_trigger!=0){    
                 rd.setPower(0.3,0.3,-0.3,-0.3);
             }
             else{
@@ -153,12 +158,12 @@ public class OttermelonTeleopFinal extends LinearOpMode {
 
             //Arm in the robot (Button A) TEST
             if (gamepad2.a){
-                s1Pos = .5;
+                s1Pos = .54;
             }
 
             //Arm in scoring position (Button B) TEST
             else if (gamepad2.b){
-                s1Pos = .6;
+                s1Pos = .65;
             }
             else if(gamepad2.dpad_down){
 
