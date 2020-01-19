@@ -1,3 +1,4 @@
+//.\bin\ftc_http_win.exe -ub
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -62,6 +63,7 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
         telemetry.addData("Ready! ", "Go Flamangos!"); 
         telemetry.update();
 
+        //Start the servos in the correct starting position
         /*hw.armRight.setPosition(1-.3);
         hw.armLeft.setPosition(.3);
         hw.level.setPosition(.3+.05);*/
@@ -75,7 +77,7 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
 
-            //.\bin\ftc_http_win.exe -ub
+            
             LoadingZone();      
              break;
         }
@@ -116,7 +118,8 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
         rd.moveDist(RobotDrive.Direction.REVERSE, .5, .3);
         hw.gripper.setPosition(0);*/
 
-        //find skystone position
+        //Locate skystone's position
+        //Align the robot to be in front of the skystone
         ssl= rs.locateSkystone();
         hw.gripper.setPosition(.3);
         if(!ssl.detected||ssl.angle>16){
@@ -158,14 +161,16 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
         }
 
         
-        //grab first skystone
+        //Bring up the foundation servos
         hw.f_servoLeft.setPosition(1);
         hw.f_servoRight.setPosition(.5);
+
+        //Move forward to grab the skystone
         rd.startIntake(.45);
         rd.moveDist(RobotDrive.Direction.FORWARD, 24, .5);
         rd.moveDist(RobotDrive.Direction.FORWARD, 23, .3);
 
-        //deliever first skystone
+        //Deliver the skystone to the building zone
         rd.moveDist(RobotDrive.Direction.REVERSE,19, .5);
         rd.proportionalTurn(270,1.5);
         rd.resetEncoders();
@@ -174,8 +179,12 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
             h_disp*=-1;
         }
         rd.moveDist(RobotDrive.Direction.REVERSE, 74+h_disp,.5);
+
+        //Stop the intake
         rd.startIntake(0);
         double s1Pos=0;
+
+        //Move the servos into the robot to grab skystone
         hw.armRight.setPosition(1-s1Pos);
         hw.armLeft.setPosition(s1Pos);
         hw.level.setPosition(s1Pos+.08);
@@ -183,45 +192,55 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
         hw.gripper.setPosition(.8);
         sleep(1000);
         s1Pos=.5;
+        
+        //Move servos into placing position
         hw.armRight.setPosition(1-s1Pos);
         hw.armLeft.setPosition(s1Pos);
         hw.level.setPosition(s1Pos+.08);
         rd.proportionalTurn(180, 1.5);
         rd.resetEncoders();
+        //Align to the foundation
         rd.moveDist(RobotDrive.Direction.REVERSE, 4.75, .5);
         rd.moveDist(RobotDrive.Direction.REVERSE, 6.75, .25);
+
         hw.f_servoRight.setPosition(1);
         hw.f_servoLeft.setPosition(.5);
         hw.armRight.setPosition(1-s1Pos);
         hw.armLeft.setPosition(s1Pos);
         hw.level.setPosition(s1Pos+.08);
         sleep(1500);
+
+        //Release the skystone on the foundation
         hw.gripper.setPosition(.3);
         sleep(500);
         s1Pos=.03;
         sleep(500);
+
+        //Move the arm back inside the robot
         hw.armRight.setPosition(1-s1Pos);
         hw.armLeft.setPosition(s1Pos);
         sleep(500);
         hw.gripper.setPosition(.8);
         hw.level.setPosition(s1Pos+.08);
-        //move and turn to be parallel to bridge
-        
+
+        //Algin robot to be parallel to the bridge
         rd.moveDist(RobotDrive.Direction.LEFT,19, .5);
         rd.proportionalTurn(270,2);
         rd.resetEncoders();
 
-        //score foundation and unlock
+        //Move the foundation into the building zone
         rd.moveDist(RobotDrive.Direction.RIGHT, 50, .5);
         rd.moveDist(RobotDrive.Direction.LEFT, 15, .5);
         rd.proportionalTurn(270,1.5);
         rd.moveDist(RobotDrive.Direction.REVERSE, 20, .5);
+
+        //Unlatch from the founation
         hw.f_servoRight.setPosition(.5);
         hw.f_servoLeft.setPosition(1);
         sleep(1500);
         hw.f_servoLeft.setPosition(1);
 
-        //move to wall and park
+        //Move under the bridge and park
         rd.moveDist(RobotDrive.Direction.LEFT, 3, .5);
         rd.moveDist(RobotDrive.Direction.FORWARD, 42, .5);
         
