@@ -68,10 +68,10 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         hw.f_servoLeft.setPosition(1);
         hw.f_servoRight.setPosition(0.5);
         
-        double startPos=.04;
+        double startPos=.06;
         hw.armLeft.setPosition(startPos);
         hw.armRight.setPosition(1-startPos);
-        hw.level.setPosition(startPos+.05);
+        hw.level.setPosition(startPos+.08);
         hw.gripper.setPosition(0);
         waitForStart();
         while (opModeIsActive()) {
@@ -191,8 +191,8 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         rd.resetEncoders();
 
         //score skystone and lock foundation
-        rd.moveDist(RobotDrive.Direction.REVERSE, 4.75, .5);
-        rd.moveDist(RobotDrive.Direction.REVERSE, 6.75, .25);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 4.25, .5);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 5.75, .25);
         hw.f_servoRight.setPosition(1);
         hw.f_servoLeft.setPosition(.5);
         hw.armRight.setPosition(1-s1Pos);
