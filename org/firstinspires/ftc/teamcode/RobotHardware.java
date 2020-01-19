@@ -15,6 +15,7 @@ import com.qualcomm.hardware.rev.Rev2mDistanceSensor;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 
 public class RobotHardware {
+    //Initialize all of the motors, servos, and sensors
     public BNO055IMU imu;
     public DcMotor tlMotor=null;
     public DcMotor blMotor=null;
@@ -46,7 +47,7 @@ public class RobotHardware {
 
     public RobotHardware(String name, HardwareMap hw) {
 
-
+        //Initialize sizing variables for different robots
         if (name == "OtterMelon") {
             ticksToInchV = 62.5;
             ticksToInchH = 57.2;
@@ -60,6 +61,7 @@ public class RobotHardware {
             ticksToInchD = 49.0;
         }
 
+        //Retrieve the hardware from the robot configuration
         hwMap = hw;
         tlMotor = hwMap.get(DcMotor.class, "topLeft");
         blMotor = hwMap.get(DcMotor.class, "bottomLeft");
@@ -71,8 +73,6 @@ public class RobotHardware {
         level=hwMap.get(Servo.class, "level");
         f_servoLeft=hwMap.get(Servo.class, "f_servoLeft");
         f_servoRight=hwMap.get(Servo.class, "f_servoRight");
-        
-        
 
         imu = hwMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
@@ -90,7 +90,7 @@ public class RobotHardware {
         brMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         trMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
        
-
+        //Retrieve different sensors and motors depending on which robot is being used
         if (name == "OtterMelon") {
             intakeMotorLeft=hwMap.get(DcMotor.class, "leftIntake");
             intakeMotorRight=hwMap.get(DcMotor.class, "rightIntake");
