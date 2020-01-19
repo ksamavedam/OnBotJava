@@ -62,11 +62,7 @@ public class BlueFoundationFar extends LinearOpMode {
         telemetry.addData("Ready! ", "Go Flamangos!"); 
         telemetry.update();
 
-        hw.armRight.setPosition(1-.03);
-        hw.armLeft.setPosition(.03);
-        hw.level.setPosition(.03+.05);
-        hw.f_servoLeft.setPosition(1);
-        hw.f_servoRight.setPosition(.5);
+        rd.moveArm(hw.startPos());
         hw.gripper.setPosition(0);
         waitForStart();
         while (opModeIsActive()) {

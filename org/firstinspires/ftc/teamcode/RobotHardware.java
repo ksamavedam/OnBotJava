@@ -36,6 +36,10 @@ public class RobotHardware {
     double ticksToInchH = 37.0;
     double ticksToInchR = 15.0;
     double ticksToInchD = 49.0;
+    private double startPos;
+    private double lowScorePos;
+    private double highScorePos;
+    private double levelConstant;
     HardwareMap hwMap = null;
     public TFObjectDetector tfod;
     public VuforiaLocalizer vuforia;
@@ -99,12 +103,17 @@ public class RobotHardware {
             sensorRange = hwMap.get(DistanceSensor.class, "distanceS"); 
             slideLeft=hwMap.get(DcMotor.class, "slideLeft");
             slideRight=hwMap.get(DcMotor.class, "slideRight");   
-           
-            // telemetry.addData("%s", "  ITS A SKYSTONE");
             tlMotor.setDirection(DcMotor.Direction.REVERSE);
             brMotor.setDirection(DcMotor.Direction.REVERSE);
             slideLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             slideRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+            //servo constants
+            startPos=.22;
+            lowScorePos=.8;
+            highScorePos=.67;
+            levelConstant=.08;
+
         }
         
         else if (name == "AppleBee") {
@@ -117,6 +126,11 @@ public class RobotHardware {
     public double getTicksToInchH() {return ticksToInchH; }
     public double getTicksToInchR() {return ticksToInchR; }
     public double getTicksToInchD() {return ticksToInchD; }
+
+    public double lowScore(){ return lowScorePos;}
+    public double highScore(){ return highScorePos;}
+    public double startPos() { return startPos;}
+    public double levelConstant(){ return levelConstant;}
     public void initTfod() {
         int tfodMonitorViewId = hwMap.appContext.getResources().getIdentifier("tfodMonitorViewId", "id",
         hwMap.appContext.getPackageName());

@@ -67,6 +67,7 @@ public class RedFoundationFar extends LinearOpMode {
         hw.level.setPosition(.3+.05);*/
         hw.f_servoLeft.setPosition(1);
         hw.f_servoRight.setPosition(0.5);
+        rd.moveArm(hw.startPos());
         hw.gripper.setPosition(.8);
         waitForStart();
         while (opModeIsActive()) {

@@ -68,10 +68,7 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         hw.f_servoLeft.setPosition(1);
         hw.f_servoRight.setPosition(0.5);
         
-        double startPos=.06;
-        hw.armLeft.setPosition(startPos);
-        hw.armRight.setPosition(1-startPos);
-        hw.level.setPosition(startPos+.08);
+        rd.moveArm(hw.startPos());
         hw.gripper.setPosition(0);
         waitForStart();
         while (opModeIsActive()) {
@@ -178,15 +175,11 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         rd.moveDist(RobotDrive.Direction.REVERSE, 65+h_disp, .5);
         rd.startIntake(0);
         
-        double s1Pos=0;
-        hw.armRight.setPosition(1-s1Pos);
-        hw.armLeft.setPosition(s1Pos);
-        hw.level.setPosition(s1Pos+.08);
+        rd.moveArm(.15);
         sleep(500);
         hw.gripper.setPosition(.8);
         rd.startIntake(0);
 
-        s1Pos=.5;
         rd.proportionalTurn(180, 1.5);
         rd.resetEncoders();
 
@@ -195,19 +188,13 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         rd.moveDist(RobotDrive.Direction.REVERSE, 5.75, .25);
         hw.f_servoRight.setPosition(1);
         hw.f_servoLeft.setPosition(.5);
-        hw.armRight.setPosition(1-s1Pos);
-        hw.armLeft.setPosition(s1Pos);
-        hw.level.setPosition(s1Pos+.08);
+        rd.moveArm(hw.highScore());
         sleep(1500);
         hw.gripper.setPosition(.3);
-        sleep(500);
-        s1Pos=.04;
-        sleep(500);
-        hw.armRight.setPosition(1-s1Pos);
-        hw.armLeft.setPosition(s1Pos);
+        sleep(1000);
+        rd.moveArm(hw.startPos());
         sleep(500);
         hw.gripper.setPosition(.8);
-        hw.level.setPosition(s1Pos+.08);
         sleep(1000);
 
         //score foundation 
