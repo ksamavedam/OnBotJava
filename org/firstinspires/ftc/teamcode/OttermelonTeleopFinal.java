@@ -64,13 +64,11 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             double scale = Math.sqrt(((gamepad1.right_stick_y) * (gamepad1.right_stick_y))
                     + ((gamepad1.right_stick_x) * (gamepad1.right_stick_x))) ;
 
-            //Rotating one
+            //Desired power of rotating
             double turnScale = gamepad1.left_stick_x*.75;
             telemetry.addData("Scale", scale);
             telemetry.addData("turnScale", turnScale);
             telemetry.update();
-
-            
 
             //Foundation Servos Down (Button A) Grab
              if (gamepad1.x) {
@@ -84,18 +82,22 @@ public class OttermelonTeleopFinal extends LinearOpMode {
                 rh.f_servoRight.setPosition(1);
                 rh.f_servoLeft.setPosition(1);
             }
+
+            //Alignment Right
             else if(gamepad1.left_bumper){
 
                 rh.f_servoLeft.setPosition(1);
                 rh.f_servoRight.setPosition(.5);
             }
+
+            //Alignment Left
             else if(gamepad1.right_bumper){
 
                 rh.f_servoLeft.setPosition(.5);
                 rh.f_servoRight.setPosition(1);
             }
 
-            //All motion
+            //Slow motion controls
             if(gamepad1.dpad_up){
                 rd.setPower(0.3,0.3,0.3,0.3);
             }
@@ -108,6 +110,8 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             else if(gamepad1.dpad_left){
                 rd.setPower(-0.3,0.3,-0.3,0.3);
             }
+
+            //Slow motion rotation
             else if(gamepad1.left_trigger!=0){
                 rd.setPower(-0.3,-0.3,0.3,0.3);
             }
@@ -156,12 +160,12 @@ public class OttermelonTeleopFinal extends LinearOpMode {
                 rh.gripper.setPosition(.3);
             }
 
-            //Arm in the robot (Button A) TEST
+            //Arm in the robot (Button A)
             if (gamepad2.a){
                 s1Pos = .54;
             }
 
-            //Arm in scoring position (Button B) TEST
+            //Arm in scoring position (Button B)
             else if (gamepad2.b){
                 s1Pos = .65;
             }
