@@ -115,6 +115,12 @@ public class RobotDrive {
         hw.brMotor.setPower(powers[2]);
         hw.trMotor.setPower(powers[3]);
     }
+    public void moveArm(double targetPos){
+
+        hw.armRight.setPosition(1-targetPos);
+        hw.armLeft.setPosition(targetPos);
+        hw.level.setPosition(targetPos+hw.levelConstant());
+    }
 
    /* public void proportionalTurn(double targetAngle, double time) {
 
