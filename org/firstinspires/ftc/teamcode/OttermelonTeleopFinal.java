@@ -156,30 +156,30 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             else if (gamepad2.y){
                 rh.gripper.setPosition(.1);
             }
+            else if(gamepad2.dpad_up){
+
+                rh.gripper.setPosition(.5);
+            }
 
             //Arm in the robot (Button A) TEST
             if (gamepad2.a){
-                s1Pos = rh.lowScore();
+                s1Pos = rh.highScore();
             }
 
             //Arm in scoring position (Button B) TEST
             else if (gamepad2.b){
-                s1Pos = rh.highScore();
+                s1Pos = rh.lowScore();
+            }
+            else if(gamepad2.left_bumper){
+
+                rh.cap.setPosition(1);
+                capPos=false;
             }
             else if(gamepad2.right_bumper){
 
-                
-                if(capPos){
-
-                    rh.cap.setPosition(1);
-                    capPos=false;
-                }
-                else{
-
-                    rh.cap.setPosition(0);
-                    capPos=true;
-                }
+                rh.cap.setPosition(0);
             }
+            
 
             /*rh.armRight.setPosition(1-s1Pos);
             rh.armLeft.setPosition(s1Pos);
