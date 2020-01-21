@@ -77,7 +77,7 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
             LoadingZone();
             //sleep(20000);
             //rd.moveDist(RobotDrive.Direction.RIGHT, 12, .5);      
-            break;
+            //break;
         }
 
         rs.shutdown();
@@ -114,7 +114,8 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         //wobble
        // rd.moveDist(RobotDrive.Direction.FORWARD, .5, .3);
         //rd.moveDist(RobotDrive.Direction.REVERSE, .5, .3);
-        hw.gripper.setPosition(0.3);
+        
+        hw.gripper.setPosition(0);
 
         //find skystone position
         ssl= rs.locateSkystone();
@@ -122,16 +123,16 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
 
             position=3;
             h_disp=12;
-           rd.moveDist(RobotDrive.Direction.LEFT, h_disp, .5);
+            rd.moveDist(RobotDrive.Direction.LEFT, h_disp, .5);
         }
-        else if(ssl.angle>9){
+        /*else if(ssl.angle>9){
 
             position=1;
             h_disp=7;
-            rd.moveDist(RobotDrive.Direction.RIGHT, h_disp, .5);
+           // rd.moveDist(RobotDrive.Direction.RIGHT, h_disp, .5);
             
-        }
-        else if((ssl.angle>-11&&ssl.angle<9)){
+        }*/
+        else if((ssl.angle>-19 &&ssl.angle<-15.5)){
 
             position=2;
             h_disp=3;
@@ -139,8 +140,8 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         }
         else {
 
-            position=3;
-            h_disp=12;
+            position=1;
+            h_disp=7;
             rd.moveDist(RobotDrive.Direction.LEFT, h_disp, .5);
         }
         
