@@ -68,7 +68,7 @@ public class RedFoundationClose extends LinearOpMode {
         hw.f_servoLeft.setPosition(1);
         hw.f_servoRight.setPosition(0.5);
         rd.moveArm(hw.startPos());
-        hw.gripper.setPosition(.8);
+       // hw.gripper.setPosition(.8);
         waitForStart();
         while (opModeIsActive()) {
 
