@@ -74,7 +74,7 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
 
             //.\bin\ftc_http_win.exe -ub
             LoadingZone();      
-            // break;
+            break;
         }
 
         rs.shutdown();
@@ -152,22 +152,19 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
 
         //deliever first skystone
         rd.moveDist(RobotDrive.Direction.REVERSE,22, .5);
+        rd.startIntake(0);
         rd.proportionalTurn(270,1.5);
+        hw.gripper.setPosition(.9);
         rd.resetEncoders();
         if(position==1){
 
             h_disp*=-1;
         }
         rd.moveDist(RobotDrive.Direction.REVERSE, 74+h_disp,.5);
-        rd.startIntake(0);
-        rd.moveArm(.15);
-        sleep(500);
-        hw.gripper.setPosition(.8);
-        sleep(1000);
         rd.moveArm(hw.highScore());
         rd.proportionalTurn(180, 1.5);
         rd.resetEncoders();
-        rd.moveDist(RobotDrive.Direction.REVERSE, 4.75, .5);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 5.75, .5);
         rd.moveDist(RobotDrive.Direction.REVERSE, 6.75, .25);
         hw.f_servoRight.setPosition(1);
         hw.f_servoLeft.setPosition(.5);
@@ -189,7 +186,7 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
         rd.moveDist(RobotDrive.Direction.REVERSE, 20, .5);
         hw.f_servoRight.setPosition(.5);
         hw.f_servoLeft.setPosition(1);
-        sleep(1500);
+        sleep(500);
         hw.f_servoLeft.setPosition(1);
 
         //move to wall and park
