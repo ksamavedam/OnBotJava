@@ -119,7 +119,11 @@ public class RobotDrive {
 
         hw.armRight.setPosition(1-targetPos);
         hw.armLeft.setPosition(targetPos);
-        hw.level.setPosition(targetPos+hw.levelConstant());
+        if(targetPos == .2)
+            hw.level.setPosition(0);
+        else    
+            hw.level.setPosition(targetPos+hw.levelConstant());
+
     }
 
    /* public void proportionalTurn(double targetAngle, double time) {

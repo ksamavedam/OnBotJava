@@ -149,16 +149,18 @@ public class OttermelonTeleopFinal extends LinearOpMode {
 
             //Grip the stone (Button X)
             if (gamepad2.x){
-                rh.gripper.setPosition(.8);
+
+                rh.gripper.setPosition(.9);
             }
 
             //Drop the stone (Button Y)
             else if (gamepad2.y){
+    
                 rh.gripper.setPosition(.1);
             }
             else if(gamepad2.dpad_up){
 
-                rh.gripper.setPosition(.5);
+                rh.gripper.setPosition(.7);
             }
 
             //Arm in the robot (Button A) TEST
@@ -170,9 +172,11 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             else if (gamepad2.b){
                 s1Pos = rh.lowScore();
             }
+
+            //capstone
             else if(gamepad2.left_bumper){
 
-                rh.cap.setPosition(1);
+                rh.cap.setPosition(.8);
                 capPos=false;
             }
             else if(gamepad2.right_bumper){

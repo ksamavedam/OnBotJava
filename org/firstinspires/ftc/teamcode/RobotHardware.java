@@ -109,10 +109,11 @@ public class RobotHardware {
             slideRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
 
             //servo constants
-            startPos=.22;
+            startPos=0.2;
             lowScorePos=.8;
             highScorePos=.67;
-            levelConstant=.08;
+            levelConstant=-0.13;
+
 
         }
         
