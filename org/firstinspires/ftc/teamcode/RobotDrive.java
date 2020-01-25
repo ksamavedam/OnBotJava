@@ -119,8 +119,8 @@ public class RobotDrive {
 
         hw.armRight.setPosition(1-targetPos);
         hw.armLeft.setPosition(targetPos);
-        if(targetPos == .2)
-            hw.level.setPosition(0);
+        if(targetPos == hw.startPos())
+            hw.level.setPosition(0.05);
         else    
             hw.level.setPosition(targetPos+hw.levelConstant());
 

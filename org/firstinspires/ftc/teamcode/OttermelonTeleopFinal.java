@@ -139,6 +139,8 @@ public class OttermelonTeleopFinal extends LinearOpMode {
                 //Getting the gripper out of the way of the block
                 rh.intakeMotorRight.setPower(-.4);
                 rh.intakeMotorLeft.setPower(.4);
+
+                rh.gripper.setPosition(.3);
             }
 
             //Stop Intake (Passive)
@@ -150,13 +152,13 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             //Grip the stone (Button X)
             if (gamepad2.x){
 
-                rh.gripper.setPosition(.9);
+                rh.gripper.setPosition(.95);
             }
 
             //Drop the stone (Button Y)
             else if (gamepad2.y){
     
-                rh.gripper.setPosition(.1);
+                rh.gripper.setPosition(.45);
             }
             else if(gamepad2.dpad_up){
 
@@ -183,11 +185,6 @@ public class OttermelonTeleopFinal extends LinearOpMode {
 
                 rh.cap.setPosition(0);
             }
-            
-
-            /*rh.armRight.setPosition(1-s1Pos);
-            rh.armLeft.setPosition(s1Pos);
-            rh.level.setPosition(s1Pos+.08);*/
             rd.moveArm(s1Pos);
         }
 

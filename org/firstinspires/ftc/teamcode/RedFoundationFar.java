@@ -104,7 +104,7 @@ public class RedFoundationFar extends LinearOpMode {
         
 
         //move to wall and park
-        rd.moveDist(RobotDrive.Direction.LEFT, 18, .5);
+        rd.moveDist(RobotDrive.Direction.LEFT, 11, .5);
         rd.moveDist(RobotDrive.Direction.FORWARD, 37, .5);
         
     }
