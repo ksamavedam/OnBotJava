@@ -32,10 +32,15 @@ public class RobotHardware {
     public Servo level;
     public Servo f_servoRight;
     public Servo f_servoLeft;
+    public Servo cap;
     double ticksToInchV = 32.0;
     double ticksToInchH = 37.0;
     double ticksToInchR = 15.0;
     double ticksToInchD = 49.0;
+    private double startPos;
+    private double lowScorePos;
+    private double highScorePos;
+    private double levelConstant;
     HardwareMap hwMap = null;
     public TFObjectDetector tfod;
     public VuforiaLocalizer vuforia;
@@ -73,6 +78,9 @@ public class RobotHardware {
         level=hwMap.get(Servo.class, "level");
         f_servoLeft=hwMap.get(Servo.class, "f_servoLeft");
         f_servoRight=hwMap.get(Servo.class, "f_servoRight");
+        cap=hwMap.get(Servo.class, "cap");
+        
+        
 
         imu = hwMap.get(BNO055IMU.class, "imu");
         BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
@@ -97,12 +105,17 @@ public class RobotHardware {
             sensorRange = hwMap.get(DistanceSensor.class, "distanceS"); 
             slideLeft=hwMap.get(DcMotor.class, "slideLeft");
             slideRight=hwMap.get(DcMotor.class, "slideRight");   
-           
-            // telemetry.addData("%s", "  ITS A SKYSTONE");
             tlMotor.setDirection(DcMotor.Direction.REVERSE);
             brMotor.setDirection(DcMotor.Direction.REVERSE);
             slideLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             slideRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+            //servo constants
+            startPos=0.23;
+            lowScorePos=.8;
+            highScorePos=.67;
+            levelConstant=-0.13;
+
 
         }
         
@@ -116,6 +129,11 @@ public class RobotHardware {
     public double getTicksToInchH() {return ticksToInchH; }
     public double getTicksToInchR() {return ticksToInchR; }
     public double getTicksToInchD() {return ticksToInchD; }
+
+    public double lowScore(){ return lowScorePos;}
+    public double highScore(){ return highScorePos;}
+    public double startPos() { return startPos;}
+    public double levelConstant(){ return levelConstant;}
     public void initTfod() {
         int tfodMonitorViewId = hwMap.appContext.getResources().getIdentifier("tfodMonitorViewId", "id",
         hwMap.appContext.getPackageName());

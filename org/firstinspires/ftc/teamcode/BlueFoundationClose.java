@@ -68,7 +68,7 @@ public class BlueFoundationClose extends LinearOpMode {
         hw.level.setPosition(.3+.05);*/
         hw.f_servoLeft.setPosition(1);
         hw.f_servoRight.setPosition(.5);
-        hw.gripper.setPosition(0);
+        rd.moveArm(hw.startPos()); 
         waitForStart();
         while (opModeIsActive()) {
             /*Start on the building side

@@ -34,8 +34,8 @@ import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-@Autonomous(name = "BlueBuildingClosePark", group = "Linear Opmode")
-public class BlueBuildingClosePark extends LinearOpMode {
+@Autonomous(name = "Turning Test", group = "Linear Opmode")
+public class TurningTests extends LinearOpMode {
     RobotHardware hw = null;
     private RobotDrive rd = null;
     private RobotSense rs = null;
@@ -62,7 +62,6 @@ public class BlueBuildingClosePark extends LinearOpMode {
         telemetry.addData("Ready! ", "Go Flamangos!"); 
         telemetry.update();
 
-        //Starting the servos in the correct starting position
         /*hw.armRight.setPosition(1-.3);
         hw.armLeft.setPosition(.3);
         hw.level.setPosition(.3+.05);*/
@@ -70,13 +69,11 @@ public class BlueBuildingClosePark extends LinearOpMode {
         hw.f_servoRight.setPosition(0.5);
         
         rd.moveArm(hw.startPos());
+        hw.gripper.setPosition(0.8);
         waitForStart();
         while (opModeIsActive()) {
-            
-            /*Starting close to the bridge on the building side
-              Move under the bridge and push into the wall*/
-            rd.moveDist(RobotDrive.Direction.LEFT,2,.5);
-            rd.moveDist(RobotDrive.Direction.FORWARD, 10, .5);
+            rd.proportionalTurn(90, 3);
+            sleep(1500);
             break;
         }
     }

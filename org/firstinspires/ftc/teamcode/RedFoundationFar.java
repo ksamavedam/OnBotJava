@@ -68,6 +68,7 @@ public class RedFoundationFar extends LinearOpMode {
         hw.level.setPosition(.3+.05);*/
         hw.f_servoLeft.setPosition(1);
         hw.f_servoRight.setPosition(0.5);
+        rd.moveArm(hw.startPos());
         hw.gripper.setPosition(.8);
         waitForStart();
         while (opModeIsActive()) {
@@ -106,8 +107,9 @@ public class RedFoundationFar extends LinearOpMode {
         hw.f_servoLeft.setPosition(1);
         sleep(1500);
         
+
         //Move under the bridge and park in the further spot
-        rd.moveDist(RobotDrive.Direction.LEFT, 18, .5);
+        rd.moveDist(RobotDrive.Direction.LEFT, 11, .5);
         rd.moveDist(RobotDrive.Direction.FORWARD, 37, .5);
         
     }

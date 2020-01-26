@@ -69,10 +69,7 @@ public class RedBuildingPark extends LinearOpMode {
         hw.f_servoLeft.setPosition(1);
         hw.f_servoRight.setPosition(.5);
         
-        double startPos=.03;
-        hw.armLeft.setPosition(startPos);
-        hw.armRight.setPosition(1-startPos);
-        hw.level.setPosition(startPos+.05);
+        rd.moveArm(hw.startPos());
         hw.gripper.setPosition(0.8);
         waitForStart();
         while (opModeIsActive()) {

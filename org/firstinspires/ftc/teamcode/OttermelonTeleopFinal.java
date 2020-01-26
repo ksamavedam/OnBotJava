@@ -31,9 +31,10 @@ public class OttermelonTeleopFinal extends LinearOpMode {
         RobotDrive rd = null;
         rh = new RobotHardware("OtterMelon", hardwareMap);
         rd = new RobotDrive(rh);
+        boolean capPos=false;
         waitForStart();
         while (opModeIsActive()) {
-            double s1Pos=0.04;
+            double s1Pos=rh.startPos();
             /************************************************************************************ */
             //DRIVER 1 CONTROLS
             //*************************************************************************************/
@@ -127,6 +128,7 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             //DRIVER 2 CONTROLS
             /***************************************************************************** */
             
+            
             //Normal Speed Slides (Left Joystick)
             rh.slideLeft.setPower(gamepad2.left_stick_y);
             rh.slideRight.setPower(gamepad2.left_stick_y);
@@ -139,9 +141,10 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             //Intake (Right Trigger)
             else if (gamepad2.right_trigger > 0){
                 //Getting the gripper out of the way of the block
-                rh.gripper.setPosition(.3);
                 rh.intakeMotorRight.setPower(-.4);
                 rh.intakeMotorLeft.setPower(.4);
+
+                rh.gripper.setPosition(.3);
             }
 
             //Stop Intake (Passive)
@@ -152,31 +155,41 @@ public class OttermelonTeleopFinal extends LinearOpMode {
 
             //Grip the stone (Button X)
             if (gamepad2.x){
-                rh.gripper.setPosition(.8);
+
+                rh.gripper.setPosition(.95);
             }
 
             //Drop the stone (Button Y)
             else if (gamepad2.y){
-                rh.gripper.setPosition(.3);
+    
+                rh.gripper.setPosition(.45);
+            }
+            else if(gamepad2.dpad_up){
+
+                rh.gripper.setPosition(.7);
             }
 
             //Arm in the robot (Button A)
             if (gamepad2.a){
-                s1Pos = .54;
+                s1Pos = rh.highScore();
             }
 
             //Arm in scoring position (Button B)
             else if (gamepad2.b){
-                s1Pos = .65;
-            }
-            else if(gamepad2.dpad_down){
-
-                s1Pos=.015;
+                s1Pos = rh.lowScore();
             }
 
-            rh.armRight.setPosition(1-s1Pos);
-            rh.armLeft.setPosition(s1Pos);
-            rh.level.setPosition(s1Pos+.08);
+            //capstone
+            else if(gamepad2.left_bumper){
+
+                rh.cap.setPosition(.8);
+                capPos=false;
+            }
+            else if(gamepad2.right_bumper){
+
+                rh.cap.setPosition(0);
+            }
+            rd.moveArm(s1Pos);
         }
 
     }
