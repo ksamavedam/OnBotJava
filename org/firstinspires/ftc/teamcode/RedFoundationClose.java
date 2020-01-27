@@ -62,6 +62,7 @@ public class RedFoundationClose extends LinearOpMode {
         telemetry.addData("Ready! ", "Go Flamangos!"); 
         telemetry.update();
 
+        //Start the servos in the correct starting positions
         /*hw.armRight.setPosition(1-.3);
         hw.armLeft.setPosition(.3);
         hw.level.setPosition(.3+.05);*/
@@ -72,6 +73,9 @@ public class RedFoundationClose extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
 
+            /*Start on the building side
+              Go for the foundation
+              Park under the bridge on the far side from drivers*/
             BuildingZoneFarPark();
             break;
         }
@@ -80,30 +84,30 @@ public class RedFoundationClose extends LinearOpMode {
     }
     public void BuildingZoneFarPark() {
 
-         //lock foundation
+         //Approach the foundation
         rd.moveDist(RobotDrive.Direction.REVERSE, 20, .5);
         rd.moveDist(RobotDrive.Direction.REVERSE, 10.5, .2);
 
+        //Lock onto foundation
         hw.f_servoRight.setPosition(1);
         hw.f_servoLeft.setPosition(.5);
         sleep(1500);
-
         
-        //move and turn to be parallel to bridge
-        
+        //Align the robot to be parallel to the bridge
         rd.moveDist(RobotDrive.Direction.RIGHT,17, .3);
         rd.proportionalTurn(270,1.5);
         rd.resetEncoders();
 
-        //score foundation and unlock
+        //Move the foundation into the building zone
         rd.moveDist(RobotDrive.Direction.LEFT, 15, .5);
         rd.moveDist(RobotDrive.Direction.REVERSE, 16, .5);
+
+        //Unlatch from the foundation
         hw.f_servoRight.setPosition(.5);
         hw.f_servoLeft.setPosition(1);
         sleep(1500);
         
-
-        //move to wall and park
+        //Move under the bridge and park
         rd.moveDist(RobotDrive.Direction.LEFT, 40, .5);
         rd.moveDist(RobotDrive.Direction.FORWARD, 37, .5);
         
@@ -197,12 +201,5 @@ public class RedFoundationClose extends LinearOpMode {
 
         //park
         rd.moveDist(RobotDrive.Direction.REVERSE, 10, .5);
-
-        
-
-        
     }
-
-    
-   
 }

@@ -119,6 +119,7 @@ public class OtterMelonAutonomous extends LinearOpMode {
         double h_disp=0;
         //get: rs. position; 
         //rd.moveDist(RobotDrive.Direction.LEFT, 10, .5);
+        //Locating the skystone's position
         ssl= rs.locateSkystone();
         if(!ssl.detected){
 
@@ -158,6 +159,7 @@ public class OtterMelonAutonomous extends LinearOpMode {
     
         }
 
+        //Move forward to collect the skystone
         rd.moveDist(RobotDrive.Direction.FORWARD, 31, .5);
         rd.startIntake(.4);
         rd.moveDist(RobotDrive.Direction.FORWARD, 10, .3);

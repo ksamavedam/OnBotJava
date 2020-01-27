@@ -1,3 +1,4 @@
+//.\bin\ftc_http_win.exe -ub
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -62,6 +63,7 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         telemetry.addData("Ready! ", "Go Flamangos!"); 
         telemetry.update();
 
+        //Start the servos in the correct starting position
         /*hw.armRight.setPosition(1-.3);
         hw.armLeft.setPosition(.3);
         hw.level.setPosition(.3+.05);*/
@@ -73,7 +75,11 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
 
-            //.\bin\ftc_http_win.exe -ub
+            /*Locate the skystone
+              Get the skystone and deliver it to the zone
+              Place the skystone on the foundation
+              Move the foundaiton into the building zone
+              Move under the birdge and park*/
             LoadingZone();
             //sleep(20000);
             //rd.moveDist(RobotDrive.Direction.RIGHT, 12, .5);      
@@ -117,7 +123,8 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         
         hw.gripper.setPosition(0);
 
-        //find skystone position
+        //Locate the skystone's position
+        //Position the robot to be in front of the skystone
         ssl= rs.locateSkystone();
         if(!ssl.detected){
 
@@ -159,13 +166,13 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         }
 
        
-       //grab first skystone
+       //Move forward to grab the skystone
         rd.startIntake(.45);
         rd.moveDist(RobotDrive.Direction.FORWARD, 24, .5);
         rd.moveDist(RobotDrive.Direction.FORWARD, 23, .25);
 
-        //deliever first skystone and line up to foundation
-        
+        ////Deliver the skystone
+        //Align to the foundaiton
         rd.moveDist(RobotDrive.Direction.REVERSE,20.5, .5);
         rd.startIntake(0);
         hw.cap.setPosition(.25);
@@ -181,16 +188,13 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         rd.moveDist(RobotDrive.Direction.REVERSE, 65+h_disp, .5);
         
         
-        //rd.moveArm(.15);
-        //sleep(500);
-       
-
         rd.proportionalTurn(180, 1.5);
         rd.resetEncoders();
 
         //score skystone and lock foundation
         rd.moveDist(RobotDrive.Direction.REVERSE, 6.5, .5);
         rd.moveDist(RobotDrive.Direction.REVERSE, 6.75, .25);
+        //Latch onto the foundation
         hw.f_servoRight.setPosition(1);
         hw.f_servoLeft.setPosition(.5);
         rd.moveArm(hw.highScore());
@@ -202,17 +206,19 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         hw.gripper.setPosition(.8);
         sleep(1000);
 
-        //score foundation 
+        //Move the foundation into the building zone
         rd.moveDist(RobotDrive.Direction.RIGHT,20, .3);
         rd.proportionalTurn(90,1.5);
         rd.resetEncoders();
         rd.moveDist(RobotDrive.Direction.LEFT, 15.5, .5);
         rd.moveDist(RobotDrive.Direction.REVERSE, 16, .5);
+
+        //Unlatch from the foundation
         hw.f_servoRight.setPosition(.5);
         hw.f_servoLeft.setPosition(1);
         sleep(500);
 
-        //move to wall and park
+        //Move under the bridge and park
         rd.moveDist(RobotDrive.Direction.LEFT, 14, .5);
         rd.moveDist(RobotDrive.Direction.FORWARD, 37, .75);
         

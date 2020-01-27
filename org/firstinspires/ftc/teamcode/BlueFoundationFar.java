@@ -67,6 +67,9 @@ public class BlueFoundationFar extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
 
+            /*Start in the building zone
+              Go for the foundation
+              Park*/
             BuildingZone();
             break;
         }
@@ -81,29 +84,30 @@ public class BlueFoundationFar extends LinearOpMode {
         //set gripper so it doesn't run into bridge
         hw.gripper.setPosition(.3);
 
-        //lock foundation
+        //Approach the foundation
         rd.moveDist(RobotDrive.Direction.REVERSE, 20, .5);
         rd.moveDist(RobotDrive.Direction.REVERSE, 10.5, .2);
 
+        //Latch onto the foundation
         hw.f_servoRight.setPosition(1);
         hw.f_servoLeft.setPosition(.5);
         sleep(1500);
 
-        
-        //move and turn to be parallel to bridge
-        
+        //Align the robot to be parallel to the bridge
         rd.moveDist(RobotDrive.Direction.LEFT,17, .3);
         rd.proportionalTurn(90,1.5);
         rd.resetEncoders();
 
-        //score foundation and unlock
+        //Move the foundation into the building zone
         rd.moveDist(RobotDrive.Direction.RIGHT, 15, .5);
         rd.moveDist(RobotDrive.Direction.REVERSE, 18, .5);
+
+        //Unlatch from the foundation
         hw.f_servoRight.setPosition(.5);
         hw.f_servoLeft.setPosition(1);
         sleep(1500);
 
-        //move to wall and park
+        //Move under the bridge and park
         rd.moveDist(RobotDrive.Direction.RIGHT, 7, .5);
         rd.moveDist(RobotDrive.Direction.FORWARD, 37, .5);
         hw.f_servoLeft.setPosition(1);

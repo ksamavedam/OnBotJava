@@ -1,3 +1,4 @@
+//.\bin\ftc_http_win.exe -ub
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -62,6 +63,7 @@ public class OtterMelonAutonomousFinal extends LinearOpMode {
         telemetry.addData("Ready! ", "Go Flamangos!"); 
         telemetry.update();
 
+        //Start the servos in the correct starting position
         /*hw.armRight.setPosition(1-.3);
         hw.armLeft.setPosition(.3);
         hw.level.setPosition(.3+.05);*/
@@ -70,13 +72,9 @@ public class OtterMelonAutonomousFinal extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
 
-            //.\bin\ftc_http_win.exe -ub
-            //goSquareThenTurn();
-            //rd.moveDist(RobotDrive.Direction.LEFT, 15, .5);
-            //LoadingZone();
+            /*Move the foundation into the building zone
+              Park under the bridge*/
             BuildingZone();
-            //playVuforia();
-            //angleTest();
                     
             //break;
         }

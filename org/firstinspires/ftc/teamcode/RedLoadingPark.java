@@ -62,6 +62,7 @@ public class RedLoadingPark extends LinearOpMode {
         telemetry.addData("Ready! ", "Go Flamangos!"); 
         telemetry.update();
 
+        //Starting the servos in the correct starting positions
         /*hw.armRight.setPosition(1-.3);
         hw.armLeft.setPosition(.3);
         hw.level.setPosition(.3+.05);*/
@@ -72,6 +73,10 @@ public class RedLoadingPark extends LinearOpMode {
         hw.gripper.setPosition(0.8);
         waitForStart();
         while (opModeIsActive()) {
+
+            /*Start further from the bridge on the loading side
+              Move under the bridge and push into the wall*/
+              
             rd.moveDist(RobotDrive.Direction.FORWARD, 25.5, .5);
             rd.moveDist(RobotDrive.Direction.RIGHT,14,.5);
             sleep(1500);
