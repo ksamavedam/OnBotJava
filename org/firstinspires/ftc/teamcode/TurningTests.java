@@ -52,7 +52,7 @@ public class TurningTests extends LinearOpMode {
     @Override
     public void runOpMode() {
         // These must be initialized in the runOpmode
-        hw = new RobotHardware(robotName, hardwareMap);
+         hw = new RobotHardware(robotName, hardwareMap);
          rd = new RobotDrive(hw);
          rs=new RobotSense(hw, telemetry);
          /*rd.moveDist(RobotDrive.Direction.FORWARD, .5, .3);
@@ -72,9 +72,43 @@ public class TurningTests extends LinearOpMode {
         hw.gripper.setPosition(0.8);
         waitForStart();
         while (opModeIsActive()) {
-            rd.proportionalTurn(90, 3);
+            double sumAngle = 0;
+            double rotations = 0;
+
+            proportionalTurn(90, 3, sumAngle);
             sleep(1500);
             break;
         }
+    }
+    public void proportionalTurn(double targetChange, double time, double& sumAngle, double& rotations){
+        Orientation angles= hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        mRunTime= new ElapsedTime();
+
+        double proportionalPower = 1;
+        double delta = 0;
+        double angle = sumAngle;
+        double targetAngle = sumAngle + targetChange; 
+        mRunTime().reset;
+        while (mRunTime.time() < time){
+            angles= hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+            double lastAngle = angle;
+            angle= angles.firstAngle % 360;
+            delta = angle-lastAngle;
+            
+            if (Math.abs(delta) > 350){
+                if (delta > 0)
+                    rotations--;
+                else if (delta < 0)
+                    rotations++;
+            }
+            
+            sumAngle = 360*rotations+angle;
+            
+            proportionalPower = (targetAngle - sumAngle)*.025;
+            proportionalPower = (Math.min(Math.abs(proportionalPower), .75)) * (Math.abs(proportionalPower) / proportionalPower); 
+            //set the powers with appropriate signs
+        }
+
+        setPower(0, 0, 0, 0);
     }
 }
