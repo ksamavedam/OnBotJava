@@ -116,7 +116,7 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
             h_disp=10;
             rd.moveDist(RobotDrive.Direction.RIGHT, h_disp, .5);
         }
-        else if((ssl.angle>-1.5&&ssl.angle<2)){
+        else if((ssl.angle>-6&&ssl.angle<2)){
 
             position=2;
             h_disp=2;
@@ -142,7 +142,7 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
     
         }
 
-        
+       
         //grab first skystone
         hw.f_servoLeft.setPosition(1);
         hw.f_servoRight.setPosition(.5);
@@ -168,21 +168,21 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
         rd.moveDist(RobotDrive.Direction.REVERSE, 6.75, .25);
         hw.f_servoRight.setPosition(1);
         hw.f_servoLeft.setPosition(.5);
-        hw.gripper.setPosition(.3);
-        sleep(1000);
-        rd.moveArm(hw.startPos());
         sleep(500);
+        hw.gripper.setPosition(.3);
+        sleep(700);
+        rd.moveArm(hw.startPos());
         hw.gripper.setPosition(.8);
         //move and turn to be parallel to bridge
         
+        rd.moveDist(RobotDrive.Direction.FORWARD, 3, .5);
         rd.moveDist(RobotDrive.Direction.LEFT,19, .5);
         rd.proportionalTurn(270,2);
         rd.resetEncoders();
 
         //score foundation and unlock
         rd.moveDist(RobotDrive.Direction.RIGHT, 50, .5);
-        rd.moveDist(RobotDrive.Direction.LEFT, 15, .5);
-        rd.proportionalTurn(270,1.5);
+        rd.moveDist(RobotDrive.Direction.LEFT, 17, .5);
         rd.moveDist(RobotDrive.Direction.REVERSE, 20, .5);
         hw.f_servoRight.setPosition(.5);
         hw.f_servoLeft.setPosition(1);
@@ -191,7 +191,7 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
 
         //move to wall and park
         rd.moveDist(RobotDrive.Direction.LEFT, 3, .5);
-        rd.moveDist(RobotDrive.Direction.FORWARD, 42, .5);
+        rd.moveDist(RobotDrive.Direction.FORWARD, 42, .75);
         
 
         

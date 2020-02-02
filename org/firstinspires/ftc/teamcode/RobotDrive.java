@@ -184,7 +184,7 @@ public class RobotDrive {
         }
 
         double delta = 0;
-        double firstAngle=angles.firstAngle;
+        double firstAngle = angles.firstAngle;
         mRunTime.reset();
         while (mRunTime.time() < time) {
 
@@ -209,8 +209,6 @@ public class RobotDrive {
         }
 
         setPower(0, 0, 0, 0);
-       
-        //setPower(0, 0, 0, 0);
     }
 
 

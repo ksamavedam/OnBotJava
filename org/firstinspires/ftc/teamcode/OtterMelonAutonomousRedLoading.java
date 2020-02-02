@@ -125,14 +125,7 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
             h_disp=12;
             rd.moveDist(RobotDrive.Direction.LEFT, h_disp, .5);
         }
-        /*else if(ssl.angle>9){
-
-            position=1;
-            h_disp=7;
-           // rd.moveDist(RobotDrive.Direction.RIGHT, h_disp, .5);
-            
-        }*/
-        else if((ssl.angle>-19 &&ssl.angle<-15.5)){
+        else if((ssl.angle>-19 &&ssl.angle<-7)){
 
             position=2;
             h_disp=3;
@@ -147,8 +140,6 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         
         if(ssl.detected){
         telemetry.addData("position", position);
-        //telemetry.addData("Skystone DDist -HDist - Angle ", "%f  %f  %f", ssl.diagDistance, ssl.hzDistance, ssl.angle);
-
         telemetry.addData("angle", ssl.angle);
         telemetry.update();
         }
@@ -185,6 +176,7 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         //sleep(500);
        
 
+        rd.moveArm(hw.highScore());
         rd.proportionalTurn(180, 1.5);
         rd.resetEncoders();
 
@@ -193,14 +185,11 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         rd.moveDist(RobotDrive.Direction.REVERSE, 6.75, .25);
         hw.f_servoRight.setPosition(1);
         hw.f_servoLeft.setPosition(.5);
-        rd.moveArm(hw.highScore());
         sleep(500);
         hw.gripper.setPosition(.3);
         sleep(500);
         rd.moveArm(hw.startPos());
-        sleep(500);
         hw.gripper.setPosition(.8);
-        sleep(1000);
 
         //score foundation 
         rd.moveDist(RobotDrive.Direction.RIGHT,20, .3);
