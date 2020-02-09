@@ -126,105 +126,66 @@ public class RobotDrive {
 
     }
 
-   /* public void proportionalTurn(double targetAngle, double time) {
+   
+public void proportionalTurn(double targetAngle){
 
-        mRunTime= new ElapsedTime();
-        double direction = 1;
-        if (targetAngle > 180) {
-            direction = -1;
-            targetAngle = targetAngle - 360;
+    Orientation angles= hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+    double delta = 0;
+    mRunTime= new ElapsedTime();
+    mRunTime.reset();
+    angles = hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+    delta = targetAngle - angles.firstAngle;
+
+    while(delta>0.01 || delta < -0.01) {
+    angles = hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+    delta = targetAngle - angles.firstAngle;
+    //if(delta!=0){
+
+        if(delta>180){
+
+            delta = delta - 360;
         }
+        else if(delta <-180){
 
-        double delta = (targetAngle - getAngularOriFirst());
-
-        mRunTime.reset();
-        while (mRunTime.time() < time) {
-            delta = (targetAngle - getAngularOriFirst());
-            double power = (delta * .05);
-            power = (Math.min(Math.abs(power), .75)) * (Math.abs(power) / power) * direction;
-            setPower(power, power, -power, -power);
+            delta += 360;
         }
-
-        setPower(0, 0, 0, 0);
+        double power = (delta * .025);
+        power = Math.max((Math.min(Math.abs(power), 75)),.15) * (Math.abs(power) / power) ;
+        setPower(-power, -power, power, power);
     }
+    setPower(0,0,0,0);
+}
 
-    private double getAngularOriFirst() {
-        Orientation angles;
-        angles = hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        return (angles.firstAngle);
-    }
+    public void proportionalTurn(double targetAngle, double time){
 
-    public void setPower(double tlPower, double blPower, double brPower, double trPower) {
-
-        hw.tlMotor.setPower(tlPower);
-        hw.blMotor.setPower(blPower);
-        hw.brMotor.setPower(brPower);
-        hw.trMotor.setPower(trPower);
-    }*/
-
-    public void proportionalTurn(double targetAngle, double time) {
-        /*
-        mRunTime= new ElapsedTime();
-        double firstAngle=getAngularOriFirst();
-        mRunTime.reset();
-        while (mRunTime.time() < time) {
-
-            double power= .025*(((firstAngle+targetAngle-getAngularOriFirst())%360+360)%360);
-            power = (Math.min(Math.abs(power), .75)) * (Math.abs(power) / power) ;
-            setPower(-power, -power , power , power);
-        }*/
-
-        
         Orientation angles= hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        mRunTime= new ElapsedTime();
-        double direction = 1;
-        if (targetAngle > 180) {
-            targetAngle=360-targetAngle;
-            direction = -1;
+    double delta = 0;
+    mRunTime= new ElapsedTime();
+    mRunTime.reset();
+    angles = hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+    delta = targetAngle - angles.firstAngle;
+
+    while(mRunTime.time() < time) {
+    angles = hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+    delta = targetAngle - angles.firstAngle;
+    //if(delta!=0){
+
+        if(delta>180){
+
+            delta = delta - 360;
         }
+        else if(delta <-180){
 
-        double delta = 0;
-        double firstAngle = angles.firstAngle;
-        mRunTime.reset();
-        while (mRunTime.time() < time) {
-
-            angles= hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            double angle= angles.firstAngle;
-            if(angle<0){
-
-                if(direction<1){
-
-                    angle=Math.abs(angle);
-                }
-                else{
-                    
-                    angle=360+angle;
-                }
-                
-            }
-            delta = (targetAngle - angle);
-            double power = (delta * .025);
-            power = (Math.min(Math.abs(power), .75)) * (Math.abs(power) / power) ;
-            setPower(-power*direction, -power*direction, power*direction, power*direction);
+            delta += 360;
         }
-
-        setPower(0, 0, 0, 0);
+        double power = (delta * .025);
+        power = Math.max((Math.min(Math.abs(power), 75)),.15) * (Math.abs(power) / power) ;
+        setPower(-power, -power, power, power);
+    }
+    setPower(0,0,0,0);
+    resetEncoders();
     }
 
-
-    public void turn(double targetAngle){
-        Orientation angles= hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        double direction = .75;
-        if (targetAngle > 180) {
-            direction = -1*direction;
-            targetAngle = targetAngle - 360;
-        }
-        while(targetAngle-angles.firstAngle>0){
-            angles= hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-            setPower(-direction, -direction, direction, direction);
-        }
-        setPower(0, 0, 0, 0);
-    }
 
     private double getAngularOriFirst() {
         Orientation angles;
@@ -316,5 +277,30 @@ public class RobotDrive {
 
         }
         return powers;
+    }
+
+    public void scoreFoundationRed(){
+
+        lockFoundation("Lock");
+        proportionalTurn(170, .5);
+        resetEncoders();
+        moveDist(RobotDrive.Direction.FORWARD, 30, 1);
+        proportionalTurn(90, .75);
+        resetEncoders();
+        lockFoundation("unlock");
+    }
+
+    public void lockFoundation(String toLock){
+
+        if(toLock.equalsIgnoreCase("Lock")){
+
+            hw.f_servoRight.setPosition(1);
+            hw.f_servoLeft.setPosition(.5);
+        }
+        else{
+
+            hw.f_servoRight.setPosition(.5);
+            hw.f_servoLeft.setPosition(1);
+        }
     }
 }

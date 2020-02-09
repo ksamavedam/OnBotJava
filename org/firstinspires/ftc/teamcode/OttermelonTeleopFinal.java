@@ -128,18 +128,17 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             //Normal Speed Slides (Left Joystick)
             rh.slideLeft.setPower(gamepad2.left_stick_y);
             rh.slideRight.setPower(gamepad2.left_stick_y);
-
             //Outtake (Left Trigger)
             if (gamepad2.left_trigger > 0){
-                rd.startIntake(-.4);
+                rd.startIntake(-gamepad2.left_trigger);
             }
 
             //Intake (Right Trigger)
             else if (gamepad2.right_trigger > 0){
                 //Getting the gripper out of the way of the block
-                rh.intakeMotorRight.setPower(-.4);
-                rh.intakeMotorLeft.setPower(.4);
-
+                //rh.intakeMotorRight.setPower(-.4);
+                //rh.intakeMotorLeft.setPower(.4);
+                rd.startIntake(gamepad2.right_trigger);
                 rh.gripper.setPosition(.3);
             }
 
@@ -186,6 +185,11 @@ public class OttermelonTeleopFinal extends LinearOpMode {
                 rh.cap.setPosition(0);
             }
             rd.moveArm(s1Pos);
+            telemetry.addData("Intake", gamepad2.right_trigger);
+            telemetry.addData("Outake", gamepad2.left_trigger);
+            telemetry.update();
+    
+
         }
 
     }

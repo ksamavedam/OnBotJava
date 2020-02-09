@@ -72,41 +72,27 @@ public class RedFoundationClose extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
 
-            BuildingZoneFarPark();
+            BuildingZoneClosePark();
             break;
         }
 
         rs.shutdown();
     }
-    public void BuildingZoneFarPark() {
+    public void BuildingZoneClosePark() {
 
          //lock foundation
-        rd.moveDist(RobotDrive.Direction.REVERSE, 20, .5);
-        rd.moveDist(RobotDrive.Direction.REVERSE, 10.5, .2);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 32, .75);
+        rd.moveDist(RobotDrive.Direction.LEFT, 12, .5);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 4.5, .2);
 
         hw.f_servoRight.setPosition(1);
         hw.f_servoLeft.setPosition(.5);
-        sleep(1500);
 
-        
-        //move and turn to be parallel to bridge
-        
-        rd.moveDist(RobotDrive.Direction.RIGHT,17, .3);
-        rd.proportionalTurn(270,1.5);
-        rd.resetEncoders();
-
-        //score foundation and unlock
-        rd.moveDist(RobotDrive.Direction.LEFT, 15, .5);
-        rd.moveDist(RobotDrive.Direction.REVERSE, 16, .5);
+        rd.scoreFoundationRed();
         hw.f_servoRight.setPosition(.5);
         hw.f_servoLeft.setPosition(1);
-        sleep(1500);
-        
-
-        //move to wall and park
-        rd.moveDist(RobotDrive.Direction.LEFT, 40, .5);
-        rd.moveDist(RobotDrive.Direction.FORWARD, 37, .5);
-        
+        rd.moveDist(RobotDrive.Direction.LEFT, 7, .5);
+        rd.moveDist(RobotDrive.Direction.FORWARD, 38, 1);
     }
 
 
