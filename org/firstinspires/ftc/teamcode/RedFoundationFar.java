@@ -87,7 +87,7 @@ public class RedFoundationFar extends LinearOpMode {
         hw.f_servoRight.setPosition(1);
         hw.f_servoLeft.setPosition(.5);
 
-        rd.scoreFoundationRed();
+        rd.scoreFoundationRed(350, -90);
 
         rd.moveDist(RobotDrive.Direction.RIGHT, 18,1);
         rd.moveDist(RobotDrive.Direction.FORWARD, 38, 1);

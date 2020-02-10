@@ -88,7 +88,7 @@ public class RedFoundationClose extends LinearOpMode {
         hw.f_servoRight.setPosition(1);
         hw.f_servoLeft.setPosition(.5);
 
-        rd.scoreFoundationRed();
+        rd.scoreFoundationRed(350, -90);
         hw.f_servoRight.setPosition(.5);
         hw.f_servoLeft.setPosition(1);
         rd.moveDist(RobotDrive.Direction.LEFT, 7, .5);

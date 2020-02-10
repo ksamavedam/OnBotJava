@@ -130,15 +130,15 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             rh.slideRight.setPower(gamepad2.left_stick_y);
             //Outtake (Left Trigger)
             if (gamepad2.left_trigger > 0){
-                rd.startIntake(-gamepad2.left_trigger);
+                rd.startIntake(-.45);
             }
 
             //Intake (Right Trigger)
             else if (gamepad2.right_trigger > 0){
                 //Getting the gripper out of the way of the block
-                //rh.intakeMotorRight.setPower(-.4);
-                //rh.intakeMotorLeft.setPower(.4);
-                rd.startIntake(gamepad2.right_trigger);
+                rh.intakeMotorRight.setPower(-.45);
+                rh.intakeMotorLeft.setPower(.45);
+                //rd.startIntake(gamepad2.right_trigger);
                 rh.gripper.setPosition(.3);
             }
 

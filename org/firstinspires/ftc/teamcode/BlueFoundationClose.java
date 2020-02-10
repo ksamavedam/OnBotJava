@@ -65,8 +65,7 @@ public class BlueFoundationClose extends LinearOpMode {
         /*hw.armRight.setPosition(1-.3);
         hw.armLeft.setPosition(.3);
         hw.level.setPosition(.3+.05);*/
-        hw.f_servoLeft.setPosition(1);
-        hw.f_servoRight.setPosition(.5);
+        rd.lockFoundation("unlock");
         rd.moveArm(hw.startPos()); 
         waitForStart();
         while (opModeIsActive()) {
@@ -86,16 +85,18 @@ public class BlueFoundationClose extends LinearOpMode {
         hw.gripper.setPosition(.3);
 
         //lock foundation
-        rd.moveDist(RobotDrive.Direction.REVERSE, 20, .5);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 20, .75);
+        rd.moveDist(RobotDrive.Direction.RIGHT, 12, .75);
         rd.moveDist(RobotDrive.Direction.REVERSE, 10.5, .2);
 
-        hw.f_servoRight.setPosition(1);
-        hw.f_servoLeft.setPosition(.5);
-        sleep(1500);
+        rd.lockFoundation("Lock");
+        sleep(500);
+        rd.scoreFoundationRed(10, 90);
 
-        
+        rd.moveDist(RobotDrive.Direction.RIGHT, 9, .75);
+        rd.moveDist(RobotDrive.Direction.FORWARD,38,.75);
         //move and turn to be parallel to bridge
-        
+        /*
         rd.moveDist(RobotDrive.Direction.LEFT,17, .3);
         rd.proportionalTurn(90,1.5);
         rd.resetEncoders();
@@ -112,7 +113,7 @@ public class BlueFoundationClose extends LinearOpMode {
         rd.moveDist(RobotDrive.Direction.FORWARD, 37, .5);
         hw.f_servoLeft.setPosition(1);
         sleep(1500);
-
+*/
     }
 
 }

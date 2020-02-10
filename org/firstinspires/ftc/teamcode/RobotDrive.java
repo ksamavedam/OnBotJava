@@ -154,6 +154,7 @@ public void proportionalTurn(double targetAngle){
         setPower(-power, -power, power, power);
     }
     setPower(0,0,0,0);
+    resetEncoders();
 }
 
     public void proportionalTurn(double targetAngle, double time){
@@ -279,13 +280,12 @@ public void proportionalTurn(double targetAngle){
         return powers;
     }
 
-    public void scoreFoundationRed(){
+    public void scoreFoundationRed( double angle1, double angle2){
 
-        lockFoundation("Lock");
-        proportionalTurn(170, .5);
+        proportionalTurn(angle1, .75);
         resetEncoders();
-        moveDist(RobotDrive.Direction.FORWARD, 30, 1);
-        proportionalTurn(90, .75);
+        moveDist(RobotDrive.Direction.FORWARD, 35, 1);
+        proportionalTurn(angle2, .75);
         resetEncoders();
         lockFoundation("unlock");
     }

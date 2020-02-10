@@ -82,6 +82,24 @@ public class BlueFoundationFar extends LinearOpMode {
         hw.gripper.setPosition(.3);
 
         //lock foundation
+        rd.moveDist(RobotDrive.Direction.REVERSE, 20, .75);
+        rd.moveDist(RobotDrive.Direction.RIGHT, 12, .75);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 10, .2);
+
+        rd.lockFoundation("Lock");
+        sleep(500);
+        rd.scoreFoundationRed(10, 90);
+        sleep(500);
+        rd.moveDist(RobotDrive.Direction.REVERSE, 10, .75);
+        rd.moveDist(RobotDrive.Direction.FORWARD,8,.75);
+        rd.moveDist(RobotDrive.Direction.LEFT, 24, .75);
+        rd.moveDist(RobotDrive.Direction.FORWARD,30,.75);
+
+        /*
+        //set gripper so it doesn't run into bridge
+        hw.gripper.setPosition(.3);
+
+        //lock foundation
         rd.moveDist(RobotDrive.Direction.REVERSE, 20, .5);
         rd.moveDist(RobotDrive.Direction.REVERSE, 10.5, .2);
 
@@ -108,7 +126,7 @@ public class BlueFoundationFar extends LinearOpMode {
         rd.moveDist(RobotDrive.Direction.FORWARD, 37, .5);
         hw.f_servoLeft.setPosition(1);
         sleep(1500);
-
+*/
     }
 
 }
