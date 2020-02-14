@@ -187,6 +187,40 @@ public void proportionalTurn(double targetAngle){
     resetEncoders();
     }
 
+    public void moveCorrect(double power, double angleOfMove, double targetHeading, double time ){
+
+        Orientation angles = hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double[] powers = new double[4];
+        ElapsedTime mRuntime = new ElapsedTime();
+        while(mRuntime.time() < time){
+
+            powers = move(angleOfMove, power, propPower(targetHeading, angles));
+            hw.tlMotor.setPower(powers[0]);
+            hw.blMotor.setPower(powers[1]);
+            hw.brMotor.setPower(powers[2]);
+            hw.trMotor.setPower(powers[3]);
+        }
+    }
+
+    private double propPower(double targetAngle, Orientation angles){
+
+        angles = hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double delta = targetAngle - angles.firstAngle;
+        //if(delta!=0){
+
+        if(delta>180){
+
+            delta = delta - 360;
+        }
+        else if(delta <-180){
+
+            delta += 360;
+        }
+        double power = (delta * .025);
+        power = Math.max((Math.min(Math.abs(power), 75)),.15) * (Math.abs(power) / power) ;
+        return power;
+    }
+
 
     private double getAngularOriFirst() {
         Orientation angles;
