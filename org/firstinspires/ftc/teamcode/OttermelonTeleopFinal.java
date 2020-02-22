@@ -130,7 +130,7 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             rh.slideRight.setPower(gamepad2.left_stick_y);
             //Outtake (Left Trigger)
             if (gamepad2.left_trigger > 0){
-                rd.startIntake(-.45);
+                rd.startIntake(-.6);
             }
 
             //Intake (Right Trigger)
@@ -161,7 +161,7 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             }
             else if(gamepad2.dpad_up){
 
-                rh.gripper.setPosition(.7);
+                rh.gripper.setPosition(.8);
             }
 
             //Arm in the robot (Button A) TEST

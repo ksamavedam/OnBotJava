@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode;
 
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.hardware.bosch.BNO055IMU;
@@ -32,6 +33,7 @@ public class RobotHardware {
     public Servo f_servoRight;
     public Servo f_servoLeft;
     public Servo cap;
+    public CRServo tape;
     double ticksToInchV = 32.0;
     double ticksToInchH = 37.0;
     double ticksToInchR = 15.0;
@@ -100,9 +102,12 @@ public class RobotHardware {
         if (name == "OtterMelon") {
             intakeMotorLeft=hwMap.get(DcMotor.class, "leftIntake");
             intakeMotorRight=hwMap.get(DcMotor.class, "rightIntake");
-            sensorRange = hwMap.get(DistanceSensor.class, "distanceS"); 
+            sensorRange = hwMap.get(DistanceSensor.class, "distanceS");
+
             slideLeft=hwMap.get(DcMotor.class, "slideLeft");
             slideRight=hwMap.get(DcMotor.class, "slideRight");   
+
+            //tape = hwMap.get(CRServo.class, "tape");
             tlMotor.setDirection(DcMotor.Direction.REVERSE);
             brMotor.setDirection(DcMotor.Direction.REVERSE);
             slideLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -112,7 +117,7 @@ public class RobotHardware {
             startPos=0.23;
             lowScorePos=.8;
             highScorePos=.67;
-            levelConstant=-0.13;
+            levelConstant=-0.16;
 
 
         }

@@ -62,9 +62,6 @@ public class AutoTest extends LinearOpMode {
         telemetry.addData("Ready! ", "Go Flamangos!"); 
         telemetry.update();
 
-        /*hw.armRight.setPosition(1-.3);
-        hw.armLeft.setPosition(.3);
-        hw.level.setPosition(.3+.05);*/
         hw.f_servoLeft.setPosition(1);
         hw.f_servoRight.setPosition(0.5);
         
@@ -73,14 +70,8 @@ public class AutoTest extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
 
-            //rd.proportionalTurn(0);
-           /* rd.moveDist(RobotDrive.Direction.FORWARD, 10, .5);
-            rd.moveDist(RobotDrive.Direction.RIGHT, 10, .5);
-            rd.moveDist(RobotDrive.Direction.LEFT, 10, .5);
-            rd.moveDist(RobotDrive.Direction.REVERSE, 10, .5);
-            */
             rd.proportionalTurn(90);
-            moveCorrect(180, 0.5, 90, 5);
+            moveCorrect(Math.toRadians(270), 0.5, 90, 5);
             telemetry.update();
             rd.resetEncoders();
             rd.moveDist(RobotDrive.Direction.FORWARD, 10, .5);
