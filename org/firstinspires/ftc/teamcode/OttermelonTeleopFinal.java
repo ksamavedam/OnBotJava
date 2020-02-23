@@ -87,8 +87,8 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             }
             else if(gamepad1.left_bumper){
 
-                rh.f_servoLeft.setPosition(1);
-                rh.f_servoRight.setPosition(.5);
+                rh.f_servoLeft.setPosition(.9);
+                rh.f_servoRight.setPosition(.6);
             }
             else if(gamepad1.right_bumper){
 

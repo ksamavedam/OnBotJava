@@ -13,9 +13,11 @@ import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import java.util.Arrays;
 import java.lang.Math;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 
 @TeleOp(name = "TestingTele", group = "TeleOpModes")
 
@@ -28,37 +30,46 @@ public class TestingTele extends LinearOpMode {
     public Servo armRight;
     public Servo armLeft;
     public Servo level;
+    RobotHardware rh = null;
+    RobotDrive rd = null;
+
     @Override
     public void runOpMode() {
         gripper=hardwareMap.get(Servo.class, "gripper");
         armLeft=hardwareMap.get(Servo.class, "armLeft");
         armRight=hardwareMap.get(Servo.class, "armRight");
         level=hardwareMap.get(Servo.class, "level");
+        rh = new RobotHardware("OtterMelon", hardwareMap);
+        rd = new RobotDrive(rh);
     
         waitForStart();
         double s1Pos=.3;
         while (opModeIsActive()) {
            
-            if (gamepad1.a) {
-
-                
-                s1Pos=.4;
-            } else if (gamepad1.b) {
-
-                s1Pos=.2;
-            } 
-            else if (gamepad1.x) {
-
-                s1Pos=.3;
-            } else if (gamepad1.y) {
-
-                s1Pos=.5;
+            double angle = 0;
+            //Finding orientation of the right stick
+            if (gamepad1.right_stick_x > 0 && gamepad1.right_stick_y <= 0) {
+                angle = Math.atan(-gamepad1.right_stick_y / gamepad1.right_stick_x) + 3 * Math.PI / 2;
+            } else if (gamepad1.right_stick_x >= 0 && gamepad1.right_stick_y > 0) {
+                angle = Math.atan(gamepad1.right_stick_x / gamepad1.right_stick_y) + Math.PI;
+            } else if (gamepad1.right_stick_x < 0 && gamepad1.right_stick_y >= 0) {
+                angle = Math.atan(gamepad1.right_stick_y / -gamepad1.right_stick_x) + Math.PI / 2;
+            } else if (gamepad1.right_stick_x <= 0 && gamepad1.right_stick_y < 0) {
+                angle = Math.atan(gamepad1.right_stick_x / gamepad1.right_stick_y);
+            } else {
+                angle = 0;
             }
-            
-            
-            armRight.setPosition(1-s1Pos);
-            armLeft.setPosition(s1Pos);
-            level.setPosition(s1Pos+.08);
+
+            double scale = Math.sqrt(((gamepad1.right_stick_y) * (gamepad1.right_stick_y))
+                    + ((gamepad1.right_stick_x) * (gamepad1.right_stick_x))) ;
+
+            //Rotating one
+            double turnScale = gamepad1.left_stick_x*.75;
+
+            rd.moveTeleop(angle, scale, turnScale);
+            telemetry.addData("Left: cm", "%.2f cm", rh.distLeft.getDistance(DistanceUnit.CM));
+            telemetry.addData("Back: cm", "%.2f cm", rh.distBack.getDistance(DistanceUnit.CM));
+            telemetry.update();        
         }
     }
 }

@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 import org.firstinspires.ftc.teamcode.RobotHardware;
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
@@ -9,6 +10,7 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 
 public class RobotDrive {
@@ -219,6 +221,26 @@ public void proportionalTurn(double targetAngle){
         double power = (delta * .025);
         power = Math.max((Math.min(Math.abs(power), 75)),.15) * (Math.abs(power) / power) ;
         return power;
+    }
+
+    public void goDist(ModernRoboticsI2cRangeSensor range, double angle, double power, double targetDistance, boolean goTillLess){
+
+        angle = Math.toRadians(angle);
+        if(goTillLess){
+            while(range.getDistance(DistanceUnit.CM) > targetDistance){
+
+                moveAngle(angle, power);
+            }
+        }
+        else{
+
+            while(range.getDistance(DistanceUnit.CM) < targetDistance){
+
+                moveAngle(angle, power);
+            }
+        }
+
+        setPower(0,0,0,0);
     }
 
 

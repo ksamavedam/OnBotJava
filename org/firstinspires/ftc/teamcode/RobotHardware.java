@@ -5,6 +5,8 @@ import com.qualcomm.robotcore.hardware.CRServo;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
+
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer.CameraDirection;
@@ -42,6 +44,9 @@ public class RobotHardware {
     private double lowScorePos;
     private double highScorePos;
     private double levelConstant;
+    public ModernRoboticsI2cRangeSensor distLeft;
+    public ModernRoboticsI2cRangeSensor distBack;
+    public ModernRoboticsI2cRangeSensor distRight;
     HardwareMap hwMap = null;
     public TFObjectDetector tfod;
     public VuforiaLocalizer vuforia;
@@ -112,6 +117,10 @@ public class RobotHardware {
             brMotor.setDirection(DcMotor.Direction.REVERSE);
             slideLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
             slideRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+
+            distLeft= hwMap.get(ModernRoboticsI2cRangeSensor.class, "distLeft");
+            distBack= hwMap.get(ModernRoboticsI2cRangeSensor.class, "distBack");
+            distRight= hwMap.get(ModernRoboticsI2cRangeSensor.class, "distRight");
 
             //servo constants
             startPos=0.23;

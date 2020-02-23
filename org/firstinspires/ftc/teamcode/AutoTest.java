@@ -71,10 +71,8 @@ public class AutoTest extends LinearOpMode {
         while (opModeIsActive()) {
 
             //rd.proportionalTurn(90);
-            rd.moveDist(RobotDrive.Direction.FORWARD, 10, 1);
-            moveCorrect(Math.toRadians(270), 1, 0, 1.5);
-            rd.proportionalTurn(180);
-            
+
+            rd.goDist(hw.distLeft, 90, .3, 10, true);
             telemetry.update();            
             break;
         }
