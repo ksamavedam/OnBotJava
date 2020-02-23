@@ -70,14 +70,12 @@ public class AutoTest extends LinearOpMode {
         waitForStart();
         while (opModeIsActive()) {
 
-            rd.proportionalTurn(90);
-            moveCorrect(Math.toRadians(270), 0.5, 90, 5);
-            telemetry.update();
-            rd.resetEncoders();
-            rd.moveDist(RobotDrive.Direction.FORWARD, 10, .5);
-            rd.moveDist(RobotDrive.Direction.RIGHT, 10, .5);
-            rd.moveDist(RobotDrive.Direction.LEFT, 10, .5);
-            rd.moveDist(RobotDrive.Direction.REVERSE, 10, .5);            
+            //rd.proportionalTurn(90);
+            rd.moveDist(RobotDrive.Direction.FORWARD, 10, 1);
+            moveCorrect(Math.toRadians(270), 1, 0, 1.5);
+            rd.proportionalTurn(180);
+            
+            telemetry.update();            
             break;
         }
     }
@@ -90,11 +88,15 @@ public class AutoTest extends LinearOpMode {
         while(mRuntime.time() < time){
             powers = move(angleOfMove, power, propPower(targetHeading, angles));
             hw.tlMotor.setPower(powers[0]);
-            hw.blMotor.setPower(powers[1]);
+            hw.blMotor.setPower(powers[1]); 
             hw.brMotor.setPower(powers[2]);
             hw.trMotor.setPower(powers[3]);
+            telemetry.addData("In loop", powers[0]);
             telemetry.update();
-        }
+            }      
+
+        rd.proportionalTurn(0,.25);
+        
     }
 
     private double[] move(double angle, double scale, double turnScale) {
