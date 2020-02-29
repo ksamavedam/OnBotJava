@@ -78,7 +78,7 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
 
         RobotSense.SSLocation ssl; 
 
-        double position=1;
+        double position=0 ;
         double h_disp=0;
 
         hw.gripper.setPosition(0);
@@ -120,18 +120,83 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         rd.startIntake(.45);
         rd.moveDist(RobotDrive.Direction.FORWARD, 26, 1);
         rd.moveDist(RobotDrive.Direction.FORWARD, 21, .3);
-        rd.moveArm(.1);
+        //rd.moveArm(.1);
         hw.gripper.setPosition(1);
         rd.startIntake(0);        
-        rd.moveDist(RobotDrive.Direction.REVERSE,21, 1);
-        hw.cap.setPosition(.25);
-        rd.proportionalTurn(90,1.5);
+        rd.goDist(hw.distBack, 180, .5, 25, true);
         
         if(position==1){
 
             h_disp*=-1;
         }
+        
+        if(position == 1){
 
+            rd.moveCorrect(270, 1, 0, 2.4);
+        }
+        else if(position == 2){
+
+            rd.moveCorrect(270, 1, 0, 2.6);
+        }
+        else{
+
+            rd.moveCorrect(270, 1, 0, 3);
+        }
+        rd.proportionalTurn(180,1.5);
+        rd.goDist(hw.distBack, 180, .4, 1.7, true);
+        rd.moveDist(RobotDrive.Direction.REVERSE, .3, .5);
+        rd.lockFoundation("lock");
+
+        autoStoneScore();
+
+        
+        sleep(500);
+        rd.scoreFoundationRed(160, 90);
+        rd.goDist(hw.distLeft, 270, .5, 24, false);
+
+        hw.gripper.setPosition(0);
+        
+        if(position == 1){
+
+            rd.moveCorrect(0, 1, 90, 1.5);
+        }
+        else if(position == 2){
+
+            rd.moveCorrect(0, 1, 90, 1.6);
+        }
+        else{
+
+            rd.moveCorrect(0, 1, 90, 1.9);
+        }
+
+        rd.moveDist(RobotDrive.Direction.FORWARD, 13, 1);
+        rd.startIntake(.6);
+        rd.goDist(hw.distLeft, 270, .5, 39, false);
+        rd.moveDist(RobotDrive.Direction.FORWARD, 8, .75);
+        rd.goDist(hw.distLeft, 90, .5, 24, true);
+        hw.gripper.setPosition(1);
+        rd.startIntake(0);
+        if(position == 1){
+
+            rd.moveCorrect(180, 1, 90, 1.5);
+        }
+        else if(position == 2){
+
+            rd.moveCorrect(180, 1, 90, 2);
+        }
+        else{
+
+            rd.moveCorrect(180, 1, 90, 2.3);
+        }
+        rd.goDist(hw.distBack, 180, .5, 1.7, true);
+        rd.moveDist(RobotDrive.Direction.LEFT, 10, 1);;
+
+        autoStoneScore();
+        rd.goDist(hw.distLeft, 270, .5 , 23, false);
+        rd.moveDist(RobotDrive.Direction.FORWARD, 33, 1);
+        
+
+/*
         //deliver first skystone
         rd.moveDist(RobotDrive.Direction.REVERSE, 66+h_disp, 1);
         rd.moveArm(hw.highScore());
@@ -204,6 +269,17 @@ public class OtterMelonAutonomousRedLoading extends LinearOpMode {
         
         
 */
+    }
+
+    public void autoStoneScore(){
+
+        rd.moveArm(hw.highScore());
+        sleep(500);
+        hw.gripper.setPosition(.45);
+        sleep(500);
+        hw.gripper.setPosition(0);
+        sleep(500);
+        rd.moveArm(hw.startPos());
     }
 
     

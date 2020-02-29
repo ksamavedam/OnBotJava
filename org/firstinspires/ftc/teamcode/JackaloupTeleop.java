@@ -13,39 +13,23 @@ import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
-import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import java.util.Arrays;
 import java.lang.Math;
-import com.qualcomm.hardware.modernrobotics.ModernRoboticsI2cRangeSensor;
 
-@TeleOp(name = "TestingTele", group = "TeleOpModes")
+@TeleOp(name = "JackaloupTeleop", group = "TeleOpModes")
 
-public class TestingTele extends LinearOpMode {
-    private BNO055IMU imu;
-
-    public ElapsedTime mRunTime = new ElapsedTime();
-
-    public Servo gripper;
-    public Servo armRight;
-    public Servo armLeft;
-    public Servo level;
-    RobotHardware rh = null;
-    RobotDrive rd = null;
+public class JackaloupTeleop extends LinearOpMode {
 
     @Override
     public void runOpMode() {
-        gripper=hardwareMap.get(Servo.class, "gripper");
-        armLeft=hardwareMap.get(Servo.class, "armLeft");
-        armRight=hardwareMap.get(Servo.class, "armRight");
-        level=hardwareMap.get(Servo.class, "level");
-        rh = new RobotHardware("OtterMelon", hardwareMap);
+        RobotHardware rh = null;
+        RobotDrive rd = null;
+        rh = new RobotHardware("Jackaloup", hardwareMap);
         rd = new RobotDrive(rh);
-    
         waitForStart();
-        double s1Pos=.3;
         while (opModeIsActive()) {
-           
+
             double angle = 0;
             //Finding orientation of the right stick
             if (gamepad1.right_stick_x > 0 && gamepad1.right_stick_y <= 0) {
@@ -59,18 +43,39 @@ public class TestingTele extends LinearOpMode {
             } else {
                 angle = 0;
             }
+            telemetry.addData("Angle: ", Math.toDegrees(angle));
 
+            //Desired power of moving
             double scale = Math.sqrt(((gamepad1.right_stick_y) * (gamepad1.right_stick_y))
-                    + ((gamepad1.right_stick_x) * (gamepad1.right_stick_x))) ;
+                    + ((gamepad1.right_stick_x) * (gamepad1.right_stick_x))) * .5;
 
             //Rotating one
-            double turnScale = gamepad1.left_stick_x*.75;
+            double turnScale = -gamepad1.left_stick_x*.75;
+            telemetry.addData("Scale", scale);
+            telemetry.addData("turnScale", turnScale);
+            telemetry.update();
 
-            rd.moveTeleop(angle, scale, turnScale);
-            telemetry.addData("Left: in", "%.2f in", rh.distLeft.getDistance(DistanceUnit.INCH));
-            telemetry.addData("Back: in", "%.2f in", rh.distBack.getDistance(DistanceUnit.INCH));
-            telemetry.addData("Right: in", "%.2f in", rh.distRight.getDistance(DistanceUnit.INCH));
-            telemetry.update();        
+            if(gamepad1.a){
+
+                rh.tlMotor.setPower(.5);
+            }
+            else if(gamepad1.b){
+
+                rh.blMotor.setPower(.5);
+            }
+            else if(gamepad1.x){
+
+                rh.brMotor.setPower(.5);
+            }
+            else if(gamepad1.y){
+
+                rh.trMotor.setPower(.5);
+            }
+            else {
+
+                rd.moveTeleop(angle, scale, turnScale);
+            }
         }
     }
 }
+       

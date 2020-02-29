@@ -188,59 +188,25 @@ public void proportionalTurn(double targetAngle){
     setPower(0,0,0,0);
     resetEncoders();
     }
-
-    public void moveCorrect(double power, double angleOfMove, double targetHeading, double time ){
-
-        Orientation angles = hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        double[] powers = new double[4];
-        ElapsedTime mRuntime = new ElapsedTime();
-        while(mRuntime.time() < time){
-
-            powers = move(angleOfMove, power, propPower(targetHeading, angles));
-            hw.tlMotor.setPower(powers[0]);
-            hw.blMotor.setPower(powers[1]);
-            hw.brMotor.setPower(powers[2]);
-            hw.trMotor.setPower(powers[3]);
-        }
-    }
-
-    private double propPower(double targetAngle, Orientation angles){
-
-        angles = hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
-        double delta = targetAngle - angles.firstAngle;
-        //if(delta!=0){
-
-        if(delta>180){
-
-            delta = delta - 360;
-        }
-        else if(delta <-180){
-
-            delta += 360;
-        }
-        double power = (delta * .025);
-        power = Math.max((Math.min(Math.abs(power), 75)),.15) * (Math.abs(power) / power) ;
-        return power;
-    }
-
     public void goDist(ModernRoboticsI2cRangeSensor range, double angle, double power, double targetDistance, boolean goTillLess){
 
         angle = Math.toRadians(angle);
         if(goTillLess){
-            while(range.getDistance(DistanceUnit.CM) > targetDistance){
+            while(range.getDistance(DistanceUnit.INCH) > targetDistance){
 
                 moveAngle(angle, power);
             }
         }
         else{
 
-            while(range.getDistance(DistanceUnit.CM) < targetDistance){
+            while(range.getDistance(DistanceUnit.INCH) < targetDistance){
 
                 moveAngle(angle, power);
             }
         }
 
         setPower(0,0,0,0);
+        resetEncoders();
     }
 
 
@@ -264,6 +230,7 @@ public void proportionalTurn(double targetAngle){
         hw.trMotor.setPower(trPower);
     }
 
+    
     private double getMaxPower(double a, double b, double c, double d) {
 
         a = Math.abs(a);
@@ -271,7 +238,6 @@ public void proportionalTurn(double targetAngle){
         c = Math.abs(c);
         d = Math.abs(d);
         return (Math.max(a, Math.max(b, Math.max(c, d))));
-
     }
 
     // resets after each move
@@ -296,19 +262,11 @@ public void proportionalTurn(double targetAngle){
         double maxPower = 0;
         double[] powers = new double[4];
 
-        // DP
-        // There is a problem with the scheme below. Let's say you want to make a turn
-        // very fast, but while turning
-        // also move SLOW along a direction. The slow translation implies a low scale
-        // number. In the scheme below
-        // because scale multiplies to turn power also, the turn will become slow as
-        // well. I am suggesting a modification
-        // in Slack.
         if (scale != 0.0) {
-            topLeft = (Math.cos(angle)) + -1 * (Math.sin(angle)) + turnScale * 1;
-            bottomLeft = (Math.cos(angle)) + (Math.sin(angle)) + turnScale * 1;
-            bottomRight = (Math.cos(angle)) + -1 * (Math.sin(angle)) + turnScale * -1;
-            topRight = (Math.cos(angle)) + (Math.sin(angle)) + turnScale * -1;
+            topLeft = (Math.cos(angle)) + -1 * (Math.sin(angle)) + turnScale * -1;
+            bottomLeft = (Math.cos(angle)) + (Math.sin(angle)) + turnScale * -1;
+            bottomRight = (Math.cos(angle)) + -1 * (Math.sin(angle)) + turnScale * 1;
+            topRight = (Math.cos(angle)) + (Math.sin(angle)) + turnScale * 1;
 
             maxPower = getMaxPower(topLeft, bottomLeft, bottomRight, topRight);
 
@@ -327,10 +285,10 @@ public void proportionalTurn(double targetAngle){
             powers[2] = bottomRight;
             powers[3] = topRight;
         } else {
-            powers[0] = 1 * turnScale;
-            powers[1] = 1 * turnScale;
-            powers[2] = -1 * turnScale;
-            powers[3] = -1 * turnScale;
+            powers[0] = -1 * turnScale;
+            powers[1] = -1 * turnScale;
+            powers[2] = 1 * turnScale;
+            powers[3] = 1 * turnScale;
 
         }
         return powers;
@@ -338,10 +296,10 @@ public void proportionalTurn(double targetAngle){
 
     public void scoreFoundationRed( double angle1, double angle2){
 
-        proportionalTurn(angle1, .75);
+        proportionalTurn(angle1, .25);
         resetEncoders();
-        moveDist(RobotDrive.Direction.FORWARD, 35, 1);
-        proportionalTurn(angle2, .75);
+        moveDist(RobotDrive.Direction.FORWARD, 28, 1);
+        proportionalTurn(angle2, .5);
         resetEncoders();
         lockFoundation("unlock");
     }
@@ -355,8 +313,79 @@ public void proportionalTurn(double targetAngle){
         }
         else{
 
-            hw.f_servoRight.setPosition(.5);
-            hw.f_servoLeft.setPosition(1);
+            hw.f_servoRight.setPosition(.6);
+            hw.f_servoLeft.setPosition(.9);
         }
     }
+
+    private double propPower(double targetAngle, Orientation angles){
+
+        angles = hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double delta = targetAngle - angles.firstAngle;
+        //if(delta!=0){
+
+        if(delta>180){
+
+            delta = delta - 360;
+        }
+        else if(delta <-180){
+
+            delta += 360;
+        }
+        double power = (delta * .025);
+        power = Math.max((Math.min(Math.abs(power), .75)),.15) * (Math.abs(power) / power) ;
+        return power;
+    }
+
+    public void moveCorrect(double angleOfMove, double power, double targetHeading, double time ){
+
+        Orientation angles = hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double[] powers = new double[4];
+        ElapsedTime mRuntime = new ElapsedTime();
+        angleOfMove = Math.toRadians(angleOfMove);
+        while(mRuntime.time() < time){
+            powers = move(angleOfMove, power, propPower(targetHeading, angles));
+            hw.tlMotor.setPower(powers[0]);
+            hw.blMotor.setPower(powers[1]); 
+            hw.brMotor.setPower(powers[2]);
+            hw.trMotor.setPower(powers[3]);
+            }      
+
+        proportionalTurn(targetHeading,.25);
+        resetEncoders();
+        
+    }
+
+    
+    /*public void moveCorrect(ModernRoboticsI2cRangeSensor dist, double angleOfMove, double power, double targetHeading, double targetDistance, boolean tillLessThan ){
+
+        Orientation angles = hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        double[] powers = new double[4];
+        ElapsedTime mRuntime = new ElapsedTime();
+        angleOfMove = Math.toRadians(angleOfMove);
+        if(tillLessThan){
+        while(dist.getDistance(DistanceUnit.INCH) > targetDistance){
+            powers = move(angleOfMove, power, propPower(targetHeading, angles));
+            hw.tlMotor.setPower(powers[0]);
+            hw.blMotor.setPower(powers[1]); 
+            hw.brMotor.setPower(powers[2]);
+            hw.trMotor.setPower(powers[3]);
+         }      
+        }
+        else{
+
+            while(dist.getDistance(DistanceUnit.INCH) < targetDistance){
+                powers = move(angleOfMove, power, propPower(targetHeading, angles));
+                hw.tlMotor.setPower(powers[0]);
+                hw.blMotor.setPower(powers[1]); 
+                hw.brMotor.setPower(powers[2]);
+                hw.trMotor.setPower(powers[3]);
+             }  
+        }
+
+        proportionalTurn(targetHeading);
+        
+    }*/
+
+
 }

@@ -73,6 +73,40 @@ public class RobotHardware {
         }
 
         hwMap = hw;
+       /* hwMap = hw;
+        tlMotor = hwMap.get(DcMotor.class, "topLeft");
+        blMotor = hwMap.get(DcMotor.class, "bottomLeft");
+        brMotor = hwMap.get(DcMotor.class, "bottomRight");
+        trMotor = hwMap.get(DcMotor.class, "topRight");
+        gripper=hwMap.get(Servo.class, "gripper");
+        armLeft=hwMap.get(Servo.class, "armLeft");
+        armRight=hwMap.get(Servo.class, "armRight");
+        level=hwMap.get(Servo.class, "level");
+        f_servoLeft=hwMap.get(Servo.class, "f_servoLeft");
+        f_servoRight=hwMap.get(Servo.class, "f_servoRight");
+        cap=hwMap.get(Servo.class, "cap");
+        
+        
+
+        imu = hwMap.get(BNO055IMU.class, "imu");
+        BNO055IMU.Parameters imuParameters = new BNO055IMU.Parameters();
+        // Use degrees as angle unit.
+        imuParameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        // Express acceleration as m/s^2.
+        imuParameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        // Disable logging.
+        imuParameters.loggingEnabled = false;
+        // Initialize IMU.
+        imu.initialize(imuParameters);
+        
+        tlMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        blMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        brMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
+        trMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);*/
+       
+
+        if (name == "OtterMelon") {
+
         tlMotor = hwMap.get(DcMotor.class, "topLeft");
         blMotor = hwMap.get(DcMotor.class, "bottomLeft");
         brMotor = hwMap.get(DcMotor.class, "bottomRight");
@@ -102,9 +136,7 @@ public class RobotHardware {
         blMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         brMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         trMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-       
 
-        if (name == "OtterMelon") {
             intakeMotorLeft=hwMap.get(DcMotor.class, "leftIntake");
             intakeMotorRight=hwMap.get(DcMotor.class, "rightIntake");
             sensorRange = hwMap.get(DistanceSensor.class, "distanceS");
@@ -112,7 +144,7 @@ public class RobotHardware {
             slideLeft=hwMap.get(DcMotor.class, "slideLeft");
             slideRight=hwMap.get(DcMotor.class, "slideRight");   
 
-            //tape = hwMap.get(CRServo.class, "tape");
+            tape = hwMap.get(CRServo.class, "tape");
             tlMotor.setDirection(DcMotor.Direction.REVERSE);
             brMotor.setDirection(DcMotor.Direction.REVERSE);
             slideLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
@@ -123,10 +155,14 @@ public class RobotHardware {
             distRight= hwMap.get(ModernRoboticsI2cRangeSensor.class, "distRight");
 
             //servo constants
-            startPos=0.23;
+            startPos=0.24; 
             lowScorePos=.8;
-            highScorePos=.67;
-            levelConstant=-0.16;
+            highScorePos=.73;
+
+            //make it more negative to tilt clockwise
+            //make it less negative to tilt counterclockwise
+            //use phone side for reference
+            levelConstant=-0.24; //.16
 
 
         }
@@ -135,6 +171,19 @@ public class RobotHardware {
                 tlMotor.setDirection(DcMotor.Direction.REVERSE);
                 brMotor.setDirection(DcMotor.Direction.REVERSE);
         } 
+
+        else if(name.equalsIgnoreCase("Jackaloup")){
+
+            tlMotor = hwMap.get(DcMotor.class, "topLeft");
+            blMotor = hwMap.get(DcMotor.class, "bottomLeft");
+            brMotor = hwMap.get(DcMotor.class, "bottomRight");
+            trMotor = hwMap.get(DcMotor.class, "topRight");
+
+            tlMotor.setDirection(DcMotor.Direction.REVERSE);
+            brMotor.setDirection(DcMotor.Direction.REVERSE);
+
+
+        }
     }
     
     public double getTicksToInchV() {return ticksToInchV; }

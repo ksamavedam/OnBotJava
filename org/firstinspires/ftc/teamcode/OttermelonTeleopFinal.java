@@ -66,7 +66,7 @@ public class OttermelonTeleopFinal extends LinearOpMode {
                     + ((gamepad1.right_stick_x) * (gamepad1.right_stick_x))) ;
 
             //Rotating one
-            double turnScale = gamepad1.left_stick_x*.75;
+            double turnScale = -gamepad1.left_stick_x;
             telemetry.addData("Scale", scale);
             telemetry.addData("turnScale", turnScale);
             telemetry.update();
@@ -87,13 +87,13 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             }
             else if(gamepad1.left_bumper){
 
-                rh.f_servoLeft.setPosition(.9);
-                rh.f_servoRight.setPosition(.6);
+                rd.lockFoundation("unlock");
+               // rh.f_servoLeft.setPosition(.9);
+                //rh.f_servoRight.setPosition(.6);
             }
             else if(gamepad1.right_bumper){
 
-                rh.f_servoLeft.setPosition(.5);
-                rh.f_servoRight.setPosition(1);
+                rd.lockFoundation("lock");
             }
 
             //All motion
@@ -162,6 +162,19 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             else if(gamepad2.dpad_up){
 
                 rh.gripper.setPosition(.8);
+            }
+            
+            if(gamepad2.dpad_left){
+
+                rh.tape.setPower(.7);
+            }
+            else if(gamepad2.dpad_right){
+
+                rh.tape.setPower(-.7);
+            }
+            else{
+
+                rh.tape.setPower(0);
             }
 
             //Arm in the robot (Button A) TEST

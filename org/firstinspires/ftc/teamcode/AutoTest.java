@@ -144,7 +144,6 @@ public class AutoTest extends LinearOpMode {
         c = Math.abs(c);
         d = Math.abs(d);
         return (Math.max(a, Math.max(b, Math.max(c, d))));
-
     }
 
     private double propPower(double targetAngle, Orientation angles){
@@ -164,7 +163,7 @@ public class AutoTest extends LinearOpMode {
             delta += 360;
         }
         double power = (delta * .025);
-        power = Math.max((Math.min(Math.abs(power), 75)),.15) * (Math.abs(power) / power) ;
+        power = Math.max((Math.min(Math.abs(power), .75)),.15) * (Math.abs(power) / power) ;
         return power;
     }
 
