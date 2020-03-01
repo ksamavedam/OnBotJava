@@ -210,7 +210,7 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             }
             else if(gamepad2.right_bumper){
 
-                rh.cap.setPosition(0);
+                rh.cap.setPosition(.1);
             }
             rd.moveArm(s1Pos);
             telemetry.update();

@@ -211,7 +211,8 @@ public void proportionalTurn(double targetAngle){
                 moveAngle(angle, power);
                 if( mRunTime.time() > 5){
 
-                    throw new IllegalStateException(" somethin failed" + range.getDistance(DistanceUnit.INCH));
+                    setPower(0,0,0,0);
+                    System.exit(-1);
                 }
             }
         }

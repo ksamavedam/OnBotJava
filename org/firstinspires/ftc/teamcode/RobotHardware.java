@@ -155,7 +155,7 @@ public class RobotHardware {
             distRight= hwMap.get(ModernRoboticsI2cRangeSensor.class, "distRight");
 
             //servo constants
-            startPos=0.25; 
+            startPos=0.24; 
             lowScorePos=.8;
             highScorePos=.73;
 

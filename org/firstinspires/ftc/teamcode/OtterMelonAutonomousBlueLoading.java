@@ -193,7 +193,7 @@ public class OtterMelonAutonomousBlueLoading extends LinearOpMode {
 
         rd.moveDist(RobotDrive.Direction.FORWARD, 13, 1);
         rd.startIntake(.45);
-        rd.goDist(hw.distRight, 90, .5, 37, false);
+        rd.goDist(hw.distRight, 90, .5, 36, false);
         rd.moveDist(RobotDrive.Direction.FORWARD, 9, .5);
         rd.goDist(hw.distRight, 270, .5, 24, true);
         hw.gripper.setPosition(1);
