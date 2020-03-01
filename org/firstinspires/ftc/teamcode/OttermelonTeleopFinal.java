@@ -14,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.Acceleration;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
+import org.firstinspires.ftc.robotcore.external.navigation.DistanceUnit;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import java.util.Arrays;
 import java.lang.Math;
@@ -32,6 +33,9 @@ public class OttermelonTeleopFinal extends LinearOpMode {
         rh = new RobotHardware("OtterMelon", hardwareMap);
         rd = new RobotDrive(rh);
         boolean capPos=false;
+
+        double allignDist = 0;
+        String side = "blue";
         waitForStart();
         while (opModeIsActive()) {
             double s1Pos=rh.startPos();
@@ -58,8 +62,6 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             }
 
            // angle += offset;
-            telemetry.addData("offset", offset);
-            telemetry.addData("Angle: ", Math.toDegrees(angle));
 
             //Desired power of moving
             double scale = Math.sqrt(((gamepad1.right_stick_y) * (gamepad1.right_stick_y))
@@ -67,25 +69,9 @@ public class OttermelonTeleopFinal extends LinearOpMode {
 
             //Rotating one
             double turnScale = -gamepad1.left_stick_x;
-            telemetry.addData("Scale", scale);
-            telemetry.addData("turnScale", turnScale);
-            telemetry.update();
 
             
-
-            //Foundation Servos Down (Button A) Grab
-             if (gamepad1.x) {
-                rh.f_servoLeft.setPosition(.5);
-                rh.f_servoRight.setPosition(.5);
-            } 
-            
-            //Foundation Servos Up (Button B) Release
-            else if(gamepad1.b){
-
-                rh.f_servoRight.setPosition(1);
-                rh.f_servoLeft.setPosition(1);
-            }
-            else if(gamepad1.left_bumper){
+            if(gamepad1.left_bumper){
 
                 rd.lockFoundation("unlock");
                // rh.f_servoLeft.setPosition(.9);
@@ -96,6 +82,7 @@ public class OttermelonTeleopFinal extends LinearOpMode {
                 rd.lockFoundation("lock");
             }
 
+            
             //All motion
             if(gamepad1.dpad_up){
                 rd.setPower(0.3,0.3,0.3,0.3);
@@ -115,11 +102,39 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             else if(gamepad1.right_trigger!=0){    
                 rd.setPower(0.3,0.3,-0.3,-0.3);
             }
+            else if(gamepad1.x){
+
+                 allignDist = rh.distRight.getDistance(DistanceUnit.INCH);
+                 side = "blue";
+            }
+            else if(gamepad1.b){
+
+                allignDist = rh.distLeft.getDistance(DistanceUnit.INCH);
+                side = "red";
+            }
+            else if(gamepad1.y){
+
+                if(side.equals("red")){
+
+                    rd.goDist(rh.distLeft, 270, .3, allignDist, false);
+                }
+                else {
+
+                    rd.goDist(rh.distRight, 90, .3, allignDist, false);
+                }
+                
+            }
             else{
 
                 rd.moveTeleop(angle, scale, turnScale);
             }
 
+            
+        
+            telemetry.addData("Left: in", "%.2f in", rh.distLeft.getDistance(DistanceUnit.INCH));
+            telemetry.addData("Back: in", "%.2f in", rh.distBack.getDistance(DistanceUnit.INCH));
+            telemetry.addData("Right: in", "%.2f in", rh.distRight.getDistance(DistanceUnit.INCH));
+            telemetry.addData("allign dist", allignDist);
             /***************************************************************************** */
             //DRIVER 2 CONTROLS
             /***************************************************************************** */
@@ -130,7 +145,7 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             rh.slideRight.setPower(gamepad2.left_stick_y);
             //Outtake (Left Trigger)
             if (gamepad2.left_trigger > 0){
-                rd.startIntake(-.6);
+                rd.startIntake(-.45);
             }
 
             //Intake (Right Trigger)
@@ -170,11 +185,11 @@ public class OttermelonTeleopFinal extends LinearOpMode {
             }
             else if(gamepad2.dpad_right){
 
-                rh.tape.setPower(-.7);
+                rh.tape.setPower(-.9);
             }
             else{
 
-                rh.tape.setPower(0);
+               rh.tape.setPower(0);
             }
 
             //Arm in the robot (Button A) TEST
@@ -198,8 +213,6 @@ public class OttermelonTeleopFinal extends LinearOpMode {
                 rh.cap.setPosition(0);
             }
             rd.moveArm(s1Pos);
-            telemetry.addData("Intake", gamepad2.right_trigger);
-            telemetry.addData("Outake", gamepad2.left_trigger);
             telemetry.update();
     
 

@@ -155,14 +155,14 @@ public class RobotHardware {
             distRight= hwMap.get(ModernRoboticsI2cRangeSensor.class, "distRight");
 
             //servo constants
-            startPos=0.24; 
+            startPos=0.25; 
             lowScorePos=.8;
             highScorePos=.73;
 
             //make it more negative to tilt clockwise
             //make it less negative to tilt counterclockwise
             //use phone side for reference
-            levelConstant=-0.24; //.16
+            levelConstant=-0.23; //.16
 
 
         }

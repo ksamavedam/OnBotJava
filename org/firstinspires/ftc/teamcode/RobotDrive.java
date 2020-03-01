@@ -161,7 +161,7 @@ public void proportionalTurn(double targetAngle){
 
     public void proportionalTurn(double targetAngle, double time){
 
-        Orientation angles= hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+    Orientation angles= hw.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
     double delta = 0;
     mRunTime= new ElapsedTime();
     mRunTime.reset();
@@ -190,18 +190,29 @@ public void proportionalTurn(double targetAngle){
     }
     public void goDist(ModernRoboticsI2cRangeSensor range, double angle, double power, double targetDistance, boolean goTillLess){
 
+        mRunTime= new ElapsedTime();
+        mRunTime.reset();
         angle = Math.toRadians(angle);
         if(goTillLess){
-            while(range.getDistance(DistanceUnit.INCH) > targetDistance){
+            while(range.getDistance(DistanceUnit.INCH) > targetDistance ){
 
                 moveAngle(angle, power);
+                if( mRunTime.time() > 5){
+
+                    setPower(0, 0, 0, 0);
+                    System.exit(-1);
+                }
             }
         }
         else{
 
-            while(range.getDistance(DistanceUnit.INCH) < targetDistance){
+            while(range.getDistance(DistanceUnit.INCH) < targetDistance  ){
 
                 moveAngle(angle, power);
+                if( mRunTime.time() > 5){
+
+                    throw new IllegalStateException(" somethin failed" + range.getDistance(DistanceUnit.INCH));
+                }
             }
         }
 
